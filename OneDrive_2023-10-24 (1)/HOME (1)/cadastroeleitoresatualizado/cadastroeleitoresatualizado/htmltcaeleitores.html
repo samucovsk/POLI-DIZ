@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="csstcaeleitores.css" />
+
+  <title>Novo usuario - Sujeito Programador</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <section class="header">
+      <h2 class="titulo">Criar uma conta</h2>
+    </section>
+
+    <form id="form" class="form">
+      <div class="form-content">
+        <h4 class="username">Nome completo</h4>
+        <input type="text" id="username" placeholder="Digite seu nome completo..." required />
+        <a>O nome precisa estar completo</a>
+      </div>
+
+      <div class="form-content">
+        <h4 class="email">Email</h4>
+        <input type="email" id="email" placeholder="Digite o seu email..." required />
+        <a>Digite um email válido</a>
+      </div>
+
+      <div class="form-content">
+        <h4 class="phone">Telefone</h4>
+        <input type="phone" id="phone" placeholder="Digite seu telefone..." required />
+        <a>Digite um telefone válido</a>
+      </div>
+
+
+      <div class="form-control">
+
+        <h4 class="state">Estado</h4>
+
+        <select id="state" name="state">
+
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="AC">Espírito Santo</option>
+          <option value="AL">Goiás</option>
+          <option value="AP">Maranhão</option>
+          <option value="AM">Mato Grosso</option>
+          <option value="BA">Mato Grosso do sul</option>
+          <option value="CE">Minas Gerais</option>
+          <option value="AC">Pará</option>
+          <option value="AL">Pernambuco</option>
+          <option value="AP">Piauí</option>
+          <option value="AM">Rio de Janeiro</option>
+          <option value="BA">Rio Grande do Norte</option>
+          <option value="CE">Rio grande do Sul</option>
+          <option value="AC">Rondônia</option>
+          <option value="AL">Roraima</option>
+          <option value="AP">Santa Catarina</option>
+          <option value="AM">São Paulo</option>
+          <option value="BA">Sergipe</option>
+          <option value="CE">Tocantis</option>
+        </select>
+      </div>
+
+      <div class="form-content">
+        <h4 class="city">Cidade</h4>
+        <input type="city" id="city" placeholder="Digite sua cidade..." required />
+        <a>Digite uma cidade valida</a>
+      </div>
+
+      <div class="form-control">
+        <h4 class="date">Data de Nascimento</h4>
+        <input type="date" name="data_nascimento" id="data_nascimento" required>
+      </div>
+
+
+      <div class="form-control">
+
+        <h4 class="password">Senha</h4>
+        <input type="password" id="password" placeholder="Digite sua senha" required />
+        <i class="fas fa-exclamation-circle"></i>
+        <i class="fas fa-check-circle"></i>
+        <a>Digite uma senha de 8 digitos</a>
+      </div>
+
+
+
+      <div class="form-control">
+        <h4 class="password-confirmation">Confirme sua senha</h4>
+        <input type="password" id="password-confirmation" placeholder="Digite sua senha novamente" required />
+        <i class="fas fa-exclamation-circle"></i>
+        <i class="fas fa-check-circle"></i>
+        <a>Digite uma senha de 8 digitos</a>
+      </div>
+
+
+      <button type="submit">Criar</button>
+
+    </form>
+
+  </div>
+
+
+  <script src="jstcaeleitores.js"></script>
+</body>
+
+</html>

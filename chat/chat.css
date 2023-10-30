@@ -1,0 +1,26 @@
+@import "global.css";
+.chat-message {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    clear: both;
+}
+.user-message {
+    float: left;
+}
+.bot-message {
+    float: right;
+}
+.input-container {
+    margin-top: 20px;
+}
+input[type="text"] {
+    margin-top: 370px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
