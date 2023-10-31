@@ -1,7 +1,7 @@
 /* Importe a fonte do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url(https://fonts.google.com/specimen/Poppins);
 * {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
@@ -21,7 +21,7 @@ margin-top: 1000px;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     text-align: center;
@@ -43,7 +43,7 @@ body {
 }
 
 body{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: var(--cor2);
     color: var(--cor3);
 }
@@ -80,7 +80,7 @@ body{
     text-decoration: none;
     color: var(--cor1);
     transition: 1s;
-    font-weight: bold;
+    font-weight: semibold;
 }
 .navigation_header a:hover{
     color: var(--cor4);

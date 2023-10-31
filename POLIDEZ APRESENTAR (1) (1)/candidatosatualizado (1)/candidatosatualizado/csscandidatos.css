@@ -41,13 +41,17 @@
     font-family: "Poppins", sans-serif;
     color: black;
   }
+  .name{
+    font-family: "Poppins", sans-serif;
+    color: black;
+  }
   .email{
     font-family: "Poppins", sans-serif;
     color: black;
   }
   .phone{
     font-family: "Poppins", sans-serif;
-    color:black;
+    color: black;
   }
   .city{
     font-family: "Poppins", sans-serif;
@@ -63,7 +67,10 @@
     font-family: "Poppins", sans-serif;
     color: black;
   }
-
+  .number{
+    font-family: "Poppins", sans-serif;
+    color: black;
+  }
   .password{
     font-family: "Poppins", sans-serif;
     color: black;
@@ -100,8 +107,8 @@
   }
   
   .form button{
-    background-color: #2d2e83;
-    color: white;
+    background-color: #071164;
+    color: rgb(247, 225, 29);
     width: 100%;
     border-radius: 14px;
     padding: 10px;
@@ -139,6 +146,12 @@ border-radius: 10px;
 }
 
 #data_nascimento{
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#number{
   width: 100%;
   padding: 10px;
   border-radius: 10px;
