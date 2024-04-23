@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    
+   
+    <title>Login</title>
+</head>
+<body>
+    <section class="wrapper">
+        <form class="form" id="form">
+            <h1>Login</h1>
+            <section class="input-box">
+                <input type="text" placeholder="Digite seu nome de usuário" id="username" >
+                <i class="bx bxs-user"></i>
+                <a>Usuário inválido.</a>
+            </section>
+
+            <section class="input-box">
+                <input type="password" placeholder="Digite sua senha" id="senha" >
+                <i class='bx bxs-lock'></i>
+                <a>Senha inválida.</a>
+            </section>
+            <br>
+            <section class="remember-forgot">
+                <label><input type="checkbox">Lembrar de mim</label>
+                <a href="#">Esqueceu a senha?</a>
+            </section>
+
+            <button type="submit" class="btn">entrar</button>
+
+            <section class="register-link">
+                <br>
+                <p>Não tem conta?
+                    <a> Crie uma!</a></p>
+            </section>
+        </form>
+    </section>
+    <script src="./script.js"></script>
+</body>
+</html>
