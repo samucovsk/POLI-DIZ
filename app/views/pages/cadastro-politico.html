@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/cadastro-eleitor.css">
+    <title>Cadastro do Usuário</title>
+</head>
+<body>
+    <section class="box">
+        <section class="img-box">
+            <img src="../public/imagem/formulario-politico.jpg"> 
+        </section>
+        <section class="form-box">
+            <h2>Criar conta</h2>
+            <p> Já tem conta? <a href="#">Login</a></p>
+            <form action="#">
+                <section class="input-group">
+                    <label for="nome"> Nome Completo<a>*</a></label>
+                    <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+                </section>
+
+                <section class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" id="email" placeholder="Digite seu email" required>
+                </section>
+<section class="input-group">
+    <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
+    <input type="date" name="data_nascimento" id="data_nascimento" class="inputUser" required>
+</section>
+
+<section class="input-group">
+    <label for="cpf">Partido<a>*</a></label>
+    <input type="text" id="cpf" placeholder="Digite seu partido" required>
+</section>
+
+<section class="input-group">
+    <label> Estado <a>*</a></label>
+    <select id="estado">
+        <option selected disabled value="">Selecione</option>
+        <option>Acre</option>
+        <option>Alagoas</option>
+        <option>Amapá</option>
+        <option>Amazonas</option>
+        <option>Bahia</option>
+        <option>Ceará</option>
+        <option>Distrito Federal</option>
+        <option>Espiríto Santo</option>
+        <option>Goiás</option>
+        <option>Maranhão</option>
+        <option>Mato Grosso</option>
+        <option>Mato Grosso do Sul</option>
+        <option>Minas Gerais</option>
+        <option>Pará</option>
+        <option>Paraíba</option>
+        <option>Paraná</option>
+        <option>Pernambuco</option>
+        <option>Piauí</option>
+        <option>Rio de Janeiro</option>
+        <option>Rio Grande do Norte</option>
+        <option>Rio Grande do Sul</option>
+        <option>Rondônia</option>
+        <option>Roraima</option>
+        <option>Santa Catarina</option>
+        <option>São Paulo</option>
+        <option>Sergipe</option>
+        <option>Tocantins</option>
+        </select>
+    </section>
+
+    <section class="input-group w50">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Digite sua senha" required>
+    </section>
+
+    <section class="input-group w50">
+        <label for="Confirmarsenha">Confirmar Senha</label>
+        <input type="password" id="Confirmarsenha" placeholder="Confirme sua senha" required>
+    </section>
+
+    <section class="input-group">
+        <button>Cadastrar</button>
+    </section>
+
+</form>
+</section>
+</section>
+</body>
+</html>
