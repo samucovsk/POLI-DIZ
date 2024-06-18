@@ -12,7 +12,7 @@ app.set("views", "./app/views");
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
-var rotas = require("routes/router");
+var rotas = require("app\routes\router.js");
 app.use("/", rotas);
 
 app.listen(port, () => {
