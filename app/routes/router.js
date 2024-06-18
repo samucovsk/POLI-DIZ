@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const pool = require("../config/pool-conexoes");
-
 router.get("/home", function (req, res) {
     res.render("pages/index.html");
 });
