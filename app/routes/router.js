@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 router.get("/", function (req, res) {
     res.render("pages/index", {pagina:"home", logado:null});
@@ -15,4 +15,5 @@ router.get("/noticias", function (req, res) {
 router.get("/politicos", function (req, res) {
     res.render("pages/perfil-candidato.html");
 });
+
 module.exports = router;
