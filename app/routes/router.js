@@ -1,3 +1,6 @@
+const express = require('express');
+const app = express();
+
 router.get("/home", function (req, res) {
     res.render("pages/index.html");
 });
@@ -10,3 +13,4 @@ router.get("/noticias", function (req, res) {
 router.get("/politicos", function (req, res) {
     res.render("pages/perfil-candidato.html");
 });
+module.exports = router;
