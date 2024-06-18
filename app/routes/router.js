@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+app.use(express.static('public'));
+
 router.get("/", function (req, res) {
     res.render("pages/index", {pagina:"home", logado:null});
 });
