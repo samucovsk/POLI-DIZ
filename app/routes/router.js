@@ -8,7 +8,7 @@ router.get("/login", function (req, res) {
     res.render("pages/login", {pagina:"login", logado:null});
 });
 router.get("/noticias", function (req, res) {
-    res.render("pages/news", {pagina:"noticia", logado:null});
+    res.render("pages/news", {pagina:"noticias", logado:null});
 });
 router.get("/politicos", function (req, res) {
     res.render("pages/perfil-candidato", {pagina:"politicos", logado:null});
