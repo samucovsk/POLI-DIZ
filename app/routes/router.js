@@ -5,12 +5,13 @@ router.get("/", function (req, res) {
     res.render("pages/index", {pagina:"home", logado:null});
 });
 router.get("/login", function (req, res) {
-    res.render("pages/login.html");
+    res.render("pages/login");
 });
 router.get("/noticias", function (req, res) {
-    res.render("pages/news.html");
+    res.render("pages/news");
 });
 router.get("/politicos", function (req, res) {
-    res.render("pages/perfil-candidato.html");
+    res.render("pages/perfil-candidato");
 });
+
 module.exports = router;
