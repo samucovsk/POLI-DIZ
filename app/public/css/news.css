@@ -22,95 +22,58 @@
     --foot-icon: invert(1);
 }
 /* FIM DA MUDANÇA DE VARIÁVEIS */
-header {
+
+
+/* NAVEGAÇÃO MENU */
+nav {
     width: 100%;
-    position: center;
+    position: fixed;
+    display: flex;
     background-color: var(--nav-bg);
     border: grey;
     backdrop-filter: blur(7px);
     -webkit-backdrop-filter: blur(5px);
     color: var(--nav-color);
-}
-
-.nav-bar {
-    display: flex;
-    justify-content: space-between;
-    
-}
-
-.logo {
-    display: flex;
     align-items: center;
 }
 
-.logo h1 {
-    color: var(--body-color);
+ul.logo {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+   display: flex;
+
+}
+
+
+ul.navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    display: flex;
+}
+
+li a {
+    padding: 20px 23px;
+}
+
+.logo1{
+    margin-left: 50px;
+}
+
+/*LOGO TIPOGRAFIA*/
+.nome_logo{
+    margin: 0%;
     font-size: 24px;
- 
+
 }
+
+
 .diz{
-    color: #FFED03;
-}  
-.logo img{
-    width: 50px;
-    padding:10%;
-}
-
-.nav-list {
-    display: flex;
-    align-items: center;
-    
-}
-
-.nav-list ul {
-    display:flex;
-    justify-content: center;
-    list-style: none;
-    margin-right: 30px;
-}
-
-.nav-item {
-    margin: 0 30px;
-    justify-content: center;
-}
-
-.nav-link {
-    text-decoration: none;
-    font-size: 1.15rem;
-    color: var(--body-color);
-    font-weight: 400;
-}
-.nav-sol{
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.15rem;
-    color: var(--body-color);
-    font-weight: 400;
-    cursor: pointer;
-    font-size: 26pt;
-    position: absolute;
-    top: 4px;
-    color: var(--body-color);
-}
-
-.mobile-menu-icon {
-    display: none;
-}
-
-.mobile-menu {
-    display: none;
-}
-.element.style{
-    cursor: pointer;
-    font-size: 26pt;
-    position: absolute;
-    top: 4px;
-}
-
-
-
-/* NAVEGAÇÃO MENU */
-
+        color: #FFED03;
+   }    
 /*FIM LOGO TIPOGRAFIA*/   
 /* FIM NAVEGAÇÃO MENU */
 
@@ -123,7 +86,7 @@ header {
 
 
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--body-bg);
@@ -131,10 +94,11 @@ body {
 }
 
 .titulo {
-    margin-top: 15px;
+    margin-top: 73px;
     padding: 20px;
     text-align: center;
-    color: black;
+    color: var(--body-color);
+    font-size: 30px;
 }
 ul.noticias{
     list-style-type: none;
@@ -142,6 +106,7 @@ ul.noticias{
     padding: 0;
     vertical-align: top;
     display: flex;
+    flex-wrap: wrap;
 }
 
 #noticias-container {
@@ -155,7 +120,7 @@ ul.noticias{
     background-color: var(--body-bg);
     padding: 20px;
     margin-bottom: 20px;
-    max-width: 600px;
+    max-width: 300px;
     border-radius: 5px;
     box-shadow: 0 2px 4px var(--body-color)(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
@@ -186,112 +151,3 @@ ul.noticias{
     margin-bottom: 20px;
 }
 
-footer{
-    display: block;
-    background-color: var(--body-color);
-    border: grey;
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(5px);
-    color: var(--body-bg);
-}
-
-.bg_footer{
-    background-image: var(--body-color);
-    background-size: 500px;
-    filter: var(--foot-icon);
-
-}
-
-ul.foot {
-    list-style-type: none;
-}
-
-
-ul.foot li {
-    float: right;
-    
-}
-/*lista do footer*/
-.listafooter ul{
-    display: blo
-}
-.listafooter li{
-    display: block;
-    padding: 5px;
-    margin:5px;
-}
-.listafooter{
-    display: flex;
-    align-items:center; 
-    height: 400px;
-    background-color: var(--body-color);
-}
-
-.listafooter h1{
-    margin-top: 30px
-}
-
-.listafooter p{
-    font-size: 19px;
-    text-align:start;
-}
-
-.listafooter div{
-    align-items: center;
-
-}
-
-footer{
-    display: block;
-    background-color: var(--body-color);
-    border: grey;
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(5px);
-    color: var(--body-bg);
-}
-
-.bg_footer{
-    background-image: var(--body-color);
-    background-size: 500px;
-    filter: var(--foot-icon);
-
-}
-
-ul.foot {
-    list-style-type: none;
-}
-
-
-ul.foot li {
-    float: right;
-    
-}
-/*lista do footer*/
-.listafooter ul{
-    display: flex;
-}
-.listafooter li{
-    display: block;
-    padding: 5px;
-    margin:5px;
-}
-.listafooter{
-    display: flex;
-    align-items:center; 
-    height: 400px;
-    background-color: var(--body-color);
-}
-
-.listafooter h1{
-    margin-top: 30px
-}
-
-.listafooter p{
-    font-size: 19px;
-    text-align:start;
-}
-
-.listafooter div{
-    align-items: center;
-
-}
