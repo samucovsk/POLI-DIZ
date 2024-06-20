@@ -23,7 +23,7 @@ router.get("/escolha", function (req, res) {
     res.render("pages/escolha", {pagina:"escolha", logado:null});
 });
 
-router.get("/usuario", function (req, res) {
+router.get("/cadastro", function (req, res) {
     res.render("pages/cadastro-usuario", {pagina:"cadastro", logado:null});
 });
 
