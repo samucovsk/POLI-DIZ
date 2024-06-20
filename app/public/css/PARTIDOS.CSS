@@ -20,78 +20,7 @@
 }
 /* FIM DA MUDANÇA DE VARIÁVEIS */
 
-header {
-    background-color: var(--nav-bg);
-    border: grey;
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(5px);
-    color: var(--nav-color);
-}
 
-.nav-bar {
-    display: flex;
-    padding: 14px 4%;
-    justify-content: space-between;
-}
-
-.logo {
-    display: flex;
-}
-
-.logo h1 {
-    color: var(--body-color);
-    font-size: 24px;
-    margin: 7px 0px 0px 7px;
-}
-
-.diz {
-    color: #FFED03;
-}
-
-.logo img {
-    width: 50px;
-    height: 50px;
-}
-
-.nav-list {
-    padding: 0 10px 0 0;
-}
-
-.nav-list ul {
-    display: flex;
-    gap: 30px;
-    list-style: none;
-}
-
-.nav-link {
-    color: var(--body-color);
-}
-
-.nav-sol {
-    font-size: 1.15rem;
-    color: var(--body-color);
-    font-weight: 400;
-    cursor: pointer;
-    font-size: 26pt;
-    position: absolute;
-    top: 4px;
-    color: var(--body-color);
-}
-
-.mobile-menu-icon {
-    display: none;
-}
-
-.mobile-menu {
-    display: none;
-}
-
-.element.style {
-    cursor: pointer;
-    font-size: 26pt;
-    position: absolute;
-    top: 4px;
-}
 
 body {
     font-family: "Poppins", sans-serif;
