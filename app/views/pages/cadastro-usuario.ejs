@@ -23,7 +23,8 @@
 
                 <section class="input-group">
                     <label for="email">E-mail</label>
-                    <input type="text" id="email" placeholder="Digite seu email" required>
+                    <input type="text" id="email" placeholder="Digite seu email" required onblur="validarEmail()" onfocus="redefinirMsg()">
+                    <span id="error-email"></span>
                 </section>
 
                 <section class="input-group">
@@ -80,6 +81,7 @@
                     </section>
 
             </form>
+            <p id="mensagem"></p>
         </section>
     </section>
 </body>
