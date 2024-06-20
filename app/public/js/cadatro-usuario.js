@@ -1,16 +1,16 @@
-const pswConfirmaSenha = document.querySelector("#confirmarSenha")
+const pswConfirmaSenha = document.querySelector("#confirmasenha")
 
-pswConfirmaSenha.addEventListener("#paste", function(e) {
+pswConfirmaSenha.addEventListener("paste", function(e) {
     e.preventDefault()
 
 })
 
-function verificarConfirmaSenha() {
-    let campoSenha = document.getElementById("senha")
+function verificaConfirmaSenha() {
+    let campoSenha = document.getElementById('senha')
     let valorSenha = campoSenha.ariaValueMax
     
-    let campoConfirmaSenha = document.getElementById("confirmasenha")
-    let valorConfirmaSenha = campoConfirmaSenha.ariaValueMax
+    let campoConfirmaSenha = document.getElementById('confirmasenha')
+    let valorConfirmaSenha = campoConfirmaSenha.value
 
     if(valorSenha == valorConfirmaSenha) {
         return true
