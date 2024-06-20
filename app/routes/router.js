@@ -19,5 +19,9 @@ router.get("/politicos", function (req, res) {
     res.render("pages/PARTIDOS", {pagina:"politicos", logado:null});
 });
 
+router.get("/escolha", function (req, res) {
+    res.render("pages/escolha", {pagina:"escolha", logado:null});
+});
+
 
 module.exports = router;
