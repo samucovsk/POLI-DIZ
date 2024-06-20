@@ -1,0 +1,318 @@
+/* MUDANÇA DE VARIÁVEIS */
+:root {
+    --body-bg: #FFFFFF;
+    --body-color: #363636;
+    --body-link: blue;
+    --nav-bg: rgba(232, 232, 237, 0.7);
+    --nav-color: #363636;
+    --foot-bg: url(img/Untitled-1.svg);
+    --foot-icon: invert(0);
+}
+
+.noturno:root {
+    --body-bg: #1B1B1B;
+    --body-color: #FFFFFF;
+    --body-link: rgb(21, 105, 0);
+    --nav-bg: rgba(32, 32, 32, 0.7);
+    --nav-color: #FFFFFF;
+    --foot-bg: url(img/Untitled-1.svg);
+    --foot-icon: invert(1);
+}
+/* FIM DA MUDANÇA DE VARIÁVEIS */
+
+header {
+    background-color: var(--nav-bg);
+    border: grey;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(5px);
+    color: var(--nav-color);
+}
+
+.nav-bar {
+    display: flex;
+    padding: 14px 4%;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+}
+
+.logo h1 {
+    color: var(--body-color);
+    font-size: 24px;
+    margin: 7px 0px 0px 7px;
+}
+
+.diz {
+    color: #FFED03;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.nav-list {
+    padding: 0 10px 0 0;
+}
+
+.nav-list ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-link {
+    color: var(--body-color);
+}
+
+.nav-sol {
+    font-size: 1.15rem;
+    color: var(--body-color);
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 26pt;
+    position: absolute;
+    top: 4px;
+    color: var(--body-color);
+}
+
+.mobile-menu-icon {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.element.style {
+    cursor: pointer;
+    font-size: 26pt;
+    position: absolute;
+    top: 4px;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    background-color: var(--body-bg);
+    color: var(--body-color);
+}
+
+@media screen and (max-width: 924px) {
+    .nav {
+        width: 100%;
+    }
+
+    .nav-bar {
+        padding: 5px 0px 0px 20px;
+        width: 100%;
+    }
+
+    .nav-item {
+        display: none;
+    }
+
+    .login-button {
+        display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+        margin: -20px 0 0px -8px;
+    }
+
+    .mobile-menu-icon button {
+        background-color: var(--body-color);
+        border: none;
+        cursor: pointer;
+    }
+
+    .mobile-menu ul {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        padding-bottom: 1rem;
+    }
+
+    .mobile-menu .nav-item {
+        display: block;
+        padding-top: 1.2rem;
+    }
+
+    .open {
+        display: flex;
+    }
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .titulo{
+ text-align: center;
+ padding: 50px;
+  }
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .gallery a {
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .gallery img {
+    width: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .gallery p {
+    margin-top: 5px;
+  }
+  
+  .gallery img:hover {
+    transform: scale(1.1); /* Aumentando a escala da imagem ao passar o cursor sobre ela */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+/* Estilo do rodapé */
+footer {
+    background-color: var(--body-color);
+    color: var(--body-bg);
+    padding: 40px 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.footer-section:last-child {
+    margin-right: 0;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.social-icons {
+    display: flex;
+ 
+}
+
+.social-icons a {
+    margin-right: 10px;
+    
+}
+
+.logo-space  {
+    text-align: center;
+    display: flex;
+    font-size: large;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.polidizlogo{
+    margin: 0 0 0 0;
+    margin-top: 10px;
+}
+
+.logo-space img {
+    width: 50px;
+    height: 50px; /* Ajuste conforme necessário */
+}
+.sbrnos{
+    text-decoration: none; /* Remove o sublinhado */
+    color: inherit; /* Mantém a cor padrão do texto */
+}
+/* Estilos responsivos do rodapé */
+@media screen and (max-width: 768px) {
+
+
+
+    
+    .nav-list {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: block;
+        background-color: var(--body-color);
+    }
+
+    .mobile-menu ul {
+        padding: 10px;
+    }
+
+    .mobile-menu .nav-item {
+        margin-bottom: 10px;
+    }
+
+    .mobile-menu-icon {
+        display: flex;
+    }
+
+
+
+
+
+
+
+
+    footer {
+        position: static;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-section {
+        margin-bottom: 20px;
+    }
+    
+    .footer-section:last-child {
+        margin-bottom: 0;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .logo-space {
+        margin-top: 40px;
+    }
+    footer {
+    background-color: var(--body-color);
+    color: var(--body-bg);
+    padding: 40px 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Adicione uma margem superior para compensar a altura do rodapé */
+body {
+    margin-bottom: 80px; /* Ajuste conforme necessário para a altura do seu rodapé */
+}
+
+}

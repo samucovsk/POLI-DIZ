@@ -11,7 +11,7 @@ router.get("/noticias", function (req, res) {
     res.render("pages/news", {pagina:"noticias", logado:null});
 });
 router.get("/politicos", function (req, res) {
-    res.render("pages/perfil-candidato", {pagina:"politicos", logado:null});
+    res.render("pages/PARTIDOS", {pagina:"politicos", logado:null});
 });
 
 module.exports = router;
