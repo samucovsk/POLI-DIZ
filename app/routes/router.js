@@ -22,4 +22,8 @@ router.get("/escolha", function (req, res) {
     res.render("pages/escolha", {pagina:"escolha", logado:null});
 });
 
+router.get("/crieuma", function (req, res) {
+    res.render("pages/escolha", {pagina:"politicos", logado:null});
+});
+
 module.exports = router;
