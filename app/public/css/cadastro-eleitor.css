@@ -26,7 +26,7 @@ body{
 
 .box{
     display: flex;
-    width: 930px;
+    width: 929px;
 }
 .img-box{
     background-color: rgba(255, 255, 255, 0.5);
@@ -57,16 +57,19 @@ body{
 .form-box form{
     margin: 20px 0;
 }
-form .input-group{
+form .form-content{
     margin-bottom: 15px;
 }
-form .input-group label{
+form .form-content label{
     color: #3D3D3D;
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
 }
-form .input-group input{
+.form-content a{
+    visibility: hidden;
+}
+form .form-content input{
     width: 100%;
     height: 47px;
     background-color: rgba(255, 255, 255, 0.32);
@@ -78,10 +81,10 @@ form .input-group input{
     color: #616161;
     transition: all 0.4s ease;
 }
-form .input-group input:focus{
+form .form-content input:focus{
     border-color: #FFED03;
 }
-form .input-group button{
+form .form-content button{
     width: 100%;
     height: 47px;
     background: #FFED03;
@@ -92,6 +95,13 @@ form .input-group button{
     color: black;
     cursor: pointer;
     font-size: 16px;
+}
+.form-content.error input{
+    border-color: red;
+}
+.form-content.error a{
+    color: red;
+    visibility: visible;
 }
 @media(max-width:930px){
     .img-box{

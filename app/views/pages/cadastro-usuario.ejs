@@ -4,38 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cadastro-eleitor.css">
-    <script type="text/javascript" async="" src="js/cadastro-usuario.js"></script>
+    <script type="text/javascript" async="" src="js/cadastro-usuario.js"> </script>
     <title>Cadastro</title>
 </head>
 <body>
     <section class="box">
         <section class="img-box">
-            <img src="../public/imagem/img-formulario1.png"> 
+            <img src="imagem/img-formulario1.png"> 
         </section>
         <section class="form-box">
             <h2>Criar conta</h2>
             <p> Já tem conta? <a href="#">Login</a></p>
-            <form action="#">
-                <section class="input-group">
-                    <label for="nome"> Nome Completo<a>*</a></label>
-                    <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+            <form id="form" class="form">
+                <section class="form-content">
+                    <label for="nome"> Nome Completo*</label>
+                    <input type="text" id="username" placeholder="Digite seu nome completo" >
+                    <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
-                <section class="input-group">
+                <section class="form-content">
                     <label for="email">E-mail</label>
-                    <input type="text" id="email" placeholder="Digite seu email" required onblur="validarEmail()" onfocus="redefinirMsg()">
-                    <span id="error-email"></span>
+                    <input type="email" id="email" placeholder="Digite seu email" >
+                    <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
-                <section class="input-group">
+                <section class="form-content">
                     <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
-                    <input type="date" name="data_nascimento" id="data_nascimento" class="inputUser" required>
+                    <input type="date" name="data_nascimento" id="data_nascimento" required>
+                    <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
-                <section class="input-group">
-                    <label> Estado <a>*</a></label>
+                <section class="form-content" required>
+                    <label> Estado *</label>
                     <select id="estado">
-                        <option selected disabled value="">Selecione</option>
+                        <option >Selecione</option>
                         <option>Acre</option>
                         <option>Alagoas</option>
                         <option>Amapá</option>
@@ -66,22 +68,23 @@
                         </select>
                     </section>
 
-                    <section class="input-group w50">
+                    <section class="form-content" >
                         <label for="senha">Senha</label>
-                        <input type="password" id="senha" placeholder="Digite sua senha" required>
+                        <input type="password" id="password" placeholder="Digite sua senha">
+                        <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
         
-                    <section class="input-group w50">
-                        <label for="confirmasenha">Confirmar Senha</label>
-                        <input type="password" id="confirmasenha" placeholder="Confirme sua senha" required method="POST" onsubmit="return verificaConfirmaSenha()"">
+                    <section class="form-content">
+                        <label for="password-corfimation">Confirmar Senha</label>
+                        <input type="password" id="password-confirmation" placeholder="Confirme sua senha">
+                        <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
 
-                    <section class="input-group">
+                    <section class="form-content">
                         <button type="submit">Cadastrar</button>
                     </section>
 
             </form>
-            <p id="mensagem"></p>
         </section>
     </section>
 </body>
