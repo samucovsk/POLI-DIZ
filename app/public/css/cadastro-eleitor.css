@@ -6,7 +6,7 @@
     font-family: "Poppins", sans-serif;
 }
 body{
-    background-image: url("../imagem/fundocadastro.jpg");
+    background-image: url("imagem/fundocadastro.jpg");
     backdrop-filter: blur(9px);
     background-position: center;
     background-repeat: no-repeat;
