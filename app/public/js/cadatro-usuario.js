@@ -2,7 +2,7 @@ const form = document.getElementById("form")
 const username = document.getElementById("username")
 const email = document.getElementById("email")
 const password = document.getElementById("password")
-const passwordConfirmation = document.getElementById("password-confirmation");
+const passwordConfirmation = document.getElementById("password-corfimation");
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -53,7 +53,6 @@ function checkInputPassword(){
 function checkInputPasswordConfirmation(){
     const passwordValue = password.value;
     const confirmationPasswordValue = passwordConfirmation.value;
-
     if(confirmationPasswordValue === ""){
         errorInput(passwordConfirmation, "A confirmaçãoo de senha é obrigatória")
     }else if(confirmationPasswordValue !== passwordValue){
