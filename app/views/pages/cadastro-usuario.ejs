@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cadastro-eleitor.css">
-    <script type="text/javascript" async="" src="js/cadastro-usuario.js"> </script>
+    <script type="text/javascript" async="" src="js/cadastro-usuario.js"></script>
     <title>Cadastro</title>
 </head>
 <body>
@@ -30,12 +30,11 @@
 
                 <section class="form-content">
                     <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
-                    <input type="date" name="data_nascimento" id="data_nascimento" required>
-                    <a class="msgerro">Aqui vai a mensagem de erro</a>
+                    <input type="date" name="data_nascimento" id="data_nascimento" class="inputUser" required>
                 </section>
 
-                <section class="form-content" required>
-                    <label> Estado *</label>
+                <section class="input-group">
+                    <label> Estado <a>*</a></label>
                     <select id="estado">
                         <option >Selecione</option>
                         <option>Acre</option>
@@ -74,10 +73,9 @@
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
         
-                    <section class="form-content">
-                        <label for="password-corfimation">Confirmar Senha</label>
-                        <input type="password" id="password-confirmation" placeholder="Confirme sua senha">
-                        <a class="msgerro">Aqui vai a mensagem de erro</a>
+                    <section class="input-group w50">
+                        <label for="confirmasenha">Confirmar Senha</label>
+                        <input type="password" id="confirmasenha" placeholder="Confirme sua senha" required method="POST" onsubmit="return verificaConfirmaSenha()"">
                     </section>
 
                     <section class="form-content">
