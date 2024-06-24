@@ -1,5 +1,5 @@
 {
-  "name": "hotel-node",
+  "name": "bbrtcusnnjy0tvrlrfub",
   "version": "1.0.0",
   "description": "Exemplo aplicacao monolitica",
   "main": "app.js",
@@ -12,6 +12,6 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.6",
     "express": "^4.19.2",
-    "mysql2": "^3.9.3"
+    "mysql2": "^3.10.1"
   }
 }
