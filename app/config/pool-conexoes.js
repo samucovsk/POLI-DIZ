@@ -1,11 +1,14 @@
-const mysql = require('mysql2')
+console.log('Tentando conectar ao banco de dados...');
+const mysql = require('mysql2');
+require('dotenv').config();;
+
 
 const pool = mysql.createPool({
-    host: process.env.DB_HOST, 
-    user: process.env.DB_USER, 
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
+    host: 'bvndgtfduizlneklbnzh-mysql.services.clever-cloud.com',
+    user: 'uqpbzncni5ppwzxc',
+    password: 'cmDXANeTHk4QsMgSBT53',
+    database: 'bvndgtfduizlneklbnzh',
+    port: 3306,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0

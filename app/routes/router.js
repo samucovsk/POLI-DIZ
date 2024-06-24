@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require('../database');
+const pool = require('../config/pool-conexoes');
 
 router.get("/", function (req, res) {
     res.render("pages/index", {pagina:"home", logado:null});
@@ -23,13 +23,14 @@ router.get("/usuario", function (req, res) {
     res.render("pages/cadastro-usuario", {pagina:"usuario", logado:null});
 });
 //banco de dados//
-router.get('/tabelas', (req, res) => {
-    db.query('SHOW TABLES', (err, results) => {
-      if (err) {
-        return res.status(500).send('Erro ao listar as tabelas: ' + err.message);
-      }
+router.get('/tabelas', async (req, res) => {
+    try {
+      const [results, fields] = await pool.query('SHOW TABLES');
       res.json(results);
-    });
+    } catch (error) {
+      console.error('Erro ao listar as tabelas:', error);
+      res.status(500).send('Erro ao listar as tabelas');
+    }
   });
 
 module.exports = router;
