@@ -270,64 +270,7 @@ body {
 
 /* FIM DO CORPO */ 
 
-
-/* RODAPÉ */
-footer{
-    display: block;
-    background-color: var(--body-color);
-    border: grey;
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(5px);
-    color: var(--body-bg);
-}
-
-.bg_footer{
-    background-image: var(--body-color);
-    background-size: 500px;
-    filter: var(--foot-icon);
-
-}
-
-ul.foot {
-    list-style-type: none;
-}
-
-
-ul.foot li {
-    float: right;
-    
-}
-/*lista do footer*/
-.listafooter ul{
-    display: flex;
-}
-.listafooter li{
-    display: block;
-    padding: 5px;
-    margin:5px;
-}
-.listafooter{
-    display: flex;
-    align-items:center; 
-    height: 400px;
-    background-color: var(--body-color);
-}
-
-.listafooter h1{
-    margin-top: 30px
-}
-
-.listafooter p{
-    font-size: 19px;
-    text-align:start;
-}
-
-.listafooter div{
-    align-items: center;
-
-}
-/* FIM DO RODAPÉ */
-/* FIM DO CSS PARA TELA celular*/
+/* FIM DO CSS PARA TELa*/
 
 /*inicio de tela pra celular*/
 
@@ -344,6 +287,12 @@ ul.foot li {
     }
     .nav-item {
         display: none;
+        
+    }
+    .nav-item span{
+        display: none;
+        visibility: hidden;
+        
     }
     .login-button {
         display: none;
@@ -355,6 +304,7 @@ ul.foot li {
         background-color: var(--body-color);
         border: none;
         cursor: pointer;
+        margin-right: 50px;
     }
     .mobile-menu ul {
         display: math;
@@ -419,9 +369,8 @@ ul.foot li {
     margin-top: 5px;
 }
 .retangulo1{
-    display:block;
-    align-items: center; 
-    height: 2200px;
+    display: block;
+    height: 2668px;
     background-color: #f5e215;
     padding: 24px;
 }
@@ -430,20 +379,17 @@ ul.foot li {
 
      /*inicio do segundo paragrafo*/
    .texto2 img{
-        width: 100%;
-        object-fit: cover;
-
-        margin:0%
-    }
+    width: 100%;
+    object-fit: cover;
+    margin: 0 0 33px 0px;
 }
 .texto2{
-    display: block;
-    background-color:var(--body-bg);
+    background-color: var(--body-bg);
     color: var(--body-color);
     font-size: 18px;
     text-align: justify;
     display: inline-table;
-    margin: 10px 50px 20px;
+    margin: 10px 0px 20px;
 
 }
 
@@ -504,21 +450,20 @@ ul.foot li {
 /*inicio do texto 3*/
 .texto3{
     font-size: 18px;
-    color:var(--body-color);
-    margin-left: 21px;
-    margin-right: 200px;
-    list-style-type: none;
-    margin: 70px;
-    padding: 30px;
+    color: var(--body-color);
+    padding: 24px;
     vertical-align: top;
-    display: flex;
-    align-items: center;
+    display: block;
+
+}
+.texto3{
+    list-style-type: none;
+    margin: 27px;
 }
 
 .texto3 img{
-    padding: auto;
     width: 280px;
-    margin-left: 3%;
+    margin-left: -5%;
     
 }
 
@@ -526,65 +471,9 @@ ul.foot li {
     display: block;
     background-color:var(--body-bg);
     text-align: justify;
-}
+}}
 /*fim do texto 3*/
 
 /* FIM DO CORPO */ 
 
 
-/* RODAPÉ */
-footer{
-    display: block;
-    background-color: var(--body-color);
-    border: grey;
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(5px);
-    color: var(--body-bg);
-}
-
-.bg_footer{
-    background-image: var(--body-color);
-    background-size: 500px;
-    filter: var(--foot-icon);
-
-}
-
-ul.foot {
-    list-style-type: none;
-}
-
-
-ul.foot li {
-    float: right;
-    
-}
-/*lista do footer*/
-.listafooter ul{
-    display: blo
-}
-.listafooter li{
-    display: block;
-    padding: 5px;
-    margin:5px;
-}
-.listafooter{
-    display: flex;
-    align-items:center; 
-    height: 400px;
-    background-color: var(--body-color);
-}
-
-.listafooter h1{
-    margin-top: 30px
-}
-
-.listafooter p{
-    font-size: 19px;
-    text-align:start;
-}
-
-.listafooter div{
-    align-items: center;
-
-}
-/* FIM DO RODAPÉ */
