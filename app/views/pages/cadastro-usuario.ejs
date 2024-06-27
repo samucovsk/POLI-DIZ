@@ -15,16 +15,16 @@
         <section class="form-box">
             <h2>Criar conta</h2>
             <p> Já tem conta? <a href="#">Login</a></p>
-            <form id="form" class="form">
+            <form id="form" method="POST" action="/cadastro">
                 <section class="form-content">
                     <label for="nome"> Nome Completo*</label>
-                    <input type="text" name="idUsuario" id="username" placeholder="Digite seu nome completo" >
+                    <input type="text" name="nome" id="username" placeholder="Digite seu nome completo" >
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content">
                     <label for="email">E-mail</label>
-                    <input type="email" name="emailUsuario"id="email" placeholder="Digite seu email" >
+                    <input type="email" name="email" id="email" placeholder="Digite seu email" >
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
@@ -70,20 +70,19 @@
 
                     <section class="form-content" >
                         <label for="senha">Senha</label>
-                        <input type="password" id="password" placeholder="Digite sua senha">
+                        <input type="password" id="password" name="senha" placeholder="Digite sua senha">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
         
                     <section class="form-content">
                         <label for="password-corfimation">Confirmar Senha</label>
-                        <input type="password" id="password-confirmation" placeholder="Confirme sua senha">
+                        <input type="password" id="password-confirmation" name="confirmarSenha" placeholder="Confirme sua senha">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
 
                     <section class="form-content">
                         <button type="submit">Cadastrar</button>
                     </section>
-
             </form>
         </section>
     </section>

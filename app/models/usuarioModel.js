@@ -1,4 +1,4 @@
-var pool = require("../../config/pool_conexoes");
+var pool = require("../../config/pool-conexoes");
 
     const usuarioModel = {
         findAll: async () => {
@@ -50,7 +50,7 @@ var pool = require("../../config/pool_conexoes");
         create: async (camposForm) => {
             try {
                 const [resultados] = await pool.query(
-                    "insert into usuario set ?", [camposForm]
+                    "insert into Usuario set ?", [camposForm]
                 )
                 return resultados;
             } catch (error) {

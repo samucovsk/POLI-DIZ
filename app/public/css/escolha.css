@@ -24,6 +24,7 @@ body {
     height: 70vh;
     display: flex;
     border-radius: 10px;
+    background-color: white;
 
 }
 
@@ -72,6 +73,7 @@ img {
 
 .politico-button a{
     text-decoration: none;
+    font-weight: 700;
 }
 
 .form-image1 img{
@@ -106,6 +108,7 @@ img {
     margin-top: 15px;
     color: black;
     cursor: pointer;
+    font-weight: 700;
 
 }
 

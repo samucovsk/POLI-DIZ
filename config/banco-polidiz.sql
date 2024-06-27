@@ -138,7 +138,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `polidez`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `polidez`.`Usuario` (
-  `idUsuario` INT NOT NULL,
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `cepUsuario` VARCHAR(45) NULL,
   `numUsuario` VARCHAR(45) NULL,
   `complementoUsuario` VARCHAR(45) NULL,

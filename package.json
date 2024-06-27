@@ -9,9 +9,11 @@
   "author": "Giovani Wingter",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.6",
     "express": "^4.19.2",
+    "express-validator": "^7.1.0",
     "mysql2": "^3.10.1"
   }
 }
