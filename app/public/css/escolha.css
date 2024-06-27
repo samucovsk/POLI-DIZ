@@ -24,7 +24,6 @@ body {
     height: 70vh;
     display: flex;
     border-radius: 10px;
-    background-color: white;
 
 }
 
@@ -95,6 +94,7 @@ img {
 
 .form-image2 img{
     width: 10rem;
+    padding-top: 50px;
 }
 
 .cliente-button{
