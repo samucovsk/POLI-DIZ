@@ -127,3 +127,8 @@ form .form-content button{
 .asteristico{
     color: red;
 }
+
+.caracteres{
+    font-size: smaller;
+    font-style: italic;
+}
