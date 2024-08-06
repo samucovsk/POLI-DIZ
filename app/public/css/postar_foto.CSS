@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1e65a7;
+}
+
+.container {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.1px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.container {
+    position: relative;
+}
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+#file-input {
+    display: none; /* Esconde o input de arquivo */
+}
+
+#preview-container, #preview-container-step2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.preview-image-container {
+    position: relative;
+}
+
+.preview-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border: 2px;
+    border-radius: 5px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/*
+button{
+    background-color: rgb(255, 222, 34);
+    height: 50px;
+    width: 50px;
+    font-size: 40px;
+    border-radius: 9%;
+    border: 0;
+    cursor:pointer;
+
+}  botão de excolher arquivo*/
+.button_add {
+    /* Config start */
+    --plus_sideLength: 2.5rem;
+    --plus_topRightTriangleSideLength: 0.9rem;
+    /* Config end */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    border-radius: 9%;
+    width: var(--plus_sideLength);
+    height: var(--plus_sideLength);
+    background-color: #1065d4;
+    overflow: hidden;
+}
+  .plusButton::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-width: 0 var(--plus_topRightTriangleSideLength) var(--plus_topRightTriangleSideLength) 0;
+    border-style: solid;
+    border-color: transparent rgb(232, 250, 74) transparent transparent;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.2s;
+  }
+  
+  .plusButton:hover {
+    cursor: pointer;
+  }
+  
+  .plusButton:hover::before {
+    --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
+  }
+  
+  .plusButton:focus-visible::before {
+    --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
+  }
+  
+  .plusButton>.plusIcon {
+    fill: white;
+    width: calc(var(--plus_sideLength) * 0.7);
+    height: calc(var(--plus_sideLength) * 0.7);
+    z-index: 1;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.2s;
+  }
+  
+  .plusButton:hover>.plusIcon {
+    fill: black;
+    transform: rotate(180deg);
+  }
+  
+  .plusButton:focus-visible>.plusIcon {
+    fill: black;
+    transform: rotate(180deg);
+  }
+
+/* From Uiverse.io by Galahhad */ 
+
+.avancar{
+    background-color: #e8fa4a;
+    height: 39px;
+    width: 182px;
+    border-radius: 4px;
+    border: 0;
+    cursor: pointer;  
+    margin: 2px 0 0 0 ;
+
+}
+.button_postar{
+    background-color: #e8fa4a;
+    height: 39px;
+    width: 109px;
+    border-radius: 4px;
+    border: 0;
+    cursor: pointer;
+ 
+    
+}
+
+
+
