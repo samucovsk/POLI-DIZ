@@ -44,7 +44,7 @@ footer {
     display: flex;
     font-size: large;
     width: 50%;
-    margin: 6 auto;
+    margin: 0 auto;
 }
 
 .polidizlogo{
@@ -62,3 +62,4 @@ footer {
     color: inherit; /* Mantém a cor padrão do texto */
     font-weight: bold;
 }
+
