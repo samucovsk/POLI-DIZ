@@ -97,7 +97,7 @@ body {
   
   .gallery img {
     width: 150px;
-    border-radius: 100npm%;
+    border-radius: 100%;
     display: block;
     margin: 0 auto;
   }
