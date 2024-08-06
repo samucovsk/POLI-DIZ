@@ -60,4 +60,5 @@ footer {
 .sbrnos{
     text-decoration: none; /* Remove o sublinhado */
     color: inherit; /* Mantém a cor padrão do texto */
+    font-weight: bold;
 }
