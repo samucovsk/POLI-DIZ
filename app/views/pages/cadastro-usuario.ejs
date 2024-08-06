@@ -17,7 +17,7 @@
             <p> Já tem conta? <a href="#">Login</a></p>
             <form id="form" method="POST" action="/cadastro">
                 <section class="form-content">
-                    <label for="nome"> Nome Completo*</label>
+                    <label for="nome"> Nome Completo <span class="asteristico">*</span></label>
                     <input type="text" name="nome" id="username" placeholder="Digite seu nome completo" >
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
@@ -29,13 +29,13 @@
                 </section>
 
                 <section class="form-content">
-                    <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
+                    <label for="data_nascimento"><b>Data de Nascimento<span class="asteristico">*</span></b></label>
                     <input type="date" name="dataNascUsuario" id="data_nascimento" required>
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content" required>
-                    <label> Estado <span class="asteristico">*</span></label>
+                    <label> Estado </label>
                     <select id="estado">
                         <option >Selecione</option>
                         <option>Acre</option>
@@ -69,14 +69,15 @@
                     </section>
 
                     <section class="form-content" >
-                        <label for="senha">Senha</label>
+                        <label for="senha">Senha<span class="asteristico">*</span></label>
                         <input type="password" id="password" name="senha" placeholder="Digite sua senha">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
         
                     <section class="form-content">
-                        <label for="password-corfimation">Confirmar Senha</label>
+                        <label for="password-corfimation">Confirmar Senha<span class="asteristico">*</span></label>
                         <input type="password" id="password-confirmation" name="confirmarSenha" placeholder="Confirme sua senha">
+                        <p>- 8 caracteres</p>
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
 
