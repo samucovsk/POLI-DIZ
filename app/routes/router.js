@@ -24,6 +24,9 @@ router.get("/politicos", function (req, res) {
 router.get("/usuario", function (req, res) {
     res.render("pages/cadastro-usuario", { pagina: "usuario", logado: null });
 });
+router.get("/login", function (req, res) {
+    res.render("pages/login", { pagina: "login", logado: null });
+});
 
 router.post("/cadastro",
     usuarioController.regrasValidacaoFormCad,
