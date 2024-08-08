@@ -11,7 +11,7 @@ const usuarioController = {
             body("email")
             .isEmail().withMessage("Insira endereço de email valido"),
             body("dataNascUsuario")
-            .isISO8601().withMessage('Data deve estar no formato YYYY-MM-DD.'),
+            .isDate().withMessage('Data deve estar no formato YYYY-MM-DD.'),
             body("Estado")
             .isEmpty().withMessage("Escolha seu estado."),
             body("senha")

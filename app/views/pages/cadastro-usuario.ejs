@@ -54,7 +54,7 @@
             <form id="form" method="POST" action="/cadastro">
                 <section class="form-content">
                     <label for="nome"> Nome Completo*</label>
-                    <input type="text" name="nome" id="username" placeholder="Digite seu nome completo" >
+                    <input type="text" name="nome" id="username" class="<%=classeErro.nome%>" placeholder="Digite seu nome completo" >
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
@@ -66,13 +66,13 @@
 
                 <section class="form-content">
                     <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
-                    <input type="date" name="dataNascUsuario" id="data_nascimento" required>
+                    <input type="date" name="dataNascUsuario" id="data_nascimento" class="<%=classeErro.dataNascUsuario%>">
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content" required>
                     <label> Estado *</label>
-                    <select id="estado">
+                    <select id="estado" name="Estado" class="<%=classeErro.Estado%>">
                         <option >Selecione</option>
                         <option>Acre</option>
                         <option>Alagoas</option>
@@ -106,13 +106,13 @@
 
                     <section class="form-content" >
                         <label for="senha">Senha</label>
-                        <input type="password" id="password" name="senha" placeholder="Digite sua senha">
+                        <input type="password" id="password" name="senha" class="<%=classeErro.senha%>" placeholder="Digite sua senha">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
         
                     <section class="form-content">
                         <label for="password-corfimation">Confirmar Senha</label>
-                        <input type="password" id="password-confirmation" name="confirmarSenha" placeholder="Confirme sua senha">
+                        <input type="password" id="password-confirmation" name="confirmarSenha" class="<%=classeErro.confirmarSenha%>" placeholder="Confirme sua senha">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
 
