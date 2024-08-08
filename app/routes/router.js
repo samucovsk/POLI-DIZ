@@ -4,6 +4,10 @@ const pool = require('../../config/pool-conexoes');
 
 const usuarioController = require("../controllers/usuarioController")
 
+router.post("/cadastro", usuarioController.regrasValidacaoFormCad, function (req, res){
+    usuarioController.cadastrarUsuario(req, res)
+})
+
 router.get("/", function (req, res) {
     res.render("pages/index", { pagina: "home", logado: null });
 });
@@ -22,7 +26,7 @@ router.get("/politicos", function (req, res) {
     res.render("pages/PARTIDOS", { pagina: "politicos", logado: null });
 });
 router.get("/usuario", function (req, res) {
-    res.render("pages/cadastro-usuario", { pagina: "usuario", logado: null });
+    res.render("pages/cadastro-usuario", { pagina: "usuario", logado: null, erros:null });
 });
 
 router.post("/cadastro",

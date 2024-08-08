@@ -8,30 +8,29 @@ const usuarioController = {
     regrasValidacaoFormCad: [
         body("nome")
             .isLength({ min: 3, max: 45 }).withMessage("Mínimo de 3 letras e máximo de 45!"),
+            body("email")
+            .isEmail().withMessage("Insira endereço de email valido"),
+            body("dataNascUsuario")
+            .isISO8601().withMessage('Data deve estar no formato YYYY-MM-DD.'),
+            body("Estado")
+            .isEmpty().withMessage("Escolha seu estado."),
+            body("senha")
+            .isStrongPassword().custom(senha => {
+                if (senha === body("confirmarSenha")){
+                    return
+                }else {
+                    throw new Error()
+                }
+            })
     ],
-
-    // Função de cadastro
-    cadastrar: (req, res) => {
-        const erros = validationResult(req);
-        console.log(erros);
-        var dadosForm = {
-            nomeUsuario: req.body.nome,
-            emailUsuario: req.body.email,
-            dataNascUsuario: req.body.dataNascUsuario,
-            senha: req.body.senha,
-        };
-        if (!erros.isEmpty()) {
-            console.log(erros);
-            return res.render("pages/cadastro", { listaErros: erros, valores: req.body })
-        }
-        try {
-            let create = usuario.create(dadosForm);
-            res.redirect("/")
-        } catch (e) {
-            console.log(e);
-            res.render("pages/cadastro", { listaErros: erros, valores: req.body })
+    cadastrarUsuario:(req, res)=>{
+        const erros = validationResult(req)
+        if (!erros.isEmpty()){
+            console.log(erros)
+            return res.render("pages/cadastro-usuario", { pagina: "usuario", logado: null, erros:erros });
         }
     }
+
 }
 
 module.exports = usuarioController
