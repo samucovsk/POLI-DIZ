@@ -4,9 +4,7 @@ const pool = require('../../config/pool-conexoes');
 
 const usuarioController = require("../controllers/usuarioController")
 
-router.post("/cadastro", usuarioController.regrasValidacaoFormCad, function (req, res){
-    usuarioController.cadastrarUsuario(req, res)
-})
+/* ====================== Rotas GET ====================== */
 
 router.get("/", function (req, res) {
     res.render("pages/index", { pagina: "home", logado: null });
@@ -43,15 +41,22 @@ router.get("/usuario", function (req, res) {
         }
     );
 });
+
 router.get("/login", function (req, res) {
-    res.render("pages/login", { pagina: "login", logado: null });
+    res.render(
+        "pages/login", 
+        { 
+            pagina: "login", 
+            logado: null, 
+            erros: null,
+        });
 });
 
-router.post("/cadastro",
-    usuarioController.regrasValidacaoFormCad,
-    async function (req, res) {
-        usuarioController.cadastrar(req, res);
-    });
+/* ====================== Rotas POST ====================== */
+
+router.post("/cadastro", usuarioController.regrasValidacaoFormCad, function (req, res){
+    usuarioController.cadastrarUsuario(req, res);
+});
 
 //banco de dados//
 router.get('/tabelas', async (req, res) => {

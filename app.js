@@ -2,7 +2,15 @@ const express = require("express");
 const app = express();
 const env = require("dotenv").config();
 const port = process.env.APP_PORT;
+const session = require('express-session');
 
+// Criando sessão
+app.use((session({
+  secret: "PoliDiz",
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+})));
 
 app.use(express.static("app/public"));
 

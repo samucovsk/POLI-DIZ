@@ -1,6 +1,7 @@
 const usuario = require("../models/usuarioModel");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const usuarioModel = require("../models/usuarioModel");
 var salt = bcrypt.genSaltSync(12);
 
 const usuarioController = {
@@ -45,15 +46,33 @@ const usuarioController = {
             );
         }
 
-        res.render(
-            "pages/cadastro-usuario", 
-            { 
-                pagina: "usuario", 
-                logado: true, 
-                erros: null,
-                dadosForm: req.body 
+        try {
+            const senhaComHash = bcrypt.hashSync(req.body.senha, salt);
+
+            const dadosForm = {
+                nomeUsuario: req.body.nome,
+                senha: senhaComHash,
+                emailUsuario: req.body.email,
+                dataNascUsuario: req.body.dataNascUsuario,
+                enderecoUsuario: req.body.Estado
             }
-        );
+
+            const resultado = await usuarioModel.create(dadosForm);
+            console.log(resultado);
+            console.log('Cadastro realizado!');
+                
+            res.render(
+                "pages/cadastro-usuario", 
+                { 
+                    pagina: "usuario", 
+                    logado: true, 
+                    erros: null,
+                    dadosForm: req.body 
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
     }
 
 }
