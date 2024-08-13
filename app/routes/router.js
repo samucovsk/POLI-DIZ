@@ -26,7 +26,22 @@ router.get("/politicos", function (req, res) {
     res.render("pages/PARTIDOS", { pagina: "politicos", logado: null });
 });
 router.get("/usuario", function (req, res) {
-    res.render("pages/cadastro-usuario", { pagina: "usuario", logado: null, erros:null });
+    res.render(
+        "pages/cadastro-usuario", 
+        { 
+            pagina: "usuario", 
+            logado: null, 
+            erros: null, 
+            dadosForm: { 
+                nome: "", 
+                email: "", 
+                dataNascUsuario: "", 
+                Estado: "", 
+                senha: "", 
+                confirmarSenha: "" 
+            }
+        }
+    );
 });
 router.get("/login", function (req, res) {
     res.render("pages/login", { pagina: "login", logado: null });

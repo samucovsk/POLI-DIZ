@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/erros.css">
     <link rel="stylesheet" href="css/cadastro-eleitor.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
     <script type="text/javascript" async="" src="js/cadastro-usuario.js"></script>
-    <script type="text/javascript" async="" src="js/notify.js"></script>
+    <script type="text/javascript" src="js/notify.js"></script>
     <title>Cadastro</title>
 </head>
 <body> <% 
@@ -37,12 +41,31 @@
                 classeErro[err.path] = "erro";
                 msgerro+=err.msg+"<br>"
         }); 
-    }
+
+        
     
     %>
     <script>
-        displayNotify("Falha ao realizar cadastro.", msgerro, "error")
+        /* Variável que armazena as mensagens de erro do EJS */
+        const msgErro = "<%= msgerro %>"
+        displayNotify(
+            "Falha: <%= erros.errors.length %> erro(s) detectados", 
+            // Substituindo os símbolos pelos sinais de "<" e ">"
+            msgErro.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "error"
+        );
     </script>
+
+    <% } else if (logado) { %>
+        <script>
+            displayNotify(
+                "Cadastro realizado com sucesso!", 
+                // Substituindo os símbolos pelos sinais de "<" e ">"
+                "Você será redirecionado para a <strong>sla q página</strong>".replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+                "success"
+            );
+        </script>
+    <%} %>
 
     <section class="box">
         <section class="img-box">
@@ -54,65 +77,64 @@
             <form id="form" method="POST" action="/cadastro">
                 <section class="form-content">
                     <label for="nome"> Nome Completo*</label>
-                    <input type="text" name="nome" id="username" class="<%=classeErro.nome%>" placeholder="Digite seu nome completo" >
+                    <input type="text" name="nome" id="username" class="<%=classeErro.nome%>" placeholder="Digite seu nome completo" value="<%= dadosForm.nome %>" >
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content">
                     <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email" class="<%=classeErro.email%>"placeholder="Digite seu email" >
+                    <input type="email" name="email" id="email" class="<%=classeErro.email%>"placeholder="Digite seu email" value="<%= dadosForm.email %>" >
                     <a>Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content">
                     <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
-                    <input type="date" name="dataNascUsuario" id="data_nascimento" class="<%=classeErro.dataNascUsuario%>">
+                    <input type="date" name="dataNascUsuario" id="data_nascimento" class="<%=classeErro.dataNascUsuario%>" value="<%= dadosForm.dataNascUsuario %>">
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content" required>
                     <label> Estado *</label>
                     <select id="estado" name="Estado" class="<%=classeErro.Estado%>">
-                        <option >Selecione</option>
-                        <option>Acre</option>
-                        <option>Alagoas</option>
-                        <option>Amapá</option>
-                        <option>Amazonas</option>
-                        <option>Bahia</option>
-                        <option>Ceará</option>
-                        <option>Distrito Federal</option>
-                        <option>Espiríto Santo</option>
-                        <option>Goiás</option>
-                        <option>Maranhão</option>
-                        <option>Mato Grosso</option>
-                        <option>Mato Grosso do Sul</option>
-                        <option>Minas Gerais</option>
-                        <option>Pará</option>
-                        <option>Paraíba</option>
-                        <option>Paraná</option>
-                        <option>Pernambuco</option>
-                        <option>Piauí</option>
-                        <option>Rio de Janeiro</option>
-                        <option>Rio Grande do Norte</option>
-                        <option>Rio Grande do Sul</option>
-                        <option>Rondônia</option>
-                        <option>Roraima</option>
-                        <option>Santa Catarina</option>
-                        <option>São Paulo</option>
-                        <option>Sergipe</option>
-                        <option>Tocantins</option>
-                        </select>
-                    </section>
+                        <option value="">Selecione</option>
+                        <option value="Acre">Acre</option>
+                        <option value="Alagoas">Alagoas</option>
+                        <option value="Amapá">Amapá</option>
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Bahia">Bahia</option>
+                        <option value="Ceará">Ceará</option>
+                        <option value="Distrito Federal">Distrito Federal</option>
+                        <option value="Espírito Santo">Espírito Santo</option>
+                        <option value="Goiás">Goiás</option>
+                        <option value="Maranhão">Maranhão</option>
+                        <option value="Mato Grosso">Mato Grosso</option>
+                        <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                        <option value="Minas Gerais">Minas Gerais</option>
+                        <option value="Pará">Pará</option>
+                        <option value="Paraíba">Paraíba</option>
+                        <option value="Paraná">Paraná</option>
+                        <option value="Pernambuco">Pernambuco</option>
+                        <option value="Piauí">Piauí</option>
+                        <option value="Rio de Janeiro">Rio de Janeiro</option>
+                        <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                        <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                        <option value="Rondônia">Rondônia</option>
+                        <option value="Roraima">Roraima</option>
+                        <option value="Santa Catarina">Santa Catarina</option>
+                        <option value="São Paulo">São Paulo</option>
+                        <option value="Sergipe">Sergipe</option>
+                        <option value="Tocantins">Tocantins</option>
+                    </select>
 
                     <section class="form-content" >
                         <label for="senha">Senha</label>
-                        <input type="password" id="password" name="senha" class="<%=classeErro.senha%>" placeholder="Digite sua senha">
+                        <input type="password" id="password" name="senha" class="<%=classeErro.senha%>" placeholder="Digite sua senha" value="<%= dadosForm.senha %>">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
         
                     <section class="form-content">
                         <label for="password-corfimation">Confirmar Senha</label>
-                        <input type="password" id="password-confirmation" name="confirmarSenha" class="<%=classeErro.confirmarSenha%>" placeholder="Confirme sua senha">
+                        <input type="password" id="password-confirmation" name="confirmarSenha" class="<%=classeErro.confirmarSenha%>" placeholder="Confirme sua senha" value="<%= dadosForm.confirmarSenha %>">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
 
@@ -122,6 +144,5 @@
             </form>
         </section>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 </body>
 </html>

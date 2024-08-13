@@ -1,12 +1,13 @@
 {
   "name": "bbrtcusnnjy0tvrlrfub",
   "version": "1.0.0",
-  "description": "Exemplo aplicacao monolitica",
+  "description": "Projeto de TCC",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
-  "author": "Giovani Wingter",
+  "author": "POLIDEZ",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

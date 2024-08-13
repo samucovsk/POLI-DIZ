@@ -1,4 +1,4 @@
-const displayNotify = function (toastTitle, toastText, statusType, duration = 8000) {
+const displayNotify = function (toastTitle, toastText, statusType, duration = 10000) {
     return new Notify({
         status: statusType,
         title: toastTitle,
