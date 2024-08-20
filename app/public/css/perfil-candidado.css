@@ -69,22 +69,22 @@ a {
   color: #818181;
   margin: 0;
 }
-.header__wrapper .container .container_2 .about {
+.header__wrapper .container .container_2 .sobre {
   justify-content: space-between;
   position: relative;
   margin: 35px 0;
 }
-.header__wrapper .container .container_2 .about li {
+.header__wrapper .container .container_2 .sobre li {
   display: flex;
   flex-direction: column;
   color: #818181;
   font-size: 0.9rem;
 }
-.header__wrapper .container .container_2 .about li span {
+.header__wrapper .container .container_2 .sobre li span {
   color: #1d1d1d;
   font-weight: 600;
 }
-.header__wrapper .container .container_2 .about:after {
+.header__wrapper .container .container_2 .sobre:after {
   position: absolute;
   content: "";
   bottom: -16px;
@@ -142,12 +142,12 @@ a {
 .header__wrapper .container .content_3 nav button:hover {
   opacity: 0.8;
 }
-.header__wrapper .container .content_3 .photos {
+.header__wrapper .container .content_3 .fotos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 20px;
 }
-.header__wrapper .container .content_3 .photos img {
+.header__wrapper .container .content_3 .fotos img {
   max-width: 100%;
   display: block;
   height: 100%;
@@ -218,7 +218,7 @@ a {
     flex-direction: row;
     gap: 30px;
   }
-  .header__wrapper .container .content_3 .photos {
+  .header__wrapper .container .content_3 .fotos {
     height: 365px;
     overflow: auto;
     padding: 0 0 30px;
