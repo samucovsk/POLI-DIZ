@@ -27,7 +27,7 @@ router.get("/politicos", function (req, res) {
     res.render("pages/PARTIDOS", { pagina: "politicos", logado: null });
 });
 router.get("/politicocadastro", function (req, res) {
-    res.render("pages/cadastro-politico", { pagina: "Cadastro do Político", logado: null });
+    res.render("pages/cadastro-politico", { pagina: "politicocadastro", logado: null });
 });
 
 router.get("/usuario", function (req, res) {
