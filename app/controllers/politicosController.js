@@ -1,11 +1,12 @@
 const usuario = require("../models/usuarioModel");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const { mensagemErro } = require("../util/logs");
 const usuarioModel = require("../models/usuarioModel");
+const { mensagemErro } = require("../util/logs");
+const politicosModel = require("../models/politicosModel");
 var salt = bcrypt.genSaltSync(12);
 
-const usuarioController = {
+const politicoController = {
     // Validações
     regrasValidacaoFormCad: [
         body("nome")
@@ -45,25 +46,25 @@ const usuarioController = {
                     return true;
                 }
                 throw new Error()
-            }).withMessage(mensagemErro.SENHAS_DISCREPANTES)
+            }).withMessage(mensagemErro.SENHAS_DISCREPANTES),
+        body('partido')
+            .isLength({ min: 3, max: 45 }).withMessage(`<strong>Nome de Partido:</strong> ${mensagemErro.NOME_INVALIDO}`)
     ],
 
     regrasValidacaoFormLogin: [
-        body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
-        body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
+
     ],
 
-    cadastrarUsuario: async (req, res)=>{
+    cadastrarPolitico: async (req, res)=>{
         const erros = validationResult(req)
         if (!erros.isEmpty()){
             console.log(erros)
             return res.render(
-                "pages/cadastro-usuario", 
+                "pages/cadastro-politico", 
                 { 
-                    pagina: "usuario", 
-                    logado: req.session.autenticado,
-                    form_aprovado: false, 
-                    erros: erros,
+                    pagina: "politicocadastro", 
+                    logado: null, 
+                    erros: erros, 
                     dadosForm: req.body
                 }
             );
@@ -73,23 +74,22 @@ const usuarioController = {
             const senhaComHash = bcrypt.hashSync(req.body.senha, salt);
 
             const dadosForm = {
-                nomeUsuario: req.body.nome,
-                senha: senhaComHash,
-                emailUsuario: req.body.email,
-                dataNascUsuario: req.body.data_nascimento,
-                enderecoUsuario: req.body.estado
+                nomePoliticos: req.body.nome,
+                senhaPoliticos: senhaComHash,
+                contatoPoliticos: req.body.email,
+                dataNascPoliticos: req.body.data_nascimento,
+                ufPoliticos: req.body.estado
             }
 
-            const resultado = await usuarioModel.create(dadosForm);
+            const resultado = await politicosModel.create(dadosForm);
             console.log(resultado);
             console.log('Cadastro realizado!');
                 
             res.render(
-                "pages/cadastro-usuario", 
+                "pages/cadastro-politico", 
                 { 
-                    pagina: "usuario", 
-                    logado: req.session.autenticado, 
-                    form_aprovado: true,
+                    pagina: "politicocadastro", 
+                    logado: true, 
                     erros: null,
                     dadosForm: req.body 
                 }
@@ -97,36 +97,8 @@ const usuarioController = {
         } catch (err) {
             console.log(err);
         }
-    },
-
-    signInEleitor: async (req, res) => {
-        const erros = validationResult(req);
-        console.log(erros);
-        
-        if (!erros.isEmpty()) {
-            return res.render(
-                "pages/login", 
-                { 
-                    pagina: "login", 
-                    logado: req.session.autenticado, 
-                    form_aprovado: false,
-                    erros: erros,
-                    dadosForm: req.body
-                }
-            );
-        }
-
-        return res.render(
-            "pages/login", 
-            { 
-                pagina: "login", 
-                logado: req.session.autenticado, 
-                erros: null,
-                form_aprovado: true,
-                dadosForm: req.body
-            });
     }
 
 }
 
-module.exports = usuarioController;
+module.exports = politicoController

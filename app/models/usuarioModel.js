@@ -20,8 +20,8 @@ const usuarioModel = {
     findUserEmail: async (camposForm) => {
         try {
             const [resultados] = await pool.query(
-                "SELECT * FROM usuario WHERE user_usuario = ? or email_usuario = ?",
-                [camposForm.user_usuario, camposForm.user_usuario]
+                "SELECT * FROM Usuario WHERE emailUsuario = ?",
+                [camposForm]
             );
             return resultados;
         } catch (error) {

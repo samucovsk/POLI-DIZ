@@ -2,45 +2,45 @@ const express = require("express");
 const router = express.Router();
 const pool = require('../../config/pool-conexoes');
 
-const usuarioController = require("../controllers/usuarioController")
+const usuarioController = require("../controllers/usuarioController");
+const politicoController = require("../controllers/politicosController");
+const { autenticador } = require("../sessions/autenticador_middleware");
+
 
 /* ====================== Rotas GET ====================== */
 
-router.get("/", function (req, res) {
-    res.render("pages/index", { pagina: "home", logado: null });
+router.get("/", autenticador.verificarUsuAutenticado, function (req, res) {
+    res.render("pages/index", { pagina: "home", logado: req.session.autenticado });
 });
 
-router.get("/home", function (req, res) {
-    res.render("pages/index", { pagina: "home", logado: null });
+router.get("/home", autenticador.verificarUsuAutenticado,function (req, res) {
+    res.render("pages/index", { pagina: "home", logado: req.session.autenticado });
 });
 
 router.get("/escolha", function (req, res) {
-    res.render("pages/escolha", { pagina: "escolha", logado: null });
+    res.render("pages/escolha", { pagina: "escolha", logado: req.session.autenticado });
 });
 router.get("/noticias", function (req, res) {
-    res.render("pages/news", { pagina: "noticias", logado: null });
+    res.render("pages/news", { pagina: "noticias", logado: req.session.autenticado });
 });
 router.get("/login", function (req, res) {
-    res.render("pages/login", { pagina: "login", logado: null });
+    res.render("pages/login", { pagina: "login", logado: req.session.autenticado });
 });
 router.get("/politicos", function (req, res) {
-    res.render("pages/PARTIDOS", { pagina: "politicos", logado: null });
+    res.render("pages/PARTIDOS", { pagina: "politicos", logado: req.session.autenticado });
 });
 router.get("/politicocadastro", function (req, res) {
-    res.render("pages/cadastro-politico", { pagina: "politicocadastro", logado: null });
-});
-
-router.get("/usuario", function (req, res) {
     res.render(
-        "pages/cadastro-usuario", 
+        "pages/cadastro-politico", 
         { 
-            pagina: "usuario", 
-            logado: null, 
+            pagina: "politicocadastro", 
+            logado: req.session.autenticado, 
             erros: null, 
             dadosForm: { 
                 nome: "", 
                 email: "", 
-                dataNascUsuario: "", 
+                data_nascimento: "",
+                cpf: "", 
                 Estado: "", 
                 senha: "", 
                 confirmarSenha: "" 
@@ -49,20 +49,57 @@ router.get("/usuario", function (req, res) {
     );
 });
 
-router.get("/login", function (req, res) {
+router.get("/usuario", function (req, res) {
     res.render(
-        "pages/login", 
+        "pages/cadastro-usuario", 
+        { 
+            pagina: "usuario", 
+            logado: req.session.autenticado, 
+            form_aprovado: false,
+            erros: null, 
+            dadosForm: { 
+                nome: "", 
+                email: "", 
+                data_nascimento: "", 
+                Estado: "", 
+                senha: "", 
+                confirmarSenha: "" 
+            }
+        }
+    );
+});
+
+router.get('/signin', function (req, res) {
+    res.render('pages/login',
         { 
             pagina: "login", 
-            logado: null, 
-            erros: null,
-        });
-});
+            logado: req.session.autenticado, 
+            form_aprovado: false,
+            erros: null, 
+            dadosForm: { 
+                email: "", 
+                senha: "", 
+            }
+        }
+    )
+})
 
 /* ====================== Rotas POST ====================== */
 
 router.post("/cadastro", usuarioController.regrasValidacaoFormCad, function (req, res){
     usuarioController.cadastrarUsuario(req, res);
+    console.log(req.session.autenticado);
+    
+});
+
+router.post("/cadastro-politico", politicoController.regrasValidacaoFormCad, function (req, res) {
+    politicoController.cadastrarPolitico(req, res);
+});
+
+router.post('/signin', usuarioController.regrasValidacaoFormLogin, function (req, res) {
+    console.log(req.session.autenticado);
+    
+    usuarioController.signInEleitor(req, res);
 });
 
 //banco de dados//

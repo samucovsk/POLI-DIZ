@@ -7,6 +7,11 @@
     font-family: "Poppins", sans-serif;
 }
 
+.input-box.erro, .input-box.erro {
+    border: 2px solid red;
+    background-color: pink;
+}
+
 body{
     display: flex;
     justify-content: center;

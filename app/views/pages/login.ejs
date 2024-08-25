@@ -5,30 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script type="text/javascript" async="" src="./js/login.js"> </script>
-</head>
+    <script type="text/javascript" async="" src="./js/login.js"></script>
     <title>Login</title>
 </head>
 <body>
+    <% 
+        const camposNomes = {
+            email: "",
+            senha: "",
+        };
+
+        const classeErro = {
+            email: "",
+            senha: "",
+        };
+        var msgerro = "";
+        
+        if (erros) {
+            erros.errors.forEach(err => {
+                camposNomes[err.path] = err.msg;
+                classeErro[err.path] = "erro";
+                msgerro += err.msg + "<br>";
+            });
+    %>
+    <script>
+        /* Variável que armazena as mensagens de erro do EJS */
+        const msgErro = "<%= msgerro %>";
+        displayNotify(
+            "Falha: <%= erros.errors.length %> erro(s) detectados", 
+            msgErro.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "error"
+        );
+    </script>
+    <% } else if (form_aprovado) { %>
+    <script>
+        displayNotify(
+            "Tudo ocorreu como esperado :)", 
+            "Você será redirecionado para a <strong>página de seu perfil!</strong>".replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "success"
+        );
+    </script>
+    <% } %>
+
     <section class="wrapper">
-        <form action="#">
+        <form method="post" action="/signin">
             <h1>Login</h1>
             <section class="input-box">
-                <input type="text" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" class="<%= classeErro.email %>" value="<%= camposNomes.email %>" required>
                 <i class="bx bxs-user"></i>
             </section>
 
             <section class="input-box">
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="senha" placeholder="Password" class="<%= classeErro.senha %>" required>
                 <i class='bx bxs-lock'></i>
             </section>
 
             <section class="remember-forgot">
-                <label><input type="checkbox">Lembrar de mim</label>
+                <label><input name="tipo_politico" value="true" type="checkbox">Sou Político</label>
                 <a href="#">Esqueceu a senha?</a>
             </section>
 
-            <button type="admit" class="btn">Login</button>
+            <button type="submit" class="btn">Login</button>
             
             <section class="register-link">
                 <br>

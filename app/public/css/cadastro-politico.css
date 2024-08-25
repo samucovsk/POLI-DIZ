@@ -93,6 +93,10 @@ form .input-group button{
     cursor: pointer;
     font-size: 16px;
 }
+
+form .input-group input.erro, form .input-group select.erro{
+    border: 2px solid red;
+}
 @media(max-width:930px){
     .img-box{
         display: none;

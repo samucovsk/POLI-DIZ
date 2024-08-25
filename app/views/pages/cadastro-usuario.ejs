@@ -11,15 +11,17 @@
 
     <script type="text/javascript" async="" src="js/cadastro-usuario.js"></script>
     <script type="text/javascript" src="js/notify.js"></script>
+    
     <title>Cadastro</title>
 </head>
-<body> <% 
+<body> 
+    <% 
     // Definindo campos e classes de erro
     const camposNomes = {
         nome: "",
         email: "",
-        dataNascUsuario: "",
-        Estado: "",
+        data_nascimento: "",
+        estado: "",
         senha: "",
         confirmarSenha: "",
     };
@@ -27,8 +29,8 @@
     const classeErro = {
         nome: "",
         email: "",
-        dataNascUsuario: "",
-        Estado: "",
+        data_nascimento: "",
+        estado: "",
         senha: "",
         confirmarSenha: "",
     };
@@ -41,9 +43,6 @@
                 classeErro[err.path] = "erro";
                 msgerro+=err.msg+"<br>"
         }); 
-
-        
-    
     %>
     <script>
         /* Variável que armazena as mensagens de erro do EJS */
@@ -56,7 +55,7 @@
         );
     </script>
 
-    <% } else if (logado) { %>
+    <% } else if (form_aprovado) { %>
         <script>
             displayNotify(
                 "Cadastro realizado com sucesso!", 
@@ -89,13 +88,13 @@
 
                 <section class="form-content">
                     <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
-                    <input type="date" name="dataNascUsuario" id="data_nascimento" class="<%=classeErro.dataNascUsuario%>" value="<%= dadosForm.dataNascUsuario %>">
+                    <input type="date" name="data_nascimento" id="data_nascimento" class="<%=classeErro.data_nascimento%>" value="<%= dadosForm.data_nascimento %>">
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content" required>
                     <label> Estado *</label>
-                    <select id="estado" name="Estado" class="<%=classeErro.Estado%>">
+                    <select id="estado" name="estado" class="<%=classeErro.estado%>">
                         <option value="">Selecione</option>
                         <option value="Acre">Acre</option>
                         <option value="Alagoas">Alagoas</option>
@@ -130,7 +129,6 @@
                         <label for="senha">Senha</label>
                         <input type="password" id="password" name="senha" class="<%=classeErro.senha%>" placeholder="Digite sua senha" value="<%= dadosForm.senha %>">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
-                        <h1>Selecione uma senha forte.</h1>
                     </section>
         
                     <section class="form-content">
@@ -145,5 +143,8 @@
             </form>
         </section>
     </section>
+
+    <!-- Script confirma senha -->
+    <script type="text/javascript" src="js/securePassword.js"></script>
 </body>
 </html>
