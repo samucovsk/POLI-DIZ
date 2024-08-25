@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const { mensagemErro } = require("../util/logs");
 const usuarioModel = require("../models/usuarioModel");
+const politicosModel = require("../models/politicosModel");
 var salt = bcrypt.genSaltSync(12);
 
 const usuarioController = {
@@ -14,7 +15,7 @@ const usuarioController = {
             .isEmail().withMessage(mensagemErro.EMAIL_INVALIDO)
             .custom(async emailUsuario => {
                 try {
-                    const resultado = await usuario.findUserEmail(emailUsuario);
+                    const resultado = await usuario.findCampoCustom(emailUsuario, "emailUsuario");
                     
                     if (resultado.length > 0) {
                         throw new Error();
@@ -49,8 +50,32 @@ const usuarioController = {
     ],
 
     regrasValidacaoFormLogin: [
-        body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
-        body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
+        body('email')
+            .isEmail().withMessage(mensagemErro.EMAIL_INVALIDO)
+            .custom(async (emailUsuario, { req }) => {
+                try {
+                    let resultado;
+                    if (req.body.tipo_politico) {
+                        resultado = await politicosModel.findCampoCustom(emailUsuario, "contatoPoliticos");
+                    } else {
+                        resultado = await usuario.findCampoCustom(emailUsuario, "emailUsuario");
+                    }
+
+                    console.log(resultado);
+                    
+                    if (resultado.length >= 2) {
+                        throw new Error(mensagemErro.EMAIL_ATIVO);
+                    } else if (resultado.length === 0) {
+                        throw new Error(mensagemErro.EMAIL_INEXISTENTE);
+                    }
+
+                    return true;
+                } catch (e) {
+                    throw new Error(e);
+                }
+            }),
+        body('senha')
+            .isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
     ],
 
     cadastrarUsuario: async (req, res)=>{

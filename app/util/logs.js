@@ -5,6 +5,7 @@ exports.mensagemErro = {
     NOME_INVALIDO: "Mínimo de 3 letras e máximo de 45!",
     EMAIL_INVALIDO: "Insira um <strong>endereço de email válido</strong>.",
     EMAIL_ATIVO: "O email fornecido <strong>já está em uso</strong>.",
+    EMAIL_INEXISTENTE: "O email fornecido <strong>não existe</strong>.",
     SENHA_FRACA: "Insira uma <strong>senha forte</strong>.",
     SENHAS_DISCREPANTES: "As senhas <strong>não coincidem</strong>.",
     SENHA_INCORRETA: "Senha de usuário <strong>incorreta</strong>.",

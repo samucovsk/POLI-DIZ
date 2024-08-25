@@ -15,7 +15,7 @@ const politicoController = {
             .isEmail().withMessage(mensagemErro.EMAIL_INVALIDO)
             .custom(async emailUsuario => {
                 try {
-                    const resultado = await usuario.findUserEmail(emailUsuario);
+                    const resultado = await usuario.findCampoCustom(emailUsuario, "contatoPoliticos");
                     
                     if (resultado.length > 0) {
                         throw new Error();
@@ -90,6 +90,7 @@ const politicoController = {
                 { 
                     pagina: "politicocadastro", 
                     logado: true, 
+                    form_aprovado: true,
                     erros: null,
                     dadosForm: req.body 
                 }

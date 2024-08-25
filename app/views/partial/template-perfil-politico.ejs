@@ -1,0 +1,51 @@
+     <!--inicio do cabeçalho-->
+     <%- include("../pages/header-home") %>
+     <!--fim do cabeçalho-->
+     <!--INICIO DO CORPO-->
+    <section class="header__wrapper">
+          
+      <section class="container">
+        <section class="container_2">
+          <section class="img__container">
+            <img src="img/fotoperfil.png" alt="Anna Smith" />
+            <span></span>
+          </section>
+          <br><br><br><br><br><br>
+          <h2>Olá, candidato <%= logado.nome %></h2>
+          <p>Insira mais informações</p>
+          <p>Insira seu e-mail</p>
+
+          <ul class="sobre">
+            <li><span>0</span>Seguidores</li>
+            <li><span>0</span>Seguindo</li>
+            <li><span>0</span>Lives</li>
+          </ul>
+
+          <section class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam
+              erat volutpat. Morbi imperdiet, mauris ac auctor dictum, nisl
+              ligula egestas nulla.
+            </p>
+          </section>
+        </section>
+        <section class="content_3">
+          <nav>
+            <ul>
+              <li><a href="#">Publicações</a></li>
+              <li><a href="#">Lives</a></li>
+            </ul>
+            <button class="seguir_botao">Seguir</button>
+          </nav>
+
+          <section class="fotos">
+            <img src="img/img_1.avif" alt="fotos" />
+            <img src="img/img_2.avif" alt="fotos" />
+            <img src="img/img_3.avif" alt="fotos" />
+            <img src="img/img_4.avif" alt="fotos" />
+            <img src="img/img_5.avif" alt="fotos" />
+            <img src="img/img_6.avif" alt="fotos" />
+          </section>
+        </section>
+      </section>
+    </section>

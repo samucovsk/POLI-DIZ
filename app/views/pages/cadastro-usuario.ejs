@@ -46,7 +46,7 @@
     %>
     <script>
         /* Variável que armazena as mensagens de erro do EJS */
-        const msgErro = "<%= msgerro %>"
+        const msgErro = "<%= msgerro %>";
         displayNotify(
             "Falha: <%= erros.errors.length %> erro(s) detectados", 
             // Substituindo os símbolos pelos sinais de "<" e ">"
@@ -54,17 +54,17 @@
             "error"
         );
     </script>
-
     <% } else if (form_aprovado) { %>
         <script>
             displayNotify(
-                "Cadastro realizado com sucesso!", 
-                // Substituindo os símbolos pelos sinais de "<" e ">"
-                "Você será redirecionado para a <strong>página inicial!</strong>".replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+                "Tudo ocorreu como esperado :)", 
+                "Você será redirecionado para a <strong>página de login!</strong>".replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
                 "success"
             );
+    
+            setInterval(() => window.location.href = '/signin', 5000);
         </script>
-    <%} %>
+        <% } %> <!-- Fechando o bloco EJS -->
 
     <section class="box">
         <section class="img-box">
@@ -72,29 +72,29 @@
         </section>
         <section class="form-box">
             <h2>Criar conta</h2>
-            <p> Já tem conta? <a href="login">Login</a></p>
+            <p> Já tem conta? <a href="/login_usuario">Login</a></p>
             <form id="form" method="POST" action="/cadastro">
                 <section class="form-content">
                     <label for="nome"> Nome Completo*</label>
-                    <input type="text" name="nome" id="username" class="<%=classeErro.nome%>" placeholder="Digite seu nome completo" value="<%= dadosForm.nome %>" >
+                    <input type="text" name="nome" id="username" class="<%= classeErro.nome %>" placeholder="Digite seu nome completo" value="<%= dadosForm.nome %>" >
                     <a>Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content">
                     <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email" class="<%=classeErro.email%>"placeholder="Digite seu email" value="<%= dadosForm.email %>" >
+                    <input type="email" name="email" id="email" class="<%= classeErro.email %>" placeholder="Digite seu email" value="<%= dadosForm.email %>" >
                     <a>Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content">
                     <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
-                    <input type="date" name="data_nascimento" id="data_nascimento" class="<%=classeErro.data_nascimento%>" value="<%= dadosForm.data_nascimento %>">
+                    <input type="date" name="data_nascimento" id="data_nascimento" class="<%= classeErro.data_nascimento %>" value="<%= dadosForm.data_nascimento %>">
                     <a class="msgerro">Aqui vai a mensagem de erro</a>
                 </section>
 
                 <section class="form-content" required>
                     <label> Estado *</label>
-                    <select id="estado" name="estado" class="<%=classeErro.estado%>">
+                    <select id="estado" name="estado" class="<%= classeErro.estado %>">
                         <option value="">Selecione</option>
                         <option value="Acre">Acre</option>
                         <option value="Alagoas">Alagoas</option>
@@ -127,13 +127,13 @@
 
                     <section class="form-content" >
                         <label for="senha">Senha</label>
-                        <input type="password" id="password" name="senha" class="<%=classeErro.senha%>" placeholder="Digite sua senha" value="<%= dadosForm.senha %>">
+                        <input type="password" id="password" name="senha" class="<%= classeErro.senha %>" placeholder="Digite sua senha" value="<%= dadosForm.senha %>">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
         
                     <section class="form-content">
                         <label for="password-corfimation">Confirmar Senha</label>
-                        <input type="password" id="password-confirmation" name="confirmarSenha" class="<%=classeErro.confirmarSenha%>" placeholder="Confirme sua senha" value="<%= dadosForm.confirmarSenha %>">
+                        <input type="password" id="password-confirmation" name="confirmarSenha" class="<%= classeErro.confirmarSenha %>" placeholder="Confirme sua senha" value="<%= dadosForm.confirmarSenha %>">
                         <a class="msgerro">Aqui vai a mensagem de erro</a>
                     </section>
 

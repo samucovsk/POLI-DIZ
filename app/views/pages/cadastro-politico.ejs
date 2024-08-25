@@ -20,6 +20,7 @@
         email: "",
         data_nascimento: "",
         estado: "",
+        partido: "",
         senha: "",
         confirmarSenha: "",
     };
@@ -29,22 +30,22 @@
         email: "",
         data_nascimento: "",
         estado: "",
+        partido: "",
         senha: "",
         confirmarSenha: "",
     };
-    var msgerro = ""
+    var msgerro = "";
 
-    // Verificando erros e atualizando camposNomes e classeErro
     if (erros) {
         erros.errors.forEach(err => {
-                camposNomes[err.path] = err.msg;
-                classeErro[err.path] = "erro";
-                msgerro+=err.msg+"<br>"
+            camposNomes[err.path] = err.msg;
+            classeErro[err.path] = "erro";
+            msgerro += err.msg + "<br>";
         });
     %>
     <script>
         /* Variável que armazena as mensagens de erro do EJS */
-        const msgErro = "<%= msgerro %>"
+        const msgErro = "<%= msgerro %>";
         displayNotify(
             "Falha: <%= erros.errors.length %> erro(s) detectados", 
             // Substituindo os símbolos pelos sinais de "<" e ">"
@@ -52,24 +53,25 @@
             "error"
         );
     </script>
-
     <% } else if (form_aprovado) { %>
         <script>
             displayNotify(
-                "Cadastro realizado com sucesso!", 
-                // Substituindo os símbolos pelos sinais de "<" e ">"
-                "Você será redirecionado para a <strong>página inicial!</strong>".replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+                "Tudo ocorreu como esperado :)", 
+                "Você será redirecionado para a <strong>página de login!</strong>".replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
                 "success"
             );
+    
+            setInterval(() => window.location.href = '/signin', 5000);
         </script>
     <% } %>
+
     <section class="box">
         <section class="img-box">
             <img src="imagem/formulario-politico.jpg"> 
         </section>
         <section class="form-box">
             <h2>Criar conta</h2>
-            <p> Já tem conta? <a href="#">Login</a></p>
+            <p> Já tem conta? <a href="/login_usuario">Login</a></p>
             <form id="form" method="post" action="/cadastro-politico">
                 <section class="input-group">
                     <label for="nome"> Nome Completo<a>*</a></label>
@@ -79,16 +81,18 @@
                 <section class="input-group">
                     <label for="email">E-mail</label>
                     <input type="text" id="email" name="email" class="<%= classeErro.email %>" placeholder="Digite seu email" value="<%= dadosForm.email %>" required>
+                    
                 </section>
 
                 <section class="input-group">
                     <label for="data_nascimento"><b>Data de Nascimento<a>*</a></b></label>
-                    <input type="date" name="data_nascimento" id="data_nascimento" class="inputUser <% classeErro.data_nascimento %>" value="<%= dadosForm.data_nascimento %>" required>
+                    <input type="date" name="data_nascimento" id="data_nascimento" class="inputUser <%= classeErro.data_nascimento %>" value="<%= dadosForm.data_nascimento %>" required>
                 </section>
 
                 <section class="input-group">
                     <label for="partido">Partido<a>*</a></label>
                     <input type="text" id="partido" name="partido" placeholder="Digite seu Partido" required class="<%= classeErro.partido %>" value="<%= dadosForm.partido %>">
+                    
                 </section>
 
                 <section class="input-group">
@@ -123,16 +127,19 @@
                         <option value="Sergipe">Sergipe</option>
                         <option value="Tocantins">Tocantins</option>
                     </select>
+                    
                 </section>
 
                 <section class="input-group w50">
                     <label for="senha">Senha</label>
                     <input type="password" id="senha" name="senha" class="<%= classeErro.senha %>" placeholder="Digite sua senha" value="<%= dadosForm.senha %>" required>
+                    
                 </section>
 
                 <section class="input-group w50">
                     <label for="confirmarSenha">Confirmar Senha</label>
                     <input type="password" id="confirmarSenha" name="confirmarSenha" class="<%= classeErro.confirmarSenha %>" placeholder="Confirme sua senha" value="<%= dadosForm.confirmarSenha %>" required>
+                    
                 </section>
 
                 <section class="input-group">

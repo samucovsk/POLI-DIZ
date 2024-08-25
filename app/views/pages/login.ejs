@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
+    <script type="text/javascript" async="" src="js/cadastro-usuario.js"></script>
+    <script type="text/javascript" src="js/notify.js"></script>
+
     <script type="text/javascript" async="" src="./js/login.js"></script>
     <title>Login</title>
 </head>
@@ -44,6 +50,8 @@
             "Você será redirecionado para a <strong>página de seu perfil!</strong>".replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
             "success"
         );
+
+        setInterval(() => window.location.href = '/perfil', 5000);
     </script>
     <% } %>
 
@@ -51,17 +59,17 @@
         <form method="post" action="/signin">
             <h1>Login</h1>
             <section class="input-box">
-                <input type="email" name="email" placeholder="Email" class="<%= classeErro.email %>" value="<%= camposNomes.email %>" required>
+                <input type="email" name="email" placeholder="Email" class="<%= classeErro.email %>" value="<%= dadosForm.email %>" required>
                 <i class="bx bxs-user"></i>
             </section>
 
             <section class="input-box">
-                <input type="password" name="senha" placeholder="Password" class="<%= classeErro.senha %>" required>
+                <input type="password" name="senha" placeholder="Password" class="<%= classeErro.senha %>" value="<%= dadosForm.senha %>" required>
                 <i class='bx bxs-lock'></i>
             </section>
 
             <section class="remember-forgot">
-                <label><input name="tipo_politico" value="true" type="checkbox">Sou Político</label>
+                <label><input name="tipo_politico" value="on" type="checkbox">Sou Político</label>
                 <a href="#">Esqueceu a senha?</a>
             </section>
 

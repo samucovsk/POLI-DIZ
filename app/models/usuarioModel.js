@@ -17,11 +17,11 @@ const usuarioModel = {
         }
     },
 
-    findUserEmail: async (camposForm) => {
+    findCampoCustom: async (dados, coluna) => {
         try {
             const [resultados] = await pool.query(
-                "SELECT * FROM Usuario WHERE emailUsuario = ?",
-                [camposForm]
+                `SELECT * FROM Usuario WHERE ${coluna} = ?`,
+                [dados]
             );
             return resultados;
         } catch (error) {

@@ -13,11 +13,11 @@ const politicosModel = {
         }
     },
 
-    findUserEmail: async (camposForm) => {
+    findCampoCustom: async (dados, coluna) => {
         try {
             const [resultados] = await pool.query(
-                "SELECT * FROM Politicos WHERE contatoPoliticos = ?",
-                [camposForm.email]
+                `SELECT * FROM Politicos WHERE ${coluna} = ?`,
+                [dados]
             );
             return resultados;
         } catch (error) {

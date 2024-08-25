@@ -7,7 +7,7 @@ const verificarUsuAutenticado = (req, res, next) => {
     if (req.session.autenticado) {
         var autenticado = req.session.autenticado;
     } else {
-        var autenticado = { autenticado: null, id: null, tipo: null };
+        var autenticado = { nome: null, id: null, tipo: null };
     }
     req.session.autenticado = autenticado;
     next();
@@ -19,50 +19,46 @@ const limparSessao = (req, res, next) => {
 }
 
 const gravarUsuAutenticado = async (req, res, next) => {
-    erros = validationResult(req)
+    const erros = validationResult(req); 
+    var autenticado = { nome: null, id: null, data_nascimento: null };
+
     if (erros.isEmpty()) {
-        var dadosForm = {
-            email: req.body.email,
-            senha: req.body.senha,
-            politico: req.body.tipo_politico
-        };
         let results;
         let total = 0;
+        let isPolitico = req.body.tipo_politico ? true : false;        
 
-        if (politico) {
-            results = await politico.findUserEmail(dadosForm);
+        if (isPolitico) {
+            results = await politico.findCampoCustom(req.body.email, "contatoPoliticos");
         } else {
-            results = await usuario.findUserEmail(dadosForm);
+            results = await usuario.findCampoCustom(req.body.email, "emailUsuario");
         }
         total = Object.keys(results).length;
-
+        
         if (total == 1) {
-            let compararSenha = politico 
-                ? bcrypt.compareSync(dadosForm.senha, results[0].senhaPolitico)
-                : bcrypt.compareSync(dadosForm.senha, results[0].senhaUsuario);
+            let compararSenha = isPolitico 
+                ? bcrypt.compareSync(req.body.senha, results[0].senhaPoliticos)
+                : bcrypt.compareSync(req.body.senha, results[0].senha);
 
             if (compararSenha) {
-                if (politico) {
-                    var autenticado = {
-                        nome: results[0].nomePolitico,
-                        id: results[0].idPolitico,
-                        data_nascimento: results[0].dataNascPolitico
+                if (isPolitico) {
+                    autenticado = {
+                        nome: results[0].nomePoliticos,
+                        id: results[0].idPoliticos,
+                        data_nascimento: results[0].dataNascPoliticos,
+                        tipo: "politico"
                     };
                 } else {
-                    var autenticado = {
+                    autenticado = {
                         nome: results[0].nomeUsuario,
                         id: results[0].idUsuario,
-                        data_nascimento: results[0].dataNascUsuario
+                        data_nascimento: results[0].dataNascUsuario,
+                        tipo: "usuario"
                     };
                 }
             }
-        } else {
-            var autenticado =  { nome: null, id: null, data_nascimento: null };
         }
-    } else {
-        var autenticado =  { nome: null, id: null, data_nascimento: null };
     }
-    req.session.autenticado = autenticado;
+    req.session.autenticado = autenticado; 
     console.log(req.session.autenticado);
     
     next();
@@ -71,7 +67,7 @@ const gravarUsuAutenticado = async (req, res, next) => {
 const verificarUsuAutorizado = (tipoPermitido, destinoFalha) => {
     return (req, res, next) => {
         if (req.session.autenticado.autenticado != null &&
-            tipoPermitido.find(function (element) { return element == req.session.autenticado.tipo }) != undefined) {
+            tipoPermitido.includes(req.session.autenticado.tipo)) { 
             next();
         } else {
             res.render(destinoFalha, req.session.autenticado);
