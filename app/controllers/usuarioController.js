@@ -86,12 +86,12 @@ const usuarioController = {
                             ? politicosModel.findCampoCustom(req.body.email, "contatoPoliticos")
                             : usuarioModel.findCampoCustom(req.body.email, "emailUsuario")
                     );
-                    
-                    let compararSenha = isPolitico 
-                        ? bcrypt.compareSync(senhaForm, results[0].senhaPoliticos)
-                        : bcrypt.compareSync(senhaForm, results[0].senha);                    
+
+                    const senhaCorreta = isPolitico
+                        ? results[0].senhaPoliticos
+                        : results[0].senha;               
                         
-                    if (!compararSenha) {
+                    if (!bcrypt.compareSync(senhaForm, senhaCorreta)) {
                         msgErroPadrao = true; 
                     }
                     
