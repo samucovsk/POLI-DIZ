@@ -76,18 +76,25 @@ const usuarioController = {
             }),
         body('senha')
             .isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
-            .custom((senhaForm, { req }) => {
+            .custom(async (senhaForm, { req }) => {
                 let msgErroPadrao = false;
                 try {
                     const isPolitico = req.body.tipo_politico ? true : false;
 
+                    const results = await (
+                        isPolitico
+                            ? politicosModel.findCampoCustom(req.body.email, "contatoPoliticos")
+                            : usuarioModel.findCampoCustom(req.body.email, "emailUsuario")
+                    );
+                    
                     let compararSenha = isPolitico 
-                    ? bcrypt.compareSync(senhaForm, results[0].senhaPoliticos)
-                    : bcrypt.compareSync(senhaForm, results[0].senha);
-
+                        ? bcrypt.compareSync(senhaForm, results[0].senhaPoliticos)
+                        : bcrypt.compareSync(senhaForm, results[0].senha);                    
+                        
                     if (!compararSenha) {
                         msgErroPadrao = true; 
                     }
+                    
                 } catch (err) {
                     throw new Error(err);
                 }
