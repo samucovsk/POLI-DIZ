@@ -34,27 +34,21 @@ const gravarUsuAutenticado = async (req, res, next) => {
         }
         total = Object.keys(results).length;
         
-        if (total == 1) {
-            let compararSenha = isPolitico 
-                ? bcrypt.compareSync(req.body.senha, results[0].senhaPoliticos)
-                : bcrypt.compareSync(req.body.senha, results[0].senha);
-
-            if (compararSenha) {
-                if (isPolitico) {
-                    autenticado = {
-                        nome: results[0].nomePoliticos,
-                        id: results[0].idPoliticos,
-                        data_nascimento: results[0].dataNascPoliticos,
-                        tipo: "politico"
-                    };
-                } else {
-                    autenticado = {
-                        nome: results[0].nomeUsuario,
-                        id: results[0].idUsuario,
-                        data_nascimento: results[0].dataNascUsuario,
-                        tipo: "usuario"
-                    };
-                }
+        if (total == 1) {           
+            if (isPolitico) {
+                autenticado = {
+                    nome: results[0].nomePoliticos,
+                    id: results[0].idPoliticos,
+                    data_nascimento: results[0].dataNascPoliticos,
+                    tipo: "politico"
+                };
+            } else {
+                autenticado = {
+                    nome: results[0].nomeUsuario,
+                    id: results[0].idUsuario,
+                    data_nascimento: results[0].dataNascUsuario,
+                    tipo: "usuario"
+                };
             }
         }
     }

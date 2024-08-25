@@ -76,6 +76,26 @@ const usuarioController = {
             }),
         body('senha')
             .isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
+            .custom((senhaForm, { req }) => {
+                let msgErroPadrao = false;
+                try {
+                    const isPolitico = req.body.tipo_politico ? true : false;
+
+                    let compararSenha = isPolitico 
+                    ? bcrypt.compareSync(senhaForm, results[0].senhaPoliticos)
+                    : bcrypt.compareSync(senhaForm, results[0].senha);
+
+                    if (!compararSenha) {
+                        msgErroPadrao = true; 
+                    }
+                } catch (err) {
+                    throw new Error(err);
+                }
+
+                if (msgErroPadrao) {
+                    throw new Error(msgErroPadrao);
+                }
+            }).withMessage(mensagemErro.SENHA_INCORRETA)
     ],
 
     cadastrarUsuario: async (req, res)=>{
