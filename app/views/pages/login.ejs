@@ -51,7 +51,10 @@
             "success"
         );
 
-        setInterval(() => window.location.href = '/perfil', 5000);
+        setInterval(() => {
+            const tipoUsuario = "<%= logado.tipo %>";
+            window.location.href = `/perfil-${tipoUsuario}`, 5000;
+        });
     </script>
     <% } %>
 

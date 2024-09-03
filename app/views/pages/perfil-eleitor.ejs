@@ -5,27 +5,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil Eleitor</title>
+    <title>Perfil do Eleitor <%= logado.nome %></title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     />
     <!-- CSS -->
-    <link rel="stylesheet" href="css/perfil-eleitor.css" />
+    <link rel="stylesheet" href="./css/perfil-eleitor.css" />
   </head>
   <body>
     <section class="header__wrapper">
-      <header></header>
+      <%- include("../pages/header-home") %>
       <section class="container">
         <section class="container_2">
           <section class="img__container">
             <img src="img/fotoperfil.jpg"/>
             <span></span>
           </section>
-          <h2>Seu nome</h2>
-          <p>Eleitor de Barueri.</p>
+          <h2><%= logado.nome %></h2>
+          <ul style="display: flex; gap: 15px">
+            <li>Eleitor de <%= logado.estado %>.</li>
+            <li>
+              <a href="/editar-eleitor">
+                Editar
+              </a>
+            </li>
+          </ul>
 
-          <ul class="sobre">
+          <ul class="sobre_user">
             <li><span>0</span>Seguindo</li>
           </ul>
 

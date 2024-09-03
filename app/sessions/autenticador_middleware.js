@@ -39,15 +39,17 @@ const gravarUsuAutenticado = async (req, res, next) => {
                 autenticado = {
                     nome: results[0].nomePoliticos,
                     id: results[0].idPoliticos,
+                    estado: results[0].ufPoliticos,
                     data_nascimento: results[0].dataNascPoliticos,
-                    tipo: "politico"
+                    tipo: "candidato"
                 };
             } else {
                 autenticado = {
                     nome: results[0].nomeUsuario,
                     id: results[0].idUsuario,
+                    estado: results[0].enderecoUsuario,
                     data_nascimento: results[0].dataNascUsuario,
-                    tipo: "usuario"
+                    tipo: "eleitor"
                 };
             }
         }
@@ -58,13 +60,13 @@ const gravarUsuAutenticado = async (req, res, next) => {
     next();
 }
 
-const verificarUsuAutorizado = (tipoPermitido, destinoFalha) => {
+const verificarUsuAutorizado = (tipoPermitido, destinoFalha, dadosPagina) => {
     return (req, res, next) => {
-        if (req.session.autenticado.autenticado != null &&
+        if (req.session.autenticado.nome != null &&
             tipoPermitido.includes(req.session.autenticado.tipo)) { 
             next();
         } else {
-            res.render(destinoFalha, req.session.autenticado);
+            res.render(destinoFalha, dadosPagina);
         }
     };
 }

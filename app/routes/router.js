@@ -5,6 +5,7 @@ const pool = require('../../config/pool-conexoes');
 const usuarioController = require("../controllers/usuarioController");
 const politicoController = require("../controllers/politicosController");
 const { autenticador } = require("../sessions/autenticador_middleware");
+const { mensagemErro } = require("../util/logs");
 
 
 /* ====================== Rotas GET ====================== */
@@ -99,11 +100,25 @@ router.get('/signin', function (req, res) {
     )
 });
 
-router.get('/perfil', function (req, res) {
-    console.log(req.session.autenticado);
-    
-    res.render('pages/perfil', { pagina: "escolha", logado: req.session.autenticado })
-});
+router.get(
+    '/perfil-eleitor', 
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    function (req, res) {
+        console.log(req.session.autenticado);
+        res.render('pages/perfil-eleitor', { pagina: "perfil-eleitor", logado: req.session.autenticado });
+    }
+);
+
+router.get(
+    '/perfil-candidato', 
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    function (req, res) {
+        console.log(req.session.autenticado);
+        res.render('pages/perfil-candidato', { pagina: "perfil-candidato", logado: req.session.autenticado });
+    }
+);
 
 /* ====================== Rotas POST ====================== */
 
