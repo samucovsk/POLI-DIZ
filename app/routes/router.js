@@ -7,6 +7,8 @@ const politicoController = require("../controllers/politicosController");
 const { autenticador } = require("../sessions/autenticador_middleware");
 const { mensagemErro } = require("../util/logs");
 
+const upload = require("../util/uploadImg");
+const uploadPerfil = upload("./app/public/imagem/imagens-servidor/perfil/", 3, ['jpeg', 'jpg', 'png'],);
 
 /* ====================== Rotas GET ====================== */
 
@@ -120,6 +122,28 @@ router.get(
     }
 );
 
+router.get(
+    '/editar_eleitor', 
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    function (req, res) {
+        console.log(req.session.autenticado);
+        res.render(
+            'pages/editar-eleitor', 
+            { 
+                logado: req.session.autenticado,
+                dadosForm: {
+                    nome: req.session.autenticado.nome,
+                    foto_usuario: req.session.autenticado.foto_usuario,
+                    desc_usuario: req.session.autenticado.desc_usuario,
+                    estado: req.session.autenticado.estado
+                },
+                erros: null
+            }
+        );
+    }
+);
+
 /* ====================== Rotas POST ====================== */
 
 router.post("/cadastro", usuarioController.regrasValidacaoFormCad, function (req, res){
@@ -137,6 +161,19 @@ router.post('/signin', usuarioController.regrasValidacaoFormLogin, autenticador.
     
     usuarioController.signInEleitor(req, res);
 });
+
+// Atualizar dados de usuário
+
+router.post(
+    '/update_eleitor',
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    uploadPerfil("imgPerfil"),
+    usuarioController.regrasValidacaoFormAttPerfil,
+    function (req, res) {
+        usuarioController.atualizarConta(req, res);
+    }
+);
 
 //banco de dados//
 router.get('/tabelas', async (req, res) => {

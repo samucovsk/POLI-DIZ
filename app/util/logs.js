@@ -2,6 +2,7 @@
 exports.mensagemErro = {
     CPF_INVALIDO: "Insira um <strong>CPF válido</strong>.",
     UF_INVALIDA: "Insira um Estado.",
+    DESC_INVALIDA: "Descrição com mínimo de 15 e máximo de 250 caracteres.",
     NOME_INVALIDO: "Mínimo de 3 letras e máximo de 45!",
     EMAIL_INVALIDO: "Insira um <strong>endereço de email válido</strong>.",
     EMAIL_ATIVO: "O email fornecido <strong>já está em uso</strong>.",
