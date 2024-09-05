@@ -22,7 +22,7 @@ a {
 
 .header__wrapper header {
   width: 100%;
-  background: url("../img/fundoperfilcandidado.png") no-repeat 50% 20% / cover;
+  background: url("../imagem/fundoperfilcandidado.png") no-repeat 50% 20% / cover;
   min-height: calc(100px + 15vw);
 }
 
