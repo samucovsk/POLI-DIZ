@@ -19,7 +19,7 @@
       <section class="container">
         <section class="container_2">
           <section class="img__container">
-            <img src="img/fotoperfil.jpg"/>
+            <img src="imagem/imagens_servidor/perfil/<%= logado.foto_usuario %>"/>
             <span></span>
           </section>
           <h2><%= logado.nome %></h2>
@@ -38,7 +38,7 @@
 
           <section class="content">
             <p>
-             Insira uma breve descrição sobre você.
+             <%= logado.desc_usuario %>
             </p>
           </section>
         </section>

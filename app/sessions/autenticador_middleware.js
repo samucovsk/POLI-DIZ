@@ -48,6 +48,11 @@ const gravarUsuAutenticado = async (req, res, next) => {
                     nome: results[0].nomeUsuario,
                     id: results[0].idUsuario,
                     estado: results[0].enderecoUsuario,
+                    cpf: results[0].CPFUsuario,
+                    cep: results[0].cepUsuario,
+                    telefone: results[0].TelefoneUsuario,
+                    foto_usuario: results[0].fotoPerfilUsuario,
+                    desc_usuario: results[0].descUsuario,
                     data_nascimento: results[0].dataNascUsuario,
                     tipo: "eleitor"
                 };

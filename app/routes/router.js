@@ -132,12 +132,7 @@ router.get(
             'pages/editar-eleitor', 
             { 
                 logado: req.session.autenticado,
-                dadosForm: {
-                    nome: req.session.autenticado.nome,
-                    foto_usuario: req.session.autenticado.foto_usuario,
-                    desc_usuario: req.session.autenticado.desc_usuario,
-                    estado: req.session.autenticado.estado
-                },
+                dadosForm: req.session.autenticado,
                 erros: null
             }
         );
@@ -185,5 +180,18 @@ router.get('/tabelas', async (req, res) => {
         res.status(500).send('Erro ao listar as tabelas');
     }
 });
+
+// Apenas teste (pode apagar dps)
+router.get('/pegar_usuario', async (req, res) => {
+    try {
+        const [results, fields] = await pool.query('SELECT * FROM Usuario WHERE idUsuario = 53');
+        res.json(results);
+        console.log(results);
+        
+    } catch (error) {
+        console.error('Erro ao listar as tabelas:', error);
+        res.status(500).send('Erro ao listar as tabelas');
+    }
+})
 
 module.exports = router;

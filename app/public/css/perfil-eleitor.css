@@ -41,15 +41,16 @@ ul, li {
 }
 
 .img__container {
+  width: 120px;
+  height: 120px;
   position: relative;
   display: inline-block;
-  margin-bottom: 15px;
 }
 
 .img__container img {
-  width: 120px; 
-  height: 120px;
-  border-radius: 50%; 
+  width: 100%; 
+  height: auto;
+  border-radius: 50%;
   border: 2px solid #333; 
 }
 

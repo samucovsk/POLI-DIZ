@@ -182,6 +182,45 @@ const usuarioController = {
                 form_aprovado: true,
                 dadosForm: req.body
             });
+    },
+
+    atualizarConta: async (req, res) => {
+        const erros = validationResult(req);
+        
+        if (!erros.isEmpty()) {
+            return res.render('/editar_eleitor', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
+        }
+
+        try {
+            if (req.body.desc_usuario === '') {
+                req.body.desc_usuario = "Usuário sem descrição.";
+            }
+
+            const results = await usuarioModel.update(req.body, parseInt(req.session.autenticado.id));
+            console.log(results);
+            console.log("Dados atualizados!");
+
+            const usuarioAtualizado = await usuarioModel.findId(parseInt(req.session.autenticado.id));
+
+            if (usuarioAtualizado) {
+                req.session.autenticado = {
+                    nome: results[0].nomeUsuario,
+                    id: results[0].idUsuario,
+                    estado: results[0].enderecoUsuario,
+                    cpf: results[0].CPFUsuario,
+                    cep: results[0].cepUsuario,
+                    telefone: results[0].TelefoneUsuario,
+                    foto_usuario: results[0].fotoPerfilUsuario,
+                    desc_usuario: results[0].descUsuario,
+                    data_nascimento: results[0].dataNascUsuario,
+                    tipo: "eleitor"
+                };
+            }
+
+            res.render('pages/perfil-eleitor', { logado: req.session.autenticado });
+        } catch (err) {
+            console.log(err);
+        }
     }
 
 }

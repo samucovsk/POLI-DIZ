@@ -8,16 +8,39 @@
 <body>
     <section class="header__wrapper">
         <%- include("../pages/header-home") %>
+        <form action="update_photo" method="post">
+          <section class="img__container">
+            <input type="file" name="img_perfil" id="img_perfil">
+          </section>
+
+          <input type="submit" value="Mudar Foto">
+        </form>
+
         <form action="/update_eleitor" method="post" class="container" style="margin-top: 15em;">
           <section class="container_2">
-            <section class="img__container">
-              <input type="file" name="img_perfil" id="img_perfil">
-            </section>
             <section>
                 <label for="nome">Nome de usuário:</label>
                 <input type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
             </section>
             <section>
+              
+          <section>
+            <label for="nome">CEP:</label>
+            <input type="text" name="cep" id="cep" value="<%=dadosForm.cep%>">
+          </section>
+
+          <section>
+            <label for="nome">Telefone:</label>
+            <input type="text" name="telefone" id="telefone" value="<%=dadosForm.telefone%>">
+          </section>
+
+          <section>
+            <label for="cpf">CPF:</label>
+            <input type="text" name="cpf" id="cpf" value="<%=dadosForm.cpf%>">
+          </section>
+
+
+          <section>
                 <label> Estado <a>*</a></label>
                 <select id="estado" class="" name="estado">
                     <option selected disabled value="">Selecione</option>
