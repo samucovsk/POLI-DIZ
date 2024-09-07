@@ -105,6 +105,11 @@ const usuarioController = {
             }).withMessage(mensagemErro.SENHA_INCORRETA)
     ],
 
+    regrasValidacaoFormAttPerfil: [
+        body('nome').isLength({ min: 3 }).withMessage(mensagemErro.NOME_INVALIDO),
+        body('desc_usuario').isLength({ min: 3, max: 250 }).withMessage(mensagemErro.DESC_INVALIDA),
+    ],
+
     cadastrarUsuario: async (req, res)=>{
         const erros = validationResult(req)
         if (!erros.isEmpty()){
