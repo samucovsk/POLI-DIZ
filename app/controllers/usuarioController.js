@@ -197,18 +197,18 @@ const usuarioController = {
             console.log("Dados atualizados!");
 
             const usuarioAtualizado = await usuarioModel.findId(parseInt(req.session.autenticado.id));
-
-            if (usuarioAtualizado) {
+            
+            if (usuarioAtualizado.length > 0) {
                 req.session.autenticado = {
-                    nome: results[0].nomeUsuario,
-                    id: results[0].idUsuario,
-                    estado: results[0].enderecoUsuario,
-                    cpf: results[0].CPFUsuario,
-                    cep: results[0].cepUsuario,
-                    telefone: results[0].TelefoneUsuario,
-                    foto_usuario: results[0].fotoPerfilUsuario,
-                    desc_usuario: results[0].descUsuario,
-                    data_nascimento: results[0].dataNascUsuario,
+                    nome: usuarioAtualizado[0].nomeUsuario,
+                    id: usuarioAtualizado[0].idUsuario,
+                    estado: usuarioAtualizado[0].enderecoUsuario,
+                    cpf: usuarioAtualizado[0].CPFUsuario,
+                    cep: usuarioAtualizado[0].cepUsuario,
+                    telefone: usuarioAtualizado[0].TelefoneUsuario,
+                    foto_usuario: usuarioAtualizado[0].fotoPerfilUsuario,
+                    desc_usuario: usuarioAtualizado[0].descUsuario,
+                    data_nascimento: usuarioAtualizado[0].dataNascUsuario,
                     tipo: "eleitor"
                 };
             }
