@@ -188,14 +188,10 @@ const usuarioController = {
         const erros = validationResult(req);
         
         if (!erros.isEmpty()) {
-            return res.render('/editar_eleitor', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
+            return res.render('pages/editar-eleitor', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
         }
 
         try {
-            if (req.body.desc_usuario === '') {
-                req.body.desc_usuario = "Usuário sem descrição.";
-            }
-
             const results = await usuarioModel.update(req.body, parseInt(req.session.autenticado.id));
             console.log(results);
             console.log("Dados atualizados!");
