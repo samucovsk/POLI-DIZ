@@ -6,9 +6,8 @@ const usuarioController = require("../controllers/usuarioController");
 const politicoController = require("../controllers/politicosController");
 const { autenticador } = require("../sessions/autenticador_middleware");
 const { mensagemErro } = require("../util/logs");
-
 const upload = require("../util/uploadImg");
-const uploadPerfil = upload("./app/public/imagem/imagens-servidor/perfil/", 3, ['jpeg', 'jpg', 'png'],);
+const uploadPerfil = upload("./app/public/imagem/imagens_servidor/perfil/", 3, ['jpeg', 'jpg', 'png'], 3 / 4, 0);
 
 /* ====================== Rotas GET ====================== */
 
@@ -108,7 +107,7 @@ router.get(
     autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
     function (req, res) {
         console.log(req.session.autenticado);
-        res.render('pages/perfil-eleitor', { pagina: "perfil-eleitor", logado: req.session.autenticado });
+        res.render('pages/perfil-eleitor', { pagina: "perfil-eleitor", logado: req.session.autenticado, dadosNotificacao: null });
     }
 );
 
@@ -118,7 +117,7 @@ router.get(
     autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
     function (req, res) {
         console.log(req.session.autenticado);
-        res.render('pages/perfil-candidato', { pagina: "perfil-candidato", logado: req.session.autenticado });
+        res.render('pages/perfil-candidato', { pagina: "perfil-candidato", logado: req.session.autenticado, dadosNotificacao: null });
     }
 );
 
@@ -160,15 +159,35 @@ router.post('/signin', usuarioController.regrasValidacaoFormLogin, autenticador.
 // Atualizar dados de usuário
 
 router.post(
-    '/update_eleitor',
+    '/atualizar_perfil_eleitor',
     autenticador.verificarUsuAutenticado, 
     autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
-    uploadPerfil("imgPerfil"),
     usuarioController.regrasValidacaoFormAttPerfil,
+    function (req, res) {
+        usuarioController.atualizarPerfil(req, res);
+    }
+);
+
+router.post(
+    '/atualizar_conta_eleitor',
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    usuarioController.regrasValidacaoFormAttConta,
     function (req, res) {
         usuarioController.atualizarConta(req, res);
     }
 );
+
+router.post(
+    '/atualizar_fotos_eleitor',
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    uploadPerfil("imgPerfil"),
+    function (req, res) {
+        console.log(req.body);
+        usuarioController.mudarFotos(req, res);
+    }
+)
 
 //banco de dados//
 router.get('/tabelas', async (req, res) => {

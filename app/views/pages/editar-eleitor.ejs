@@ -6,85 +6,8 @@
     <title>Editar dados do perfil</title>
 </head>
 <body>
-    <section class="header__wrapper">
-        <%- include("../pages/header-home") %>
-        <form action="update_photo" method="post">
-          <section class="img__container">
-            <input type="file" name="img_perfil" id="img_perfil">
-          </section>
-
-          <input type="submit" value="Mudar Foto">
-        </form>
-
-        <form action="/update_eleitor" method="post" class="container" style="margin-top: 15em;">
-          <section class="container_2">
-            <section>
-                <label for="nome">Nome de usuário:</label>
-                <input type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
-            </section>
-            <section>
-
-          <section>
-            <label for="nome">CEP:</label>
-            <input type="text" name="cep" id="cep" value="<%=dadosForm.cep%>">
-          </section>
-
-          <section>
-            <label for="nome">Telefone:</label>
-            <input type="text" name="telefone" id="telefone" value="<%=dadosForm.telefone%>">
-          </section>
-
-          <section>
-            <label for="cpf">CPF:</label>
-            <input type="text" name="cpf" id="cpf" value="<%=dadosForm.cpf%>">
-          </section>
-
-
-          <section>
-                <label> Estado <a>*</a></label>
-                <select id="estado" class="" name="estado">
-                  <option disabled value="">Selecione</option>
-                  <option value="Acre" <%= dadosForm.estado === 'Acre' ? 'selected' : '' %>>Acre</option>
-                  <option value="Alagoas" <%= dadosForm.estado === 'Alagoas' ? 'selected' : '' %>>Alagoas</option>
-                  <option value="Amapá" <%= dadosForm.estado === 'Amapá' ? 'selected' : '' %>>Amapá</option>
-                  <option value="Amazonas" <%= dadosForm.estado === 'Amazonas' ? 'selected' : '' %>>Amazonas</option>
-                  <option value="Bahia" <%= dadosForm.estado === 'Bahia' ? 'selected' : '' %>>Bahia</option>
-                  <option value="Ceará" <%= dadosForm.estado === 'Ceará' ? 'selected' : '' %>>Ceará</option>
-                  <option value="Distrito Federal" <%= dadosForm.estado === 'Distrito Federal' ? 'selected' : '' %>>Distrito Federal</option>
-                  <option value="Espírito Santo" <%= dadosForm.estado === 'Espírito Santo' ? 'selected' : '' %>>Espírito Santo</option>
-                  <option value="Goiás" <%= dadosForm.estado === 'Goiás' ? 'selected' : '' %>>Goiás</option>
-                  <option value="Maranhão" <%= dadosForm.estado === 'Maranhão' ? 'selected' : '' %>>Maranhão</option>
-                  <option value="Mato Grosso" <%= dadosForm.estado === 'Mato Grosso' ? 'selected' : '' %>>Mato Grosso</option>
-                  <option value="Mato Grosso do Sul" <%= dadosForm.estado === 'Mato Grosso do Sul' ? 'selected' : '' %>>Mato Grosso do Sul</option>
-                  <option value="Minas Gerais" <%= dadosForm.estado === 'Minas Gerais' ? 'selected' : '' %>>Minas Gerais</option>
-                  <option value="Pará" <%= dadosForm.estado === 'Pará' ? 'selected' : '' %>>Pará</option>
-                  <option value="Paraíba" <%= dadosForm.estado === 'Paraíba' ? 'selected' : '' %>>Paraíba</option>
-                  <option value="Paraná" <%= dadosForm.estado === 'Paraná' ? 'selected' : '' %>>Paraná</option>
-                  <option value="Pernambuco" <%= dadosForm.estado === 'Pernambuco' ? 'selected' : '' %>>Pernambuco</option>
-                  <option value="Piauí" <%= dadosForm.estado === 'Piauí' ? 'selected' : '' %>>Piauí</option>
-                  <option value="Rio de Janeiro" <%= dadosForm.estado === 'Rio de Janeiro' ? 'selected' : '' %>>Rio de Janeiro</option>
-                  <option value="Rio Grande do Norte" <%= dadosForm.estado === 'Rio Grande do Norte' ? 'selected' : '' %>>Rio Grande do Norte</option>
-                  <option value="Rio Grande do Sul" <%= dadosForm.estado === 'Rio Grande do Sul' ? 'selected' : '' %>>Rio Grande do Sul</option>
-                  <option value="Rondônia" <%= dadosForm.estado === 'Rondônia' ? 'selected' : '' %>>Rondônia</option>
-                  <option value="Roraima" <%= dadosForm.estado === 'Roraima' ? 'selected' : '' %>>Roraima</option>
-                  <option value="Santa Catarina" <%= dadosForm.estado === 'Santa Catarina' ? 'selected' : '' %>>Santa Catarina</option>
-                  <option value="São Paulo" <%= dadosForm.estado === 'São Paulo' ? 'selected' : '' %>>São Paulo</option>
-                  <option value="Sergipe" <%= dadosForm.estado === 'Sergipe' ? 'selected' : '' %>>Sergipe</option>
-                  <option value="Tocantins" <%= dadosForm.estado === 'Tocantins' ? 'selected' : '' %>>Tocantins</option>
-              </select>
-              
-            </section>
-  
-            <section>
-              <label for="desc_usuario">
-               Insira uma breve descrição sobre você.
-              </label>
-              <textarea name="desc_usuario" id="desc_usuario"><%=dadosForm.desc_usuario%></textarea>
-            </section>
-
-            <input type="submit" value="Alterar dados">
-        </form>
-        </section>
-      </section>
+      <%- include("../partial/editar-perfil-eleitor") %>
+      <%- include("../partial/editar-foto-eleitor") %>
+      <%- include("../partial/editar-conta-eleitor") %>
 </body>
 </html>

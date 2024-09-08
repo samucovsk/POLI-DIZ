@@ -1,0 +1,15 @@
+<form action="atualizar_conta_eleitor" method="post">
+    <fieldset>
+        <legend>Dados sensíveis</legend>
+        <label for="email">
+            Insira um email:
+        </label>
+        <input type="email" name="email" id="email" value="<%= dadosForm.email %>">
+        <label for="senha">
+            Insira uma nova senha:
+        </label>
+        <input type="password" name="senha" id="senha" value="<%= dadosForm.senha %>">
+
+        <input type="submit" value="Atualizar dados">
+    </fieldset>
+</form>

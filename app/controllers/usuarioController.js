@@ -1,9 +1,11 @@
 const usuario = require("../models/usuarioModel");
+var pool = require("../../config/pool-conexoes");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const { mensagemErro } = require("../util/logs");
 const usuarioModel = require("../models/usuarioModel");
 const politicosModel = require("../models/politicosModel");
+const { removeImg } = require("../util/removeImg");
 var salt = bcrypt.genSaltSync(12);
 
 const usuarioController = {
@@ -90,7 +92,11 @@ const usuarioController = {
                     const senhaCorreta = isPolitico
                         ? results[0].senhaPoliticos
                         : results[0].senha;               
-                        
+                    
+                    console.log(senhaForm);
+                    console.log(senhaCorreta);
+                    
+                    
                     if (!bcrypt.compareSync(senhaForm, senhaCorreta)) {
                         msgErroPadrao = true; 
                     }
@@ -108,6 +114,11 @@ const usuarioController = {
     regrasValidacaoFormAttPerfil: [
         body('nome').isLength({ min: 3 }).withMessage(mensagemErro.NOME_INVALIDO),
         body('desc_usuario').isLength({ min: 3, max: 250 }).withMessage(mensagemErro.DESC_INVALIDA),
+    ],
+
+    regrasValidacaoFormAttConta: [
+        body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
+        body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
     ],
 
     cadastrarUsuario: async (req, res)=>{
@@ -184,7 +195,7 @@ const usuarioController = {
             });
     },
 
-    atualizarConta: async (req, res) => {
+    atualizarPerfil: async (req, res) => {
         const erros = validationResult(req);
         
         if (!erros.isEmpty()) {
@@ -192,11 +203,14 @@ const usuarioController = {
         }
 
         try {
-            const results = await usuarioModel.update(req.body, parseInt(req.session.autenticado.id));
-            console.log(results);
-            console.log("Dados atualizados!");
+            const results = await pool.query(
+                "UPDATE Usuario SET nomeUsuario = ?, enderecoUsuario = ?, descUsuario = ?, CPFUsuario = ?, cepUsuario = ?, TelefoneUsuario = ?  WHERE idUsuario = ?",
+                [req.body.nome, req.body.estado, req.body.desc_usuario, req.body.cpf, req.body.cep, req.body.telefone, req.session.autenticado.id]
+            );
 
-            const usuarioAtualizado = await usuarioModel.findId(parseInt(req.session.autenticado.id));
+            console.log(results);
+
+            const usuarioAtualizado = await usuarioModel.findId(req.session.autenticado.id);
             
             if (usuarioAtualizado.length > 0) {
                 req.session.autenticado = {
@@ -213,9 +227,126 @@ const usuarioController = {
                 };
             }
 
-            res.render('pages/perfil-eleitor', { logado: req.session.autenticado });
+            const dadosNotificacao = {
+                tipo: "sucess",
+                titulo: "Tudo ocorreu como esperado :)",
+                msg: "Dados atualizados com sucesso!"
+            }
+
+            res.render('pages/perfil-eleitor', { logado: req.session.autenticado, dadosNotificacao: dadosNotificacao });
         } catch (err) {
             console.log(err);
+        }
+    },
+
+    atualizarConta: async (req, res) => {
+        const erros = validationResult(req);
+        
+        if (!erros.isEmpty()) {
+            return res.render('pages/editar-eleitor', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
+        }
+        
+        try {
+            const senhaComHash = bcrypt.hashSync(req.body.senha, salt);
+            
+            const results = await pool.query(
+                "UPDATE Usuario SET emailUsuario = ?, senha = ?  WHERE idUsuario = ?",
+                [req.body.email, senhaComHash, req.session.autenticado.id]
+            );
+
+            console.log(results);
+
+            const usuarioAtualizado = await usuarioModel.findId(req.session.autenticado.id);
+            
+            if (usuarioAtualizado.length > 0) {
+                req.session.autenticado = {
+                    nome: usuarioAtualizado[0].nomeUsuario,
+                    id: usuarioAtualizado[0].idUsuario,
+                    estado: usuarioAtualizado[0].enderecoUsuario,
+                    cpf: usuarioAtualizado[0].CPFUsuario,
+                    cep: usuarioAtualizado[0].cepUsuario,
+                    telefone: usuarioAtualizado[0].TelefoneUsuario,
+                    foto_usuario: usuarioAtualizado[0].fotoPerfilUsuario,
+                    desc_usuario: usuarioAtualizado[0].descUsuario,
+                    data_nascimento: usuarioAtualizado[0].dataNascUsuario,
+                    tipo: "eleitor"
+                };
+            }
+
+            const dadosNotificacao = {
+                tipo: "sucess",
+                titulo: "Tudo ocorreu como esperado :)",
+                msg: "Dados atualizados com sucesso!"
+            }
+
+            res.render('pages/perfil-eleitor', { logado: req.session.autenticado, dadosNotificacao: dadosNotificacao });
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    mudarFotos: async (req, res) => {
+        const erros = {
+            errors: []
+        };
+        const erroMulter = req.session.erroMulter;
+        if (erroMulter != null) {
+            console.log(erroMulter);
+            
+            erros.errors.push(erroMulter);
+            removeImg(`./app/public/img/imagens-servidor/capaImg/${req.file.filename}`);
+
+            const user = req.session.autenticado ? await usuarioModel.findId(req.session.autenticado.id) : new Error("Erro ao acessar o banco")
+            res.render(
+                "./pages/editar-eleitor", 
+                {
+                    logado: user[0],
+                    dadosForm: req.body,
+                    erros: erros,
+                }
+            );
+        }
+
+        if (!req.file) {
+            console.log("falha ao carregar arquivo!")
+            const user = req.session.autenticado ? await usuarioModel.findId(req.session.autenticado.id) : new Error("Erro ao acessar o banco")
+            return res.render(
+                "./pages/editar-eleitor", 
+                {
+                    logado: user[0],
+                    dadosForm: req.body,
+                    erros: erros,
+                }
+            )
+        } else {
+            try {
+                let caminhoFoto = req.session.autenticado.foto_usuario
+                if (caminhoFoto != req.file.filename && caminhoFoto != "fotoPerfilPadrao.jpg") {
+                    removeImg(`./app/public/img/imagens-servidor/perfil/${caminhoFoto}`)
+                }
+                caminhoFoto = req.file.filename
+                let resultado = await pool.query(
+                    "UPDATE Usuario SET fotoPerfilUsuario = ? WHERE idUsuario = ?",
+                    [caminhoFoto, req.session.autenticado.id]
+                );
+
+                const user = await usuarioModel.findId(req.session.autenticado.id);
+
+                req.session.autenticado = user[0];
+                req.session.autenticado.foto = caminhoFoto;
+                console.log(resultado)
+                
+                const dadosNotificacao = {
+                tipo: "sucess",
+                titulo: "Tudo ocorreu como esperado :)",
+                msg: "Sua foto foi atualizada!"
+            }
+
+            res.render('pages/perfil-eleitor', { logado: req.session.autenticado, dadosNotificacao: dadosNotificacao });
+            } catch (errors) {
+                console.log(errors)
+                res.render("pages/error-500")
+            }
         }
     }
 
