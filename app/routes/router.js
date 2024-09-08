@@ -203,9 +203,21 @@ router.get('/tabelas', async (req, res) => {
 // Apenas teste (pode apagar dps)
 router.get('/pegar_usuario', async (req, res) => {
     try {
-        const [results, fields] = await pool.query('SELECT * FROM Usuario WHERE idUsuario = 53');
-        res.json(results);
-        console.log(results);
+        const [results, fields] = await pool.query('SELECT * FROM Usuario WHERE idUsuario = 52');
+        const usuario = {
+            nome: results[0].nomeUsuario,
+            id: results[0].idUsuario,
+            estado: results[0].enderecoUsuario,
+            cpf: results[0].CPFUsuario,
+            cep: results[0].cepUsuario,
+            telefone: results[0].TelefoneUsuario,
+            foto_usuario: results[0].fotoPerfilUsuario,
+            desc_usuario: results[0].descUsuario,
+            data_nascimento: results[0].dataNascUsuario,
+            tipo: "eleitor"
+        };
+
+        res.render('pages/perfil-eleitor', { logado: usuario, dadosNotificacao: null })
         
     } catch (error) {
         console.error('Erro ao listar as tabelas:', error);
