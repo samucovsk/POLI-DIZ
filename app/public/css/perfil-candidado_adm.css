@@ -27,7 +27,7 @@ a {
   min-height: calc(100px + 15vw);
 }
 
-.header__wrapper .cols__container .left__col {
+.header__wrapper .container .left__col {
   padding: 25px 20px;
   text-align: center;
   max-width: 350px;
