@@ -20,7 +20,13 @@
         <section class="nav-list">
             <ul>
                 <li class="nav-item"><a href="home" class="nav-link">HOME</a></li>
-                <li class="nav-item"><a href="escolha" class="nav-link">CONTA</a></li>
+
+                <% if (logado.nome) { %>
+                    <li class="nav-item"><a href="perfil-<%= logado.tipo %>" class="nav-link">PERFIL</a></li>
+                <% } else {%>
+                    <li class="nav-item"><a href="escolha" class="nav-link">CONTA</a></li>
+                <% } %>
+                <li class="nav-item"><a href="signin" class="nav-link">LOGIN</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">SUPERCHAT</a></li>
                 <li class="nav-item"><a href="politicos" class="nav-link">PARTIDOS</a></li>
                 <li class="nav-item"><a href="noticias" class="nav-link">NOTÍCIAS</a></li>
