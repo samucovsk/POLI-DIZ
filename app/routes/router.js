@@ -16,6 +16,8 @@ router.get('/logOut', autenticador.limparSessao, function (req, res) {
 });
 
 router.get("/", autenticador.verificarUsuAutenticado, function (req, res) {
+    console.log(req.session.autenticado);
+    
     res.render("pages/index", { pagina: "home", logado: req.session.autenticado });
 });
 
