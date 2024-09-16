@@ -4,6 +4,8 @@ const pool = require('../../config/pool-conexoes');
 
 const usuarioController = require("../controllers/usuarioController");
 const politicoController = require("../controllers/politicosController");
+const editarUsuarioController = require('../controllers/editarUsuarioController');
+
 const { autenticador } = require("../sessions/autenticador_middleware");
 const { mensagemErro } = require("../util/logs");
 const upload = require("../util/uploadImg");
@@ -164,9 +166,9 @@ router.post(
     '/atualizar_perfil_eleitor',
     autenticador.verificarUsuAutenticado, 
     autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
-    usuarioController.regrasValidacaoFormAttPerfil,
+    editarUsuarioController.regrasValidacaoFormAttPerfil,
     function (req, res) {
-        usuarioController.atualizarPerfil(req, res);
+        editarUsuarioController.atualizarPerfil(req, res);
     }
 );
 
@@ -174,9 +176,9 @@ router.post(
     '/atualizar_conta_eleitor',
     autenticador.verificarUsuAutenticado, 
     autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
-    usuarioController.regrasValidacaoFormAttConta,
+    editarUsuarioController.regrasValidacaoFormAttConta,
     function (req, res) {
-        usuarioController.atualizarConta(req, res);
+        editarUsuarioController.atualizarConta(req, res);
     }
 );
 
@@ -187,7 +189,7 @@ router.post(
     uploadPerfil("imgPerfil"),
     function (req, res) {
         console.log(req.body);
-        usuarioController.mudarFotos(req, res);
+        editarUsuarioController.mudarFotos(req, res);
     }
 )
 

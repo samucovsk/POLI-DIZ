@@ -51,10 +51,6 @@ const politicoController = {
             .isLength({ min: 3, max: 45 }).withMessage(`<strong>Nome de Partido:</strong> ${mensagemErro.NOME_INVALIDO}`)
     ],
 
-    regrasValidacaoFormLogin: [
-
-    ],
-
     cadastrarPolitico: async (req, res)=>{
         const erros = validationResult(req)
         if (!erros.isEmpty()){

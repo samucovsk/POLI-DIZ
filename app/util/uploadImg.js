@@ -65,7 +65,7 @@ module.exports = (caminho = null, tamanhoArq = 3, extensoesPermitidas = ['jpeg',
                     fileFilter: fileFilter
                 });
             }
-            req.session.erroMulter = null
+            req.session.erroMulter = null;
 
             upload.single(campoArquivo)(req, res, async function (err) {
                 if (err instanceof multer.MulterError) {
@@ -80,6 +80,8 @@ module.exports = (caminho = null, tamanhoArq = 3, extensoesPermitidas = ['jpeg',
                         msg: err.message,
                         path: campoArquivo
                     }
+                    console.log(req.session.erroMulter);
+                    
                 } else if (req.file && caminho == null) {
                     try {
                         const isProporcaoValida = true;
@@ -91,6 +93,8 @@ module.exports = (caminho = null, tamanhoArq = 3, extensoesPermitidas = ['jpeg',
                                 msg: 'A imagem deve seguir a proporção exigida!.',
                                 path: campoArquivo
                             };
+                            console.log(req.session.erroMulter);
+                            
                         }
                     } catch (error) {
                         if (!isProporcaoValida) {
@@ -100,6 +104,8 @@ module.exports = (caminho = null, tamanhoArq = 3, extensoesPermitidas = ['jpeg',
                                 path: campoArquivo
                             };
                         }
+
+                        console.log(req.session.erroMulter);
                     }
                 }
                 next();

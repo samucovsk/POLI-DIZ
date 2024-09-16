@@ -1,7 +1,9 @@
 // Todas as mensagens de erro são armazenadas aqui
 exports.mensagemErro = {
     CPF_INVALIDO: "Insira um <strong>CPF válido</strong>.",
+    CEP_INVALIDO: "Insira um CEP no formato <strong>12345-678</strong>",
     UF_INVALIDA: "Insira um Estado.",
+    TELEFONE_INVALIDO: "Insira um <strong>número de telefone válido</strong>.",
     DESC_INVALIDA: "Descrição com mínimo de 15 e máximo de 250 caracteres.",
     NOME_INVALIDO: "Mínimo de 3 letras e máximo de 45!",
     EMAIL_INVALIDO: "Insira um <strong>endereço de email válido</strong>.",
