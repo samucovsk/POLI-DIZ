@@ -46,7 +46,7 @@
             </ul>
 
             <% if (dadosUsuario.perfilAdm) { %>
-              <a href="/editar_candidato">Editar</a>
+              <a class="editar_botao" href="/editar_candidato/<%= logado.id %>">Editar</a>
             <% } else { %>
               <button class="editar_botao">Seguir</button>
             <% } %>

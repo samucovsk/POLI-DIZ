@@ -186,13 +186,13 @@ router.get(
 );
 
 router.get(
-    '/editar_candidato', 
+    '/editar_candidato/:id', 
     autenticador.verificarUsuAutenticado, 
     autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
     function (req, res) {
         const userId = req.params.id;
 
-        if (req.session.autenticado.id !== userId) {
+        if (parseInt(req.session.autenticado.id) !== parseInt(userId)) {
             res.redirect('/');
         }
 
