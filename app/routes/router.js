@@ -9,6 +9,8 @@ const editarUsuarioController = require('../controllers/editarUsuarioController'
 const { autenticador } = require("../sessions/autenticador_middleware");
 const { mensagemErro } = require("../util/logs");
 const upload = require("../util/uploadImg");
+const usuarioModel = require("../models/usuarioModel");
+const politicosModel = require("../models/politicosModel");
 const uploadPerfil = upload("./app/public/imagem/imagens_servidor/perfil/", 3, ['jpeg', 'jpg', 'png'], 3 / 4, 0);
 
 /* ====================== Rotas GET ====================== */
@@ -33,7 +35,7 @@ router.get("/escolha", function (req, res) {
 router.get("/noticias", function (req, res) {
     res.render("pages/news", { pagina: "noticias", logado: req.session.autenticado });
 });
-router.get("/login_usuario", function (req, res) {
+router.get("/login_usuario", autenticador.limparSessao, function (req, res) {
     res.render("pages/login", { 
         pagina: "login", 
         erros: null, 
@@ -70,7 +72,7 @@ router.get("/politicocadastro", function (req, res) {
     );
 });
 
-router.get("/usuario", function (req, res) {
+router.get("/usuario", autenticador.limparSessao, function (req, res) {
     res.render(
         "pages/cadastro-usuario", 
         { 
@@ -106,33 +108,101 @@ router.get('/signin', function (req, res) {
 });
 
 router.get(
-    '/perfil-eleitor', 
+    '/perfil-eleitor/:id', 
     autenticador.verificarUsuAutenticado, 
-    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
-    function (req, res) {
-        console.log(req.session.autenticado);
-        res.render('pages/perfil-eleitor', { pagina: "perfil-eleitor", logado: req.session.autenticado, dadosNotificacao: null });
+    async function (req, res) {
+        try {
+            const userId = req.params.id;
+            const [results] = await usuarioModel.findId(userId);
+            console.log(results);
+            
+            const dadosUsuario = {
+                nome: results.nomeUsuario,
+                id: results.idUsuario,
+                estado: results.enderecoUsuario,
+                foto_usuario: results.fotoPerfilUsuario,
+                desc_usuario: results.descUsuario,
+                perfilAdm: false
+            };
+
+            if (dadosUsuario.id === req.session.autenticado.id) {
+                dadosUsuario.perfilAdm = true;
+            }
+            
+            console.log(req.session.autenticado);
+            res.render('pages/perfil-eleitor', { pagina: "perfil-eleitor", logado: req.session.autenticado, dadosUsuario: dadosUsuario, dadosNotificacao: null, userId });
+        } catch (err) {
+            console.log(err);
+        }
     }
 );
 
 router.get(
-    '/perfil-candidato', 
+    '/perfil-candidato/:id', 
+    autenticador.verificarUsuAutenticado, 
+    async function (req, res) {
+        try {
+            const userId = req.params.id;
+            const [results] = await politicosModel.findId(userId);
+            console.log(results);
+            
+            const dadosUsuario = {
+                nome: results.nomePoliticos,
+                id: results.idPoliticos,
+                email: results.contatoPoliticos,
+                estado: results.ufPoliticos,
+                candidatura: results.candidaturaPoliticos,
+                foto_usuario: results.fotoPerfilPoliticos,
+                desc_usuario: results.descPoliticos,
+                perfilAdm: false
+            };
+
+            if (dadosUsuario.id === req.session.autenticado.id) {
+                dadosUsuario.perfilAdm = true;
+            }
+
+            res.render('pages/perfil-candidato', { pagina: "perfil-candidato", logado: req.session.autenticado, dadosNotificacao: null, dadosUsuario: dadosUsuario, userId });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+);
+
+router.get(
+    '/editar_eleitor/:id', 
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    function (req, res) {
+        const userId = req.params.id;
+
+        if (req.session.autenticado.id !== userId) {
+            res.redirect('/');
+        }
+
+        res.render(
+            'pages/editar-eleitor', 
+            { 
+                logado: req.session.autenticado,
+                dadosForm: req.session.autenticado,
+                erros: null
+            }
+        );
+    }
+);
+
+router.get(
+    '/editar_candidato', 
     autenticador.verificarUsuAutenticado, 
     autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
     function (req, res) {
-        console.log(req.session.autenticado);
-        res.render('pages/perfil-candidato', { pagina: "perfil-candidato", logado: req.session.autenticado, dadosNotificacao: null });
-    }
-);
+        const userId = req.params.id;
 
-router.get(
-    '/editar_eleitor', 
-    autenticador.verificarUsuAutenticado, 
-    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
-    function (req, res) {
-        console.log(req.session.autenticado);
+        if (req.session.autenticado.id !== userId) {
+            res.redirect('/');
+        }
+
         res.render(
-            'pages/editar-eleitor', 
+            'pages/editar-candidato', 
             { 
                 logado: req.session.autenticado,
                 dadosForm: req.session.autenticado,

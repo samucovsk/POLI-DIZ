@@ -41,6 +41,10 @@ const gravarUsuAutenticado = async (req, res, next) => {
                     id: results[0].idPoliticos,
                     estado: results[0].ufPoliticos,
                     data_nascimento: results[0].dataNascPoliticos,
+                    email: results[0].contatoPoliticos,
+                    candidatura: results[0].candidaturaPoliticos,
+                    foto_usuario: results[0].fotoPerfilPoliticos,
+                    desc_usuario: results[0].descPoliticos,
                     tipo: "candidato"
                 };
             } else {

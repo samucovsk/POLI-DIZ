@@ -53,7 +53,8 @@
 
         setInterval(() => {
             const tipoUsuario = "<%= logado.tipo %>";
-            window.location.href = `/perfil-${tipoUsuario}`, 5000;
+            const idUsuario = "<%= logado.id %>";
+            window.location.href = `/perfil-${tipoUsuario}/${idUsuario}`, 5000;
         });
     </script>
     <% } %>

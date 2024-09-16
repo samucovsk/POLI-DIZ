@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil Candidato</title>
+    <title>Perfil de Candidato <%= dadosUsuario.nome %></title>
     <link rel="stylesheet" href="../css/perfilcandidado.css"/>
   </head>
   <body>
@@ -18,12 +18,12 @@
       <section class="container">
         <section class="container_2">
           <section class="img__container">
-            <img src="./imagem/fotoperfil.png"/>
+            <img src="../imagem/imagens_servidor/perfil/<%= dadosUsuario.foto_usuario %>"/>
             <span></span>
           </section>
-          <h2>Seu nome</h2>
-          <p>Insira sua candidatura.</p>
-          <p>Insira seu e-mail</p>
+          <h2><%= dadosUsuario.nome %></h2>
+          <p><%= dadosUsuario.candidatura %></p>
+          <p><%= dadosUsuario.email %></p>
 
           <ul class="sobre">
             <li><span>0</span>Seguidores</li>
@@ -33,7 +33,7 @@
 
           <section class="content">
             <p>
-              Escreva uma breve descrição sobre você.
+              <%= dadosUsuario.desc_usuario %>
             </p>
             
           </section>
@@ -45,12 +45,16 @@
               <li><a href="#">Lives</a></li>
             </ul>
 
-            <bottom class="editar_botao">Seguir</bottom>
-  
+            <% if (dadosUsuario.perfilAdm) { %>
+              <a href="/editar_candidato">Editar</a>
+            <% } else { %>
+              <button class="editar_botao">Seguir</button>
+            <% } %>
+
           </nav>
 
           <section class="fotos">
-            <img src="imagem/aviso.png" alt="fotos" />
+            <img src="../imagem/aviso.png" alt="fotos" />
           </section>
         </section>
       </section>
