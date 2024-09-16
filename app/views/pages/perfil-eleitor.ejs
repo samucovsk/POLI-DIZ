@@ -42,7 +42,7 @@
             <li>Eleitor de <%= dadosUsuario.estado %>.</li>
             <% if (dadosUsuario.perfilAdm) { %>
               <li>
-                <a href="/editar_eleitor">
+                <a href="/editar_eleitor/<%= logado.id %>">
                   Editar
                 </a>
               </li>

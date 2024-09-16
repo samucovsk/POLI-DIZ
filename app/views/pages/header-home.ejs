@@ -22,7 +22,7 @@
                 <li class="nav-item"><a href="/" class="nav-link">HOME</a></li>
 
                 <% if (logado.nome) { %>
-                    <li class="nav-item"><a href="/perfil-<%= logado.tipo %>" class="nav-link">PERFIL</a></li>
+                    <li class="nav-item"><a href="/perfil-<%= logado.tipo %>/<%= logado.id %>" class="nav-link">PERFIL</a></li>
                 <% } else {%>
                     <li class="nav-item"><a href="/escolha" class="nav-link">CONTA</a></li>
                     <li class="nav-item"><a href="/signin" class="nav-link">LOGIN</a></li>

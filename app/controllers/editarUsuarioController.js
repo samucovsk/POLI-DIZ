@@ -8,7 +8,7 @@ const { removeImg } = require("../util/removeImg");
 var salt = bcrypt.genSaltSync(12);
 
 const editarUsuarioController = {
-    regrasValidacaoFormAttPerfil: [
+    regrasValidacaoFormAttPerfilEleitor: [
         body('nome').isLength({ min: 3 }).withMessage(mensagemErro.NOME_INVALIDO),
         body('desc_usuario').isLength({ min: 3, max: 250 }).withMessage(mensagemErro.DESC_INVALIDA),
         body('cep').isPostalCode("BR").withMessage(mensagemErro.CEP_INVALIDO),
@@ -50,12 +50,12 @@ const editarUsuarioController = {
         })
     ],
 
-    regrasValidacaoFormAttConta: [
+    regrasValidacaoFormAttContaEleitor: [
         body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
         body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
     ],
 
-    atualizarPerfil: async (req, res) => {
+    atualizarPerfilEleitor: async (req, res) => {
         const erros = validationResult(req);
         
         if (!erros.isEmpty()) {
@@ -94,14 +94,13 @@ const editarUsuarioController = {
                 titulo: "Tudo ocorreu como esperado :)",
                 msg: "Dados atualizados com sucesso!"
             }
-
-            res.render('pages/perfil-eleitor', { logado: req.session.autenticado, dadosNotificacao: dadosNotificacao });
+            res.redirect('/perfil-eleitor/' + req.session.autenticado.id);
         } catch (err) {
             console.log(err);
         }
     },
 
-    atualizarConta: async (req, res) => {
+    atualizarContaEleitor: async (req, res) => {
         const erros = validationResult(req);
         
         if (!erros.isEmpty()) {
@@ -147,7 +146,7 @@ const editarUsuarioController = {
         }
     },
 
-    mudarFotos: async (req, res) => {
+    mudarFotosEleitor: async (req, res) => {
         const erros = {
             errors: []
         };
