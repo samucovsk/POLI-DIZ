@@ -61,7 +61,7 @@ router.get("/politicocadastro", function (req, res) {
     );
 });
 
-router.get("/usuario", autenticador.limparSessao, function (req, res) {
+router.get("/usuario", function (req, res) {
     res.render(
         "pages/cadastro-usuario", 
         { 
