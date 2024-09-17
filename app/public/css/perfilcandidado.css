@@ -96,7 +96,13 @@ a {
     font-size: 1rem;
     color: #1d1d1d;
     line-height: 1.8em;
-    margin-top: 10px;
+    margin-top: -130px;
+    margin-right: 26px;
+  }
+  
+  .container .botão {
+    padding: 28px;
+    margin-right: 27px;
   }
 
   .container .content_3 ul {
@@ -196,9 +202,7 @@ a {
     transform: translateY(0);
    }
 
-   .botao{
-    margin-top: -30px;
-   }
+
 
    /* responsividade */
 

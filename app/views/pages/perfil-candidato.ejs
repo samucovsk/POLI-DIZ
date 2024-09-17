@@ -30,18 +30,7 @@
             <li><span>0</span>Seguindo</li>
             <li><span>0</span>Lives</li>
           </ul>
-          
-          <section class="botão">
-          <% if (dadosUsuario.perfilAdm) { %>
-            <a class="editar_botao" href="/editar_candidato/<%= logado.id %>">Editar</a>
-          <% } else { %>
-            <button class="editar_botao">Seguir</button>
-          <% } %>
 
-        
-          <button class="editar_botao" a href="#">Publicar</button>
-
-        </section>
 
           <section class="content">
             <p>
@@ -49,6 +38,19 @@
             </p>
             
           </section>
+
+          <section class="botão">
+            <% if (dadosUsuario.perfilAdm) { %>
+              <a class="editar_botao" href="/editar_candidato/<%= logado.id %>">Editar Perfil</a>
+            <% } else { %>
+              <button class="editar_botao">Seguir</button>
+            <% } %>
+  
+          
+            <button class="editar_botao" a href="#">Publicar</button>
+  
+          </section>
+          
         </section>
         <section class="content_3">
           <nav>
