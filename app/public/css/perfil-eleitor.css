@@ -90,6 +90,7 @@ p {
 .sobre li {
   font-size: 18px;
   font-weight: bold;
+  align-items: center;
 }
 
 .sobre span {
