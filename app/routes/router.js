@@ -239,7 +239,7 @@ router.post(
 );
 
 router.post(
-    'editar_eleitor/atualizar_conta_eleitor',
+    '/editar_eleitor/atualizar_conta_eleitor',
     autenticador.verificarUsuAutenticado, 
     autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
     editarUsuarioController.regrasValidacaoFormAttContaEleitor,
@@ -249,7 +249,7 @@ router.post(
 );
 
 router.post(
-    'editar_eleitor/atualizar_fotos_eleitor',
+    '/editar_eleitor/atualizar_fotos_eleitor',
     autenticador.verificarUsuAutenticado, 
     autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
     uploadPerfil("imgPerfil"),
