@@ -89,11 +89,6 @@ const editarUsuarioController = {
                 };
             }
 
-            const dadosNotificacao = {
-                tipo: "sucess",
-                titulo: "Tudo ocorreu como esperado :)",
-                msg: "Dados atualizados com sucesso!"
-            }
             res.redirect('/perfil-eleitor/' + req.session.autenticado.id);
         } catch (err) {
             console.log(err);
@@ -134,13 +129,8 @@ const editarUsuarioController = {
                 };
             }
 
-            const dadosNotificacao = {
-                tipo: "sucess",
-                titulo: "Tudo ocorreu como esperado :)",
-                msg: "Dados atualizados com sucesso!"
-            }
 
-            res.render('pages/perfil-eleitor', { logado: req.session.autenticado, dadosNotificacao: dadosNotificacao, dadosUsuario: req.session.autenticado });
+            res.redirect('/perfil-eleitor/' + req.session.autenticado.id);
         } catch (err) {
             console.log(err);
         }
@@ -203,7 +193,7 @@ const editarUsuarioController = {
                     msg: "Sua foto foi atualizada!"
                 }
 
-                res.render('pages/perfil-eleitor', { logado: req.session.autenticado, dadosNotificacao: dadosNotificacao, dadosUsuario: req.session.autenticado });
+                res.redirect('/perfil-eleitor/' + req.session.autenticado.id);
             } catch (errors) {
                 console.log(errors)
             }
