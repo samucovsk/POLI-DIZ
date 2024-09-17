@@ -150,14 +150,15 @@ a {
     height: 100%;
     object-fit: cover;
   }
+  
   .editar_botao {
     align-items: center;
-    background-color: #1b7ced;
+    background-color: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: .25rem;
     box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
     box-sizing: border-box;
-    color: white;
+    color: rgba(0, 0, 0, 0.85);
     cursor: pointer;
     display: inline-flex;
     font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -193,7 +194,11 @@ a {
     box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
     color: rgba(0, 0, 0, 0.65);
     transform: translateY(0);
-   }  
+   }
+
+   .botao{
+    margin-top: -30px;
+   }
 
    /* responsividade */
 
