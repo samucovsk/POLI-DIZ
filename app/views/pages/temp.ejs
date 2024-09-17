@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil do Eleitor <%= dadosUsuario.nome %></title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+    <script type="text/javascript" src="js/notify.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/perfil-eleitor.css" />
+  </head>
+  <body>
+    <%- include("../pages/header-home") %>
+    <section class="header__wrapper">
+      
+
+      <% if (dadosNotificacao) { %>
+        <script>
+          displayNotify(
+            "<%= dadosNotificacao.titulo %>",
+            "<%= dadosNotificacao.msg %>",
+            "<%= dadosNotificacao.tipo %>"
+          )
+        </script>
+      <% } %>
+      <section class="container">
+        <section class="container_2">
+          <section class="img__container">
+            <img src="../imagem/imagens_servidor/perfil/<%= dadosUsuario.foto_usuario %>"/>
+            <span></span>
+          </section>
+          <h2><%= dadosUsuario.nome %></h2>
+          <ul style="display: flex; gap: 15px">
+            <li>Eleitor de <%= dadosUsuario.estado %>.</li>
+            <% if (dadosUsuario.perfilAdm) { %>
+              <li>
+                <a href="/editar_eleitor/<%= logado.id %>">
+                  Editar
+                </a>
+              </li>
+            <% } else {%>
+              <li>
+                Seguir
+              </li>
+            <% } %>
+          </ul>
+
+          <ul class="sobre_user">
+            <li><span>0</span>Seguindo</li>
+          </ul>
+
+          <section class="content">
+            <p>
+             <%= dadosUsuario.desc_usuario %>
+            </p>
+          </section>
+        </section>
+        <section class="content_3">
+        </section>
+      </section>
+    </section>
+  </body>
+</html>
