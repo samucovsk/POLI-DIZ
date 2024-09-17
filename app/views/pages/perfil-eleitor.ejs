@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Candidato <%= dadosUsuario.nome %></title>
-    <link rel="stylesheet" href="../css/perfilcandidado.css"/>
+    <title>Perfil de eleitor <%= dadosUsuario.nome %></title>
+    <link rel="stylesheet" href="../css/perfil-eleitor.css"/>
   </head>
   <body>
      <!--inicio do cabeçalho-->
@@ -45,7 +45,7 @@
             </ul>
 
             <% if (dadosUsuario.perfilAdm) { %>
-              <a class="editar_botao" href="/editar_candidato/<%= logado.id %>">Editar</a>
+              <a class="editar_botao" href="/editar_eleitor/<%= logado.id %>">Editar</a>
             <% } else { %>
               <button class="editar_botao">Seguir</button>
             <% } %>
