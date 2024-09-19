@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="css/erros.css">
     <link rel="stylesheet" href="css/cadastro-eleitor.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 
@@ -143,7 +147,12 @@
             </form>
         </section>
     </section>
-
+    <!-- Script do select-->
+     <script>
+        $(document).ready(function() {
+            $('#estado').select2();
+        });
+     </script>
     <!-- Script confirma senha -->
     <script type="text/javascript" src="js/securePassword.js"></script>
 </body>
