@@ -32,6 +32,7 @@ a {
   max-width: 350px;
   position: relative;
   margin: 200x;
+  
 }
 
 .container .container_2 .img__container {
@@ -74,7 +75,7 @@ a {
   }
 
   .container .container_2 .sobre {
-    justify-content: space-between;
+    justify-content: center;
     margin-top: -122px;
     margin-left: -9px;
   }
@@ -91,6 +92,9 @@ a {
     color: #1d1d1d;
     font-weight: 600;
   
+  }
+  .container .container_2 .sobre ul{
+    justify-content: center;
   }
   .container .content p {
     font-size: 1rem;
