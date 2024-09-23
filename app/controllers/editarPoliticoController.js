@@ -2,13 +2,12 @@ var pool = require("../../config/pool-conexoes");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const { mensagemErro } = require("../util/logs");
-const usuarioModel = require("../models/usuarioModel");
 const politicosModel = require("../models/politicosModel");
 const { removeImg } = require("../util/removeImg");
 var salt = bcrypt.genSaltSync(12);
 
-const editarUsuarioController = {
-    regrasValidacaoFormAttPerfilEleitor: [
+const editarPoliticoController = {
+    regrasValidacaoFormAttPerfilPolitico: [
         body('nome').isLength({ min: 3 }).withMessage(mensagemErro.NOME_INVALIDO),
         body('desc_usuario').isLength({ min: 3, max: 250 }).withMessage(mensagemErro.DESC_INVALIDA),
         body('cep').isPostalCode("BR").withMessage(mensagemErro.CEP_INVALIDO),
@@ -50,29 +49,29 @@ const editarUsuarioController = {
         })
     ],
 
-    regrasValidacaoFormAttContaEleitor: [
+    regrasValidacaoFormAttContaPolitico: [
         body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
         body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
     ],
 
-    atualizarPerfilEleitor: async (req, res) => {
+    atualizarPerfilPolitico: async (req, res) => {
         const erros = validationResult(req);
         
         if (!erros.isEmpty()) {
             console.log(erros);
             
-            return res.render('pages/editar-eleitor', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
+            return res.render('pages/editar-candidato', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
         }
 
         try {
             const results = await pool.query(
-                "UPDATE Usuario SET nomeUsuario = ?, enderecoUsuario = ?, descUsuario = ?, CPFUsuario = ?, cepUsuario = ?, TelefoneUsuario = ?  WHERE idUsuario = ?",
-                [req.body.nome, req.body.estado, req.body.desc_usuario, req.body.cpf, req.body.cep, req.body.telefone, req.session.autenticado.id]
+                "UPDATE Politicos SET nomePoliticos = ?, ufPoliticos = ?, descPoliticos = ?, candidaturaPoliticos = ?  WHERE idPoliticos = ?",
+                [req.body.nome, req.body.estado, req.body.desc_usuario, req.body.candidatura, req.session.autenticado.id]
             );
 
             console.log(results);
 
-            const usuarioAtualizado = await usuarioModel.findId(req.session.autenticado.id);
+            const usuarioAtualizado = await politicosModel.findId(req.session.autenticado.id);
             
             if (usuarioAtualizado.length > 0) {
                 req.session.autenticado = {
@@ -85,11 +84,11 @@ const editarUsuarioController = {
                     foto_usuario: usuarioAtualizado[0].fotoPerfilUsuario,
                     desc_usuario: usuarioAtualizado[0].descUsuario,
                     data_nascimento: usuarioAtualizado[0].dataNascUsuario,
-                    tipo: "eleitor"
+                    tipo: "candidato"
                 };
             }
 
-            res.redirect('/perfil-eleitor/' + req.session.autenticado.id);
+            res.redirect('/perfil-candidato/' + req.session.autenticado.id);
         } catch (err) {
             console.log(err);
         }
@@ -99,20 +98,20 @@ const editarUsuarioController = {
         const erros = validationResult(req);
         
         if (!erros.isEmpty()) {
-            return res.render('pages/editar-eleitor', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
+            return res.render('pages/editar-candidato', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
         }
         
         try {
             const senhaComHash = bcrypt.hashSync(req.body.senha, salt);
             
             const results = await pool.query(
-                "UPDATE Usuario SET emailUsuario = ?, senha = ?  WHERE idUsuario = ?",
+                "UPDATE Usuario SET contatoPoliticos = ?, senhaPoliticos = ?  WHERE idPoliticos = ?",
                 [req.body.email, senhaComHash, req.session.autenticado.id]
             );
 
             console.log(results);
 
-            const usuarioAtualizado = await usuarioModel.findId(req.session.autenticado.id);
+            const usuarioAtualizado = await politicosModel.findId(req.session.autenticado.id);
             
             if (usuarioAtualizado.length > 0) {
                 req.session.autenticado = {
@@ -125,12 +124,12 @@ const editarUsuarioController = {
                     foto_usuario: usuarioAtualizado[0].fotoPerfilUsuario,
                     desc_usuario: usuarioAtualizado[0].descUsuario,
                     data_nascimento: usuarioAtualizado[0].dataNascUsuario,
-                    tipo: "eleitor"
+                    tipo: "candidato"
                 };
             }
 
 
-            res.redirect('/perfil-eleitor/' + req.session.autenticado.id);
+            res.redirect('/perfil-candidato/' + req.session.autenticado.id);
         } catch (err) {
             console.log(err);
         }
@@ -147,9 +146,9 @@ const editarUsuarioController = {
             erros.errors.push(erroMulter);
             removeImg(`./app/public/imagem/imagens-servidor/perfil/${req.file.filename}`);
 
-            const user = req.session.autenticado ? await usuarioModel.findId(req.session.autenticado.id) : new Error("Erro ao acessar o banco")
+            const user = req.session.autenticado ? await politicosModel.findId(req.session.autenticado.id) : new Error("Erro ao acessar o banco")
             res.render(
-                "./pages/editar-eleitor", 
+                "./pages/editar-candidato", 
                 {
                     logado: user[0],
                     dadosForm: req.body,
@@ -160,9 +159,9 @@ const editarUsuarioController = {
 
         if (!req.file) {
             console.log("falha ao carregar arquivo!")
-            const user = req.session.autenticado ? await usuarioModel.findId(req.session.autenticado.id) : new Error("Erro ao acessar o banco")
+            const user = req.session.autenticado ? await politicosModel.findId(req.session.autenticado.id) : new Error("Erro ao acessar o banco")
             return res.render(
-                "./pages/editar-eleitor", 
+                "./pages/editar-candidato", 
                 {
                     logado: user[0],
                     dadosForm: req.body,
@@ -173,15 +172,15 @@ const editarUsuarioController = {
             try {
                 let caminhoFoto = req.session.autenticado.foto_usuario
                 if (caminhoFoto != req.file.filename && caminhoFoto != "fotoPerfilPadrao.jpg") {
-                    removeImg(`./app/public/imagem/imagens-servidor/perfil/${caminhoFoto}`)
+                    removeImg(`./app/public/imagem/imagens-servidor/perfil/${caminhoFoto}`);
                 }
-                caminhoFoto = req.file.filename
+                caminhoFoto = req.file.filename;
                 let resultado = await pool.query(
-                    "UPDATE Usuario SET fotoPerfilUsuario = ? WHERE idUsuario = ?",
+                    "UPDATE Usuario SET fotoPerfilPoliticos = ? WHERE idPoliticos = ?",
                     [caminhoFoto, req.session.autenticado.id]
                 );
 
-                const user = await usuarioModel.findId(req.session.autenticado.id);
+                const user = await politicosModel.findId(req.session.autenticado.id);
 
                 req.session.autenticado = user[0];
                 req.session.autenticado.foto = caminhoFoto;
@@ -193,7 +192,7 @@ const editarUsuarioController = {
                     msg: "Sua foto foi atualizada!"
                 }
 
-                res.redirect('/perfil-eleitor/' + req.session.autenticado.id);
+                res.redirect('/perfil-candidato/' + req.session.autenticado.id);
             } catch (errors) {
                 console.log(errors)
             }
@@ -201,4 +200,4 @@ const editarUsuarioController = {
     }
 };
 
-module.exports = editarUsuarioController;
+module.exports = editarPoliticoController;
