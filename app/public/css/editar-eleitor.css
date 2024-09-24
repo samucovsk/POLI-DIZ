@@ -29,7 +29,7 @@ body{
     padding: 30px 40px;
 }
 .container_2 label {
-    color: white;
+    color: black;
 }
 .container_2 input {
     width: 100%;
@@ -64,8 +64,11 @@ legend{
     padding: 20px 45px 20px 20px;
 }
 #desc_usuario{
-    height: 120px;
+    min-height: 120px;
+    min-width: 100%;
     margin: 30px 0 25px 0;
     padding: 10px;
     font-size: 18px;
+    resize: none;
+    border-radius: 10px;
 }
