@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+
     <link rel="stylesheet" href="../css/editar-eleitor.css">
     <title>Editar dados do perfil</title>
 </head>
 <body>
       <%- include("../partial/editar-perfil-eleitor") %>
+      <br>
       <%- include("../partial/editar-foto") %>
+      <br>
+      <br>
+      <br>
       <%- include("../partial/editar-conta") %>
 </body>
+<script>
+    $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
 </html>

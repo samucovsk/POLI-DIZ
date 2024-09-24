@@ -1,6 +1,6 @@
 <br>
 <form action="atualizar_conta_<%= logado.tipo %>" method="post">
-    <fieldset class="formfoto">
+    <form class="formfoto">
         <legend>Dados sensíveis</legend>
         <label for="email">
             Insira um email:
@@ -12,5 +12,5 @@
         <input type="password" name="senha" id="senha" value="<%= dadosForm.senha %>">
 
         <input type="submit" value="Atualizar dados">
-    </fieldset>
+    </form>
 </form>

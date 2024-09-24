@@ -1,5 +1,5 @@
 <form action="atualizar_perfil_eleitor" method="post" class="container" >
-    <fieldset>
+
         <legend>Dados de Perfil</legend>
         <section class="container_2">
           <section>
@@ -15,10 +15,7 @@
           <label for="nome">Telefone:</label>
           <input type="text" name="telefone" id="telefone" value="<%=dadosForm.telefone%>">
         </section>
-        <section>
-          <label for="cpf">CPF:</label>
-          <input type="text" name="cpf" id="cpf" value="<%=dadosForm.cpf%>">
-        </section>
+        
         <section>
               <label> Estado <a>*</a></label>
               <select id="estado" class="" name="estado">
@@ -60,5 +57,5 @@
             <textarea name="desc_usuario" id="desc_usuario"><%=dadosForm.desc_usuario%></textarea>
           </section>
           <input type="submit" value="Alterar dados">
-    </fieldset>
+    
   </form>
