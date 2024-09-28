@@ -1,0 +1,17 @@
+<br>
+<form action="atualizar_conta_<%= logado.tipo %>" method="post">
+    <form class="formfoto">
+        <legend>Dados sensíveis</legend>
+        <label for="email">
+            Insira um email:
+        </label>
+        <input class="campos" type="email" name="email" id="email" value="<%= dadosForm.email %>">
+        <label for="senha">
+            Insira uma nova senha:
+        </label>
+        <input class="campos" type="password" name="senha" id="senha" value="<%= dadosForm.senha %>">
+        <br>
+        <br>
+        <input class="botao" type="submit" value="Atualizar dados">
+    </form>
+</form>

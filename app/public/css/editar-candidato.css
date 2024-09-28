@@ -5,21 +5,22 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif; 
-}
 
+}
 body{
     display: grid;
-    padding: 20px;
+    padding-bottom: 50px;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     background: url('../imagem/45b56590-17bf-4e4f-a1cc-163ddc132181.jpg');
     backdrop-filter: blur(4px);
     background-size: cover;
     background-position: center;
+    
+    margin: auto
 }
 
-.container_2{
+.formfoto{
     
     background: rgba(255, 255, 255, 0.5);
     border: 2px solid rgba(255, 255, 255, .2);
@@ -48,8 +49,7 @@ legend{
     color: black;
     font-size: large;
 }
-
-.formulario .campos{
+.formfoto .campos{
     width: 100%;
     height: 100%;
     background: transparent;

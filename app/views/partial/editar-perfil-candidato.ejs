@@ -1,15 +1,15 @@
-<form action="atualizar_perfil_eleitor" method="post" class="container" style="margin-top: 15em;"></form>
+<form action="atualizar_perfil_eleitor" method="post" class="container" style="margin-top: 50px;"></form>
     
         <legend>Dados de Perfil</legend>
         <section class="formfoto">
           <section>
               <label for="nome">Nome de usuário:</label>
-              <input type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
+              <input class="campos" type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
           </section>
           <section>
         <section>
           <label for="candidatura">Candidatura:</label>
-          <select name="" id="">
+          <select name="tipo">
             <options value="prefeito">Prefeito</options>
             <options value="vereador">Vereador</options>
             <options value="governador">Governador</options>
@@ -19,11 +19,11 @@
         </section>
         <section>
           <label for="nome">Contato:</label>
-          <input type="text" name="email" id="email" value="<%=dadosForm.email%>">
+          <input type="text" class="campos" name="email" id="email" value="<%=dadosForm.email%>">
         </section>
         <section>
           <label for="cpf">CPF:</label>
-          <input type="text" name="cpf" id="cpf" value="<%=dadosForm.cpf%>">
+          <input type="text" class="campos" name="cpf" id="cpf" value="<%=dadosForm.cpf%>">
         </section>
         <section>
               <label> Estado <a>*</a></label>
@@ -65,6 +65,6 @@
             </label>
             <textarea name="desc_usuario" id="desc_usuario"><%=dadosForm.desc_usuario%></textarea>
           </section>
-          <input type="submit" value="Alterar dados">
-        
+          <input type="submit" class="botao" value="Alterar dados">
+        <br>
   </form>
