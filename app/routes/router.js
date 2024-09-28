@@ -179,6 +179,7 @@ router.get(
                 logado: req.session.autenticado,
                 dadosForm: req.session.autenticado,
                 erros: null,
+                form_aprovado: false,
                 userId
             }
         );

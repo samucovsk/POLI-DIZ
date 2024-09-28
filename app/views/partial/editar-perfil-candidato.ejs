@@ -1,10 +1,10 @@
-<form action="atualizar_perfil_eleitor" method="post" class="container" style="margin-top: 50px;"></form>
+<form action="atualizar_perfil_candidato" method="post" class="container" style="margin-top: 50px;"></form>
     
         <legend>Dados de Perfil</legend>
         <section class="formfoto">
           <section>
               <label for="nome">Nome de usuário:</label>
-              <input class="campos" type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
+              <input class="campos" type="text" class="<%= classeErro.nome %>" name="nome" id="nome" value="<%=dadosForm.nome%>">
           </section>
           <section>
         <section>

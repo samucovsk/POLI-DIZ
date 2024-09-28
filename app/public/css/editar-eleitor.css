@@ -83,3 +83,8 @@ legend{
     color: #333;
     font-weight: 600;
 }
+
+.container_2 .campos.erro, .erro {
+    border: 2px solid red;
+    background: pink;
+}

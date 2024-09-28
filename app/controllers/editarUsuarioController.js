@@ -16,42 +16,24 @@ const editarUsuarioController = {
             .isNumeric().withMessage(mensagemErro.TELEFONE_INVALIDO)
             .isMobilePhone("pt-BR").withMessage(mensagemErro.TELEFONE_INVALIDO),
         body('estado').notEmpty().withMessage(mensagemErro.UF_INVALIDA),
-        body('cpf').custom(async cpf => {
-            let soma = 0;
-            let resto;
-            for (let i = 1; i <= 9; i++) {
-                soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-            }
-            resto = (soma * 10) % 11;
-
-            if (resto === 10 || resto === 11) {
-                resto = 0;
-            }
-            if (resto !== parseInt(cpf.substring(9, 10))) {
-                throw new Error(mensagemErro.CPF_INVALIDO);
-            }
-
-            soma = 0;
-
-            // Validação do segundo dígito verificador
-            for (let i = 1; i <= 10; i++) {
-                soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-            }
-            resto = (soma * 10) % 11;
-
-            if (resto === 10 || resto === 11) {
-                resto = 0;
-            }
-            if (resto !== parseInt(cpf.substring(10, 11))) {
-                throw new Error(mensagemErro.CPF_INVALIDO);
-            }
-
-            return true;
-        })
     ],
 
     regrasValidacaoFormAttContaEleitor: [
-        body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
+        body('email')
+            .isEmail().withMessage(mensagemErro.EMAIL_INVALIDO)
+            .custom(async email => {
+                try {
+                    const [results] = await pool.query('SELECT * FROM Usuario WHERE emailUsuario = ?', [email]);
+
+                    if (results.length > 0) {
+                        if (results[0] === email) {
+                            throw new Error(mensagemErro.EMAIL_IGUAL);
+                        }
+                    }
+                } catch (err) {
+                    throw new Error(err);
+                }
+            }),
         body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
     ],
 
@@ -61,13 +43,21 @@ const editarUsuarioController = {
         if (!erros.isEmpty()) {
             console.log(erros);
             
-            return res.render('pages/editar-eleitor', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
+            return res.render(
+                'pages/editar-eleitor', 
+                { 
+                    logado: req.session.autenticado, 
+                    dadosForm: req.body, 
+                    erros: erros,
+                    form_aprovado: true
+                }
+            );
         }
 
         try {
             const results = await pool.query(
-                "UPDATE Usuario SET nomeUsuario = ?, enderecoUsuario = ?, descUsuario = ?, CPFUsuario = ?, cepUsuario = ?, TelefoneUsuario = ?  WHERE idUsuario = ?",
-                [req.body.nome, req.body.estado, req.body.desc_usuario, req.body.cpf, req.body.cep, req.body.telefone, req.session.autenticado.id]
+                "UPDATE Usuario SET nomeUsuario = ?, enderecoUsuario = ?, descUsuario = ?, cepUsuario = ?, TelefoneUsuario = ?  WHERE idUsuario = ?",
+                [req.body.nome, req.body.estado, req.body.desc_usuario, req.body.cep, req.body.telefone, req.session.autenticado.id]
             );
 
             console.log(results);
@@ -145,10 +135,8 @@ const editarUsuarioController = {
             console.log(erroMulter);
             
             erros.errors.push(erroMulter);
-            removeImg(`./app/public/imagem/imagens-servidor/perfil/${req.file.filename}`);
-
             const user = req.session.autenticado ? await usuarioModel.findId(req.session.autenticado.id) : new Error("Erro ao acessar o banco")
-            res.render(
+            return res.render(
                 "./pages/editar-eleitor", 
                 {
                     logado: user[0],
@@ -156,6 +144,7 @@ const editarUsuarioController = {
                     erros: erros,
                 }
             );
+
         }
 
         if (!req.file) {

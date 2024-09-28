@@ -1,24 +1,61 @@
+<% 
+// Definindo campos e classes de erro
+const camposNomes = {
+    nome: "",
+    cep: "",
+    telefone: "",
+    desc_usuario: "",
+    estado: "",
+};
+
+const classeErro = {
+    nome: "",
+    cep: "",
+    telefone: "",
+    desc_usuario: "",
+    estado: "",
+};
+
+let msgerro = "";
+
+if (erros) {
+    erros.errors.forEach(err => {
+        camposNomes[err.path] = err.msg;
+        classeErro[err.path] = "erro";
+        msgerro += err.msg + "<br>";
+    });
+%>
+    <script>
+        const msgErro = "<%= msgerro %>";
+        displayNotify(
+            "Falha: <%= erros.errors.length %> erro(s) detectados", 
+            msgErro.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "error"
+        );
+    </script>
+<% } %>
+
 <form action="atualizar_perfil_eleitor" method="post" class="container" >
 
         <legend>Dados de Perfil</legend>
         <section class="container_2">
           <section>
               <label for="nome">Nome de usuário:</label>
-              <input class="campos" type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
+              <input class="campos <%= classeErro.nome %>" type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
           </section>
           <section>
         <section>
           <label for="nome">CEP:</label>
-          <input class="campos" type="text" name="cep" id="cep" value="<%=dadosForm.cep%>">
+          <input class="campos <%= classeErro.cep %>" type="text" name="cep" id="cep" value="<%=dadosForm.cep%>">
         </section>
         <section>
           <label for="nome">Telefone:</label>
-          <input class="campos" type="text" name="telefone" id="telefone" value="<%=dadosForm.telefone%>">
+          <input class="campos <%= classeErro.telefone %>" type="text" name="telefone" id="telefone" value="<%=dadosForm.telefone%>">
         </section>
         
         <section>
               <label class="seleect"> Estado <a>*</a></label>
-              <select id="estado" class="" name="estado">
+              <select id="estado" class="<%= classeErro.estado %>" name="estado">
                 <option disabled value="">Selecione</option>
                 <option value="Acre" <%= dadosForm.estado === 'Acre' ? 'selected' : '' %>>Acre</option>
                 <option value="Alagoas" <%= dadosForm.estado === 'Alagoas' ? 'selected' : '' %>>Alagoas</option>
@@ -54,7 +91,7 @@
             <label for="desc_usuario">
              Insira uma breve descrição sobre você.
             </label>
-            <textarea name="desc_usuario" id="desc_usuario" placeholder="<%=dadosForm.desc_usuario%>"></textarea>
+            <textarea name="desc_usuario" id="desc_usuario" class="<%= classeErro.desc_usuario %>"><%=dadosForm.desc_usuario%></textarea>
           </section>
           <input class="botao" type="submit" value="Alterar dados">
   </form>
