@@ -5,6 +5,7 @@ const pool = require('../../config/pool-conexoes');
 const usuarioController = require("../controllers/usuarioController");
 const politicoController = require("../controllers/politicosController");
 const editarUsuarioController = require('../controllers/editarUsuarioController');
+const editarPoliticoController = require('../controllers/editarPoliticoController');
 
 const { autenticador } = require("../sessions/autenticador_middleware");
 const { mensagemErro } = require("../util/logs");
@@ -133,6 +134,7 @@ router.get(
     async function (req, res) {
         try {
             const userId = req.params.id;
+            console.log("id: " + userId);
             const [results] = await politicosModel.findId(userId);
             console.log(results);
             
@@ -257,6 +259,37 @@ router.post(
     function (req, res) {
         console.log(req.body);
         editarUsuarioController.mudarFotosEleitor(req, res);
+    }
+)
+
+router.post(
+    '/editar_candidato/atualizar_perfil_candidato',
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    editarPoliticoController.regrasValidacaoFormAttPerfilCandidato,
+    function (req, res) {
+        editarPoliticoController.atualizarPerfilCandidato(req, res);
+    }
+);
+
+router.post(
+    '/editar_candidato/atualizar_conta_candidato',
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    editarPoliticoController.regrasValidacaoFormAttContaCandidato,
+    function (req, res) {
+        editarPoliticoController.atualizarContaCandidato(req, res);
+    }
+);
+
+router.post(
+    '/editar_candidato/atualizar_fotos_candidato',
+    autenticador.verificarUsuAutenticado, 
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }), 
+    uploadPerfil("imgPerfil"),
+    function (req, res) {
+        console.log(req.body);
+        editarPoliticoController.mudarFotosCandidato(req, res);
     }
 )
 

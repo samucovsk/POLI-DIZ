@@ -1,17 +1,44 @@
-<br>
-<form action="atualizar_conta_<%= logado.tipo %>" method="post">
-    <form class="formfoto">
-        <legend>Dados sensíveis</legend>
-        <label for="email">
-            Insira um email:
-        </label>
-        <input class="campos" type="email" name="email" id="email" value="<%= dadosForm.email %>">
-        <label for="senha">
-            Insira uma nova senha:
-        </label>
-        <input class="campos" type="password" name="senha" id="senha" value="<%= dadosForm.senha %>">
-        <br>
-        <br>
-        <input class="botao" type="submit" value="Atualizar dados">
-    </form>
+<% 
+// Definindo campos e classes de erro
+const camposNomes = {
+    email: "",
+    senha: "",
+};
+
+const classeErro = {
+    email: "",
+    senha: "",
+};
+
+let msgerro = "";
+
+if (erros) {
+    erros.errors.forEach(err => {
+        camposNomes[err.path] = err.msg;
+        classeErro[err.path] = "erro";
+        msgerro += err.msg + "<br>";
+    });
+%>
+    <script>
+        const msgErro = "<%= msgerro %>";
+        displayNotify(
+            "Falha: <%= erros.errors.length %> erro(s) detectados", 
+            msgErro.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "error"
+        );
+    </script>
+<% } %>
+
+<form action="atualizar_conta_<%= logado.tipo %>" method="post" class="formfoto">
+    <legend>Dados sensíveis</legend>
+
+    <label for="email">Insira um email:</label>
+    <input class="campos <%= classeErro.email %>" type="email" name="email" id="email" value="<%= dadosForm.email %>">
+
+    <label for="senha">Insira uma nova senha:</label>
+    <input class="campos <%= classeErro.senha %>" type="password" name="senha" id="senha" value="<%= dadosForm.senha %>">
+    
+    <br><br>
+
+    <input class="botao" type="submit" value="Atualizar dados">
 </form>

@@ -1,33 +1,60 @@
-<form action="atualizar_perfil_candidato" method="post" class="container" style="margin-top: 50px;"></form>
-    
-        <legend>Dados de Perfil</legend>
-        <section class="formfoto">
-          <section>
-              <label for="nome">Nome de usuário:</label>
-              <input class="campos" type="text" class="<%= classeErro.nome %>" name="nome" id="nome" value="<%=dadosForm.nome%>">
-          </section>
-          <section>
+<% 
+// Definindo campos e classes de erro
+const camposNomes = {
+    nome: "",
+    desc_usuario: "",
+    estado: "",
+    candidatura: ""
+};
+
+const classeErro = {
+    nome: "",
+    desc_usuario: "",
+    estado: "",
+    candidatura: ""
+};
+
+let msgerro = "";
+
+if (erros) {
+    erros.errors.forEach(err => {
+        camposNomes[err.path] = err.msg;
+        classeErro[err.path] = "erro";
+        msgerro += err.msg + "<br>";
+    });
+%>
+    <script>
+        const msgErro = "<%= msgerro %>";
+        displayNotify(
+            "Falha: <%= erros.errors.length %> erro(s) detectados", 
+            msgErro.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "error"
+        );
+    </script>
+<% } %>
+
+<form action="atualizar_perfil_candidato" method="post" class="container" style="margin-top: 50px;">
+    <legend>Dados de Perfil</legend>
+    <section class="formfoto">
         <section>
-          <label for="candidatura">Candidatura:</label>
-          <select name="tipo">
-            <options value="prefeito">Prefeito</options>
-            <options value="vereador">Vereador</options>
-            <options value="governador">Governador</options>
-            <options value="presidente">Presidente</options>
-            <!--Adicionar mais depois-->
-          </select>
+            <label for="nome">Nome de usuário:</label>
+            <input class="campos <%= classeErro.nome %>" type="text" name="nome" id="nome" value="<%=dadosForm.nome%>">
         </section>
+        
         <section>
-          <label for="nome">Contato:</label>
-          <input type="text" class="campos" name="email" id="email" value="<%=dadosForm.email%>">
+            <label for="candidatura">Candidatura:</label>
+            <select name="candidatura" class="<%= classeErro.candidatura %>">
+                <option value="prefeito" <%= dadosForm.candidatura === 'prefeito' ? 'selected' : '' %>>Prefeito</option>
+                <option value="vereador" <%= dadosForm.candidatura === 'vereador' ? 'selected' : '' %>>Vereador</option>
+                <option value="governador" <%= dadosForm.candidatura === 'governador' ? 'selected' : '' %>>Governador</option>
+                <option value="presidente" <%= dadosForm.candidatura === 'presidente' ? 'selected' : '' %>>Presidente</option>
+                <!-- Adicionar mais opções aqui -->
+            </select>
         </section>
+
         <section>
-          <label for="cpf">CPF:</label>
-          <input type="text" class="campos" name="cpf" id="cpf" value="<%=dadosForm.cpf%>">
-        </section>
-        <section>
-              <label> Estado <a>*</a></label>
-              <select id="estado" class="" name="estado">
+            <label for="estado">Estado <span>*</span></label>
+            <select id="estado" class="<%= classeErro.estado %>" name="estado">
                 <option disabled value="">Selecione</option>
                 <option value="Acre" <%= dadosForm.estado === 'Acre' ? 'selected' : '' %>>Acre</option>
                 <option value="Alagoas" <%= dadosForm.estado === 'Alagoas' ? 'selected' : '' %>>Alagoas</option>
@@ -57,14 +84,13 @@
                 <option value="Sergipe" <%= dadosForm.estado === 'Sergipe' ? 'selected' : '' %>>Sergipe</option>
                 <option value="Tocantins" <%= dadosForm.estado === 'Tocantins' ? 'selected' : '' %>>Tocantins</option>
             </select>
-        
-          </section>
-          <section>
-            <label for="desc_usuario">
-             Insira uma breve descrição sobre você e sua campanha.
-            </label>
-            <textarea name="desc_usuario" id="desc_usuario" placeholder="<%=dadosForm.desc_usuario%>"></textarea>
-          </section>
-          <input type="submit" class="botao" value="Alterar dados">
-        <br>
-  </form>
+        </section>
+
+        <section>
+            <label for="desc_usuario">Insira uma breve descrição sobre você e sua campanha:</label>
+            <textarea name="desc_usuario" id="desc_usuario" class="campos <%= classeErro.desc_usuario %>"><%= dadosForm.desc_usuario %></textarea>
+        </section>
+
+        <input type="submit" class="botao" value="Alterar dados">
+    </section>
+</form>
