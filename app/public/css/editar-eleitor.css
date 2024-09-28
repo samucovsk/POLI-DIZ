@@ -31,7 +31,7 @@ body{
 .container_2 label {
     color: black;
 }
-.container_2 input {
+.container_2 .campos {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -51,7 +51,7 @@ legend{
 .formfoto{
   
 }
-.formfoto input{
+.formfoto .campos{
     width: 100%;
     height: 100%;
     background: transparent;
@@ -71,4 +71,17 @@ legend{
     font-size: 18px;
     resize: none;
     border-radius: 10px;
+}
+.botao{
+    width: 100%;
+    height: 45px;
+    background: #FFED03;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
 }
