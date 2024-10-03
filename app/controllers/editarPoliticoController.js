@@ -5,7 +5,7 @@ const { mensagemErro } = require("../util/logs");
 const politicosModel = require("../models/politicosModel");
 const { removeImg } = require("../util/removeImg");
 var salt = bcrypt.genSaltSync(12);
-
+ 
 const editarPoliticoController = {
     // Validações do formulário de atualização de perfil
     regrasValidacaoFormAttPerfilCandidato: [
@@ -14,32 +14,32 @@ const editarPoliticoController = {
         body('estado').notEmpty().withMessage(mensagemErro.UF_INVALIDA),
         body('candidatura').notEmpty().withMessage('Especifique sua candidatura.'),
     ],
-
+ 
     // Validações do formulário de atualização de conta
     regrasValidacaoFormAttContaCandidato: [
         body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
         body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
     ],
-
+ 
     // Atualiza perfil do político
     atualizarPerfilCandidato: async (req, res) => {
         const erros = validationResult(req);
-        
+       
         if (!erros.isEmpty()) {
             console.log(erros);
             return res.render('pages/editar-candidato', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
         }
-
+ 
         try {
             const results = await pool.query(
                 "UPDATE Politicos SET nomePoliticos = ?, ufPoliticos = ?, descPoliticos = ?, candidaturaPoliticos = ? WHERE idPoliticos = ?",
                 [req.body.nome, req.body.estado, req.body.desc_usuario, req.body.candidatura, req.session.autenticado.id]
             );
-
+ 
             console.log(results);
-
+ 
             const politicoAtualizado = await politicosModel.findId(req.session.autenticado.id);
-            
+           
             if (politicoAtualizado.length > 0) {
                 // Atualiza a sessão com os novos dados
                 req.session.autenticado = {
@@ -51,34 +51,34 @@ const editarPoliticoController = {
                     desc_usuario: politicoAtualizado[0].descPoliticos,
                     tipo: "candidato"
                 };
-
+ 
                 res.redirect('/perfil-candidato/' + req.session.autenticado.id);
             }
         } catch (err) {
             console.log(err);
         }
     },
-
+ 
     // Atualiza conta do político (email e senha)
     atualizarContaCandidato: async (req, res) => {
         const erros = validationResult(req);
-        
+       
         if (!erros.isEmpty()) {
             return res.render('pages/editar-candidato', { logado: req.session.autenticado, dadosForm: req.body, erros: erros });
         }
-        
+       
         try {
             const senhaComHash = bcrypt.hashSync(req.body.senha, salt);
-            
+           
             const results = await pool.query(
                 "UPDATE Politicos SET contatoPoliticos = ?, senhaPoliticos = ? WHERE idPoliticos = ?",
                 [req.body.email, senhaComHash, req.session.autenticado.id]
             );
-
+ 
             console.log(results);
-
+ 
             const politicoAtualizado = await politicosModel.findId(req.session.autenticado.id);
-            
+           
             if (politicoAtualizado.length > 0) {
                 req.session.autenticado = {
                     nome: politicoAtualizado[0].nomePoliticos,
@@ -90,18 +90,18 @@ const editarPoliticoController = {
                     tipo: "candidato"
                 };
             }
-
+ 
             res.redirect('/perfil-candidato/' + req.session.autenticado.id);
         } catch (err) {
             console.log(err);
         }
     },
-
+ 
     // Atualiza a foto de perfil do político
     mudarFotosCandidato: async (req, res) => {
         const erros = { errors: [] };
         const erroMulter = req.session.erroMulter;
-
+ 
         if (erroMulter != null) {
             console.log(erroMulter);
             erros.errors.push(erroMulter);
@@ -112,7 +112,7 @@ const editarPoliticoController = {
                 erros: erros,
             });
         }
-
+ 
         if (!req.file) {
             console.log("Falha ao carregar arquivo!");
             const politico = await politicosModel.findId(req.session.autenticado.id);
@@ -128,27 +128,27 @@ const editarPoliticoController = {
                     removeImg(`./app/public/imagem/imagens-servidor/perfil/${caminhoFoto}`);
                 }
                 caminhoFoto = req.file.filename;
-
+ 
                 let resultado = await pool.query(
                     "UPDATE Politicos SET fotoPerfilPoliticos = ? WHERE idPoliticos = ?",
                     [caminhoFoto, req.session.autenticado.id]
                 );
-
+ 
                 const politicoAtualizado = await politicosModel.findId(req.session.autenticado.id);
-
+ 
                 req.session.autenticado = {
                     ...req.session.autenticado,
                     foto_usuario: caminhoFoto
                 };
-
+ 
                 console.log(resultado);
-                
+               
                 const dadosNotificacao = {
                     tipo: "sucesso",
                     titulo: "Tudo ocorreu como esperado :)",
                     msg: "Sua foto foi atualizada!"
                 };
-
+ 
                 res.redirect('/perfil-candidato/' + req.session.autenticado.id);
             } catch (err) {
                 console.log(err);
@@ -156,5 +156,5 @@ const editarPoliticoController = {
         }
     }
 };
-
+ 
 module.exports = editarPoliticoController;

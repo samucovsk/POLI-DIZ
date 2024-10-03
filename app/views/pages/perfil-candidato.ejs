@@ -12,8 +12,8 @@
      <%- include("../pages/header-home") %>
      <!--fim do cabeçalho-->
      <!--INICIO DO CORPO-->
-    <section class="header__wrapper">   
-
+    <section class="header__wrapper">  
+ 
     </section>
       <section class="container">
         <section class="container_2">
@@ -24,33 +24,33 @@
           <h2><%= dadosUsuario.nome %></h2>
           <p><%= dadosUsuario.candidatura %></p>
           <p><%= dadosUsuario.email %></p>
-
+ 
           <ul class="sobre">
             <li><span>0</span>Seguidores</li>
             <li><span>0</span>Seguindo</li>
             <li><span>0</span>Lives</li>
           </ul>
-
-
+ 
+ 
           <section class="content">
             <p>
               <%= dadosUsuario.desc_usuario %>
             </p>
-            
+           
           </section>
-
+ 
           <section class="botão">
             <% if (dadosUsuario.perfilAdm) { %>
               <a class="editar_botao" href="/editar_candidato/<%= logado.id %>">Editar Perfil</a>
+              <a href="/postarFoto" style="color: inherit">
+                <button class="editar_botao">Publicar</button>
+              </a>
             <% } else { %>
               <button class="editar_botao">Seguir</button>
             <% } %>
-  
-          
-            <button class="editar_botao" a href="#">Publicar</button>
-  
+ 
           </section>
-          
+         
         </section>
         <section class="content_3">
           <nav>
@@ -58,11 +58,11 @@
               <li><a href="#">Publicações</a></li>
               <li><a href="#">Lives</a></li>
             </ul>
-      
-      
-
+     
+     
+ 
           </nav>
-
+ 
           <section class="fotos">
             <img src="../imagem/aviso.png" alt="fotos" />
           </section>

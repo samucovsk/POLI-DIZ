@@ -1,5 +1,5 @@
 var pool = require("../../config/pool-conexoes");
-
+ 
 const politicosModel = {
     findAll: async () => {
         try {
@@ -12,7 +12,7 @@ const politicosModel = {
             return error;  
         }
     },
-
+ 
     findCampoCustom: async (dados, coluna) => {
         try {
             const [resultados] = await pool.query(
@@ -25,7 +25,7 @@ const politicosModel = {
             return error;
         }
     },
-
+ 
     findId: async (id) => {
         try {
             const [resultados] = await pool.query(
@@ -37,7 +37,7 @@ const politicosModel = {
             return error;
         }
     },
-
+ 
     create: async (camposForm) => {
         try {
             const [resultados] = await pool.query(
@@ -49,7 +49,7 @@ const politicosModel = {
             return null;
         }
     },
-
+ 
     delete: async (id) => {
         try {
             const [resultados] = await pool.query(
@@ -61,6 +61,18 @@ const politicosModel = {
             return error;
         }
     },
+ 
+    guardarPostagem: async (dadosForm) => {
+        try {
+            const [resultados] = await pool.query(
+                "INSERT INTO Postagens SET ?", [dadosForm]
+            );
+            return resultados;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
 };
-
+ 
 module.exports = politicosModel;
