@@ -13,7 +13,8 @@ const upload = require("../util/uploadImg");
 const usuarioModel = require("../models/usuarioModel");
 const politicosModel = require("../models/politicosModel");
 const uploadPerfil = upload("./app/public/imagem/imagens_servidor/perfil/", 3, ['jpeg', 'jpg', 'png'], 3 / 4, 0);
- 
+const uploadPhotoPost = upload("./app/public/imagem/imagens_servidor/postagens/", 3, ['jpeg', 'jpg', 'png', 'webp'], 4 / 3, 0);
+
 /* ====================== Rotas GET ====================== */
  
 router.get('/logOut', autenticador.limparSessao, function (req, res) {
@@ -242,6 +243,7 @@ router.post(
     '/postarFoto/:id',
     autenticador.verificarUsuAutenticado,
     autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    uploadPhotoPost('foto'),
     function (req, res) {
         const userId = parseInt(req.params.id);
         politicoController.realizarPostagem(req, res, userId);
