@@ -102,6 +102,11 @@ form .form-content button{
     cursor: pointer;
     font-size: 16px;
 }
+.select2-container--default .select2-selection--single {
+    background-color: #afbad6;
+    border: 1px solid #aaa;
+    border-radius: 15px;
+}
 @media(max-width:930px){
     .img-box{
         display: none;
