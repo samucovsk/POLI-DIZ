@@ -153,37 +153,7 @@ body {
 
 
 /*retangulo colorido*/
-.retangulo1 ul{
-    display: flex;
-    
-}
-.retangulo1 li{
-    display: block;
-    padding:  40px;
-    background-color:var(--body-bg);
-    margin:5px;
-}
-.retangulo1{
-    display: flex;
-    align-items: center; 
-    height: 600px;
-    background-color: #f5e215;
-    padding: 24px;
-}
 
-.retangulo1 h1{
-    margin-top: 30px
-}
-
-.retangulo1 p{
-    font-size: 20px;
-    text-align: justify;
-}
-
-.retangulo1 div{
-    align-items: center;
-
-}
 /*fim do primeiro retangulo colorido*/
 
 
@@ -358,23 +328,6 @@ body {
 
 
 
- /*retangulo colorido*/
- .retangulo1 ul{
-    display:contents;
-}
-.retangulo1 li{
-    display: block;
-    padding:  40px;
-    background-color:var(--body-bg);
-    margin:5px;
-    margin-top: 5px;
-}
-.retangulo1{
-    display: block;
-    height: 2668px;
-    background-color: #f5e215;
-    padding: 24px;
-}
 
     /*fim do primeiro retangulo colorido*/
 
@@ -463,8 +416,9 @@ body {
 }
 
 .texto3 img{
-    width: 280px;
-    margin-left: -5%;
+    width: 100%;
+    object-fit: cover;
+    margin: 0 0px 33px 0px;
     
 }
 
