@@ -59,6 +59,8 @@ body{
 }
 form .input-group{
     margin-bottom: 15px;
+    background-color: #afbcd8;
+    border-radius: 14px;
 }
 form .input-group label{
     color: #3D3D3D;
