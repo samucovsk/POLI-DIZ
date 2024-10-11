@@ -146,7 +146,13 @@ body {
 }
 /*fim do primeiro texto*/
 
+/*inicio dos tres textos*/
 
+.tres_txts{
+    display: flex;
+}
+
+/*fim dos tres textos*/
 
 
 
