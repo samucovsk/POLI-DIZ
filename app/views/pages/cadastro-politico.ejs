@@ -98,8 +98,38 @@
 
                 <section class="input-group">
                     <label for="partido">Partido<a>*</a></label>
-                    <input type="text" id="partido" name="partido" placeholder="Digite seu Partido" required class="<%= classeErro.partido %>" value="<%= dadosForm.partido %>">
-                    
+                    <select type="text" id="partido" name="partido" placeholder="Digite seu Partido" required class="<%= classeErro.partido %>" value="<%= dadosForm.partido %>">
+                        <option value="">Selecione um partido</option>
+    <option value="AVANTE">Avante</option>
+    <option value="AGIR">Agir</option>
+    <option value="CIDADANIA">Cidadania</option>
+    <option value="DC">Democracia Cristã (DC)</option>
+    <option value="MDB">Movimento Democrático Brasileiro (MDB)</option>
+    <option value="MOBILIZA">Mobiliza</option>
+    <option value="NOVO">Novo</option>
+    <option value="PCdoB">Partido Comunista do Brasil (PCdoB)</option>
+    <option value="PCB">Partido Comunista Brasileiro (PCB)</option>
+    <option value="PCO">Partido da Causa Operária (PCO)</option>
+    <option value="PDT">Partido Democrático Trabalhista (PDT)</option>
+    <option value="PL">Partido Liberal (PL)</option>
+    <option value="PODE">Podemos (Pode)</option>
+    <option value="PP">Progressistas (PP)</option>
+    <option value="PSOL">Partido Socialismo e Liberdade (PSOL)</option>
+    <option value="PMB">Partido da Mulher Brasileira (PMB)</option>
+    <option value="PRTB">Partido Renovador Trabalhista Brasileiro (PRTB)</option>
+    <option value="PV">Partido Verde (PV)</option>
+    <option value="PSTU">Partido Socialista dos Trabalhadores Unificado (PSTU)</option>
+    <option value="PSB">Partido Socialista Brasileiro (PSB)</option>
+    <option value="PSDB">Partido da Social Democracia Brasileira (PSDB)</option>
+    <option value="PSD">Partido Social Democrático (PSD)</option>
+    <option value="PRD">Partido da Revolução Democrática (PRD)</option>
+    <option value="PT">Partido dos Trabalhadores (PT)</option>
+    <option value="REPUBLICANOS">Republicanos</option>
+    <option value="REDE">Rede Sustentabilidade</option>
+    <option value="SOLIDARIEDADE">Solidariedade</option>
+    <option value="UP">Unidade Popular (UP)</option>
+    <option value="UNIAO BRASIL">União Brasil</option>
+                    </select>
                 </section>
 
                 <section class="input-group">
@@ -159,6 +189,11 @@
     <script>
         $(document).ready(function() {
             $('#estado').select2();
+        });
+     </script>
+     <script>
+        $(document).ready(function() {
+            $('#partido').select2();
         });
      </script>
 
