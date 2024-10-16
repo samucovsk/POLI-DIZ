@@ -35,7 +35,13 @@ router.get("/home", autenticador.verificarUsuAutenticado,function (req, res) {
 router.get("/escolha", function (req, res) {
     res.render("pages/escolha", { pagina: "escolha", logado: req.session.autenticado });
 });
+/* temporario*/
+ 
+router.get("/postnovo", function (req, res) {
+    res.render("pages/postnovo", { pagina: "postnovo", logado: req.session.autenticado });
+});
 
+/*temporario*/ 
 router.get("/superchat", autenticador.verificarUsuAutenticado,function (req, res) {
     res.render("pages/links", { pagina: "superchat", logado: req.session.autenticado });
 });
