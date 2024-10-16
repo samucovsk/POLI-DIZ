@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selectedFiles.length < 5) {
                 selectedFiles.push(file);
                 previewFile(file);
+                return
             } else {
                 alert('Você só pode escolher até 5 arquivos.');
             }
@@ -52,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, escolha pelo menos um arquivo antes de avançar.');
             return;
         }
+
+    console.log(fileInput.value);
         previewContainerStep2.innerHTML = previewContainer.innerHTML.replace(/<button class="delete-button">X<\/button>/g, '');
         step1.classList.add('hidden');
         step2.classList.remove('hidden');
@@ -60,5 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     postButton.addEventListener('click', () => {
         alert(`Publicação com título "${document.getElementById('title-input').value}" postada com sucesso!`);
     });
+    
 });
 

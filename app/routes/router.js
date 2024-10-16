@@ -12,8 +12,9 @@ const { mensagemErro } = require("../util/logs");
 const upload = require("../util/uploadImg");
 const usuarioModel = require("../models/usuarioModel");
 const politicosModel = require("../models/politicosModel");
+const { body } = require("express-validator");
 const uploadPerfil = upload("./app/public/imagem/imagens_servidor/perfil/", 3, ['jpeg', 'jpg', 'png'], 3 / 4, 0);
-const uploadPhotoPost = upload("./app/public/imagem/imagens_servidor/postagens/", 3, ['jpeg', 'jpg', 'png', 'webp'], 4 / 3, 0);
+const uploadPhotoPost = upload("./app/public/imagem/imagens_servidor/postagens/", 3, ['jpeg', 'jpg', 'png'], 3 / 4, 0);
 
 /* ====================== Rotas GET ====================== */
  
@@ -153,8 +154,22 @@ router.get(
             if (dadosUsuario.id === req.session.autenticado.id) {
                 dadosUsuario.perfilAdm = true;
             }
- 
-            res.render('pages/perfil-candidato', { pagina: "perfil-candidato", logado: req.session.autenticado, dadosNotificacao: null, dadosUsuario: dadosUsuario, userId });
+
+            const [ postagens ] = await pool.query('SELECT * FROM Postagem WHERE Politicos_idPoliticos = ?', [userId]);
+            
+            console.log(postagens);
+            
+            res.render(
+                'pages/perfil-candidato', 
+                { 
+                    pagina: "perfil-candidato", 
+                    logado: req.session.autenticado, 
+                    dadosNotificacao: null, 
+                    dadosUsuario: dadosUsuario, 
+                    postagens: postagens,
+                    userId 
+                }
+            );
         } catch (err) {
             console.log(err);
         }
@@ -241,10 +256,13 @@ router.post('/signin', usuarioController.regrasValidacaoFormLogin, autenticador.
  
 router.post(
     '/postarFoto/:id',
+    uploadPhotoPost('foto'),
     autenticador.verificarUsuAutenticado,
     autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
-    uploadPhotoPost('foto'),
+    body('titulo').notEmpty().withMessage('Insira um título').isLength({min: 5}).withMessage('Título muito curto!'),
     function (req, res) {
+        console.log(req.file);
+        
         const userId = parseInt(req.params.id);
         politicoController.realizarPostagem(req, res, userId);
     }

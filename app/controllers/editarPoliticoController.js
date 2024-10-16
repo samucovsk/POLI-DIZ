@@ -18,7 +18,17 @@ const editarPoliticoController = {
     // Validações do formulário de atualização de conta
     regrasValidacaoFormAttContaCandidato: [
         body('email').isEmail().withMessage(mensagemErro.EMAIL_INVALIDO),
-        body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
+        body('senha').custom(senha => {
+            if (!senha) {
+                return;
+            }
+
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (regex.test(senha)) {
+                throw new Error();
+            }
+        }).withMessage(mensagemErro.SENHA_FRACA)
     ],
  
     // Atualiza perfil do político

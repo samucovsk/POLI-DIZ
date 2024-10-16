@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const usuarioModel = require("../models/usuarioModel");
 const { mensagemErro } = require("../util/logs");
 const politicosModel = require("../models/politicosModel");
+const pool = require("../../config/pool-conexoes");
 var salt = bcrypt.genSaltSync(12);
  
 const politicoController = {
@@ -97,31 +98,83 @@ const politicoController = {
     },
  
     realizarPostagem: async (req, res, userId) => {
-        const [user] = await politicosModel.findId(userId);
-        let autenticado;
+        const erros = validationResult(req);
+        const erroMulter = req.session.erroMulter;
  
-        const dadosForm = {
-            tituloPost: req.body.titulo,
-            fotoPost: req.body.foto,
-            idUsuarioPost: userId
-        };
+        if (erroMulter != null) {
+            console.log(erroMulter);
+            erros.errors.push(erroMulter);
+            const politico = await politicosModel.findId(req.session.autenticado.id);
+            return res.render("./pages/postar_foto", {
+                logado: req.session.autenticado,
+                dadosForm: req.body,
+                erros: erros,
+            });
+        }
  
-        const results = await politicosModel.guardarPostagem(dadosForm);
- 
-        if (req.session.autenticado) {
-            autenticado = req.session.autenticado;
-        } else {
-            autenticado = {
-                nome: results[0].nomePoliticos,
-                id: results[0].idPoliticos,
-                estado: results[0].ufPoliticos,
-                data_nascimento: results[0].dataNascPoliticos,
-                email: results[0].contatoPoliticos,
-                candidatura: results[0].candidaturaPoliticos,
-                foto_usuario: results[0].fotoPerfilPoliticos,
-                desc_usuario: results[0].descPoliticos,
-                tipo: "candidato"
+        if (!req.file) {
+            console.log("Ops, falha ao carregar arquivo!");
+            const politico = await politicosModel.findId(req.session.autenticado.id);
+            return res.render("./pages/postar_foto", {
+                logado: req.session.autenticado,
+                dadosForm: req.body,
+                erros: erros,
+            });
+        }
+
+        try {
+            let caminhoFoto = req.file.filename;
+
+            const date = new Date();
+            const dataPostagem = `${date.getFullYear()}--${date.getMonth()}--${date.getDay()}`;
+    
+            const dadosForm = {
+                Titulo_postagem: req.body.titulo,
+                Imagem_postagem	: caminhoFoto,
+                Politicos_idPoliticos: userId,
+                data_postagem: dataPostagem
             };
+    
+            const results = await politicosModel.guardarPostagem(dadosForm);
+
+            console.log('Postagem guardada no db');
+            
+            if (req.session.autenticado) {
+                autenticado = req.session.autenticado;
+            } else {
+                autenticado = {
+                    nome: results[0].nomePoliticos,
+                    id: results[0].idPoliticos,
+                    estado: results[0].ufPoliticos,
+                    data_nascimento: results[0].dataNascPoliticos,
+                    email: results[0].contatoPoliticos,
+                    candidatura: results[0].candidaturaPoliticos,
+                    foto_usuario: results[0].fotoPerfilPoliticos,
+                    desc_usuario: results[0].descPoliticos,
+                    tipo: "candidato"
+                };
+            }
+
+            const [ postagens ] = await pool.query('SELECT * FROM Postagem WHERE Politicos_idPoliticos = ?', [userId]);
+    
+            res.render(
+                'pages/perfil-candidato', 
+                { 
+                    pagina: "perfil-candidato", 
+                    logado: req.session.autenticado, 
+                    dadosNotificacao: null, 
+                    dadosUsuario: { ...req.session.autenticado, perfilAdm: true }, 
+                    postagens: postagens,
+                    dadosNotificacao: {
+                        type: 'sucess',
+                        title: 'Tudo ocorreu como esperado :)',
+                        msg: 'Seu feed foi atualizado.'
+                    },
+                    userId,
+                }
+            );
+        } catch (err) {
+            console.log(err);
         }
     }
  

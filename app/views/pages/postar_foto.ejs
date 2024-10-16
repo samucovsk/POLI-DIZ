@@ -7,22 +7,17 @@
     <link rel="stylesheet" href="../css/postar_foto.CSS">
 </head>
 <body>
-    <form action="/postarFoto" method="post">
-      <section class="container">
+    <form action="/postarFoto/<%= logado.id %>" enctype="multipart/form-data" method="post">
+      <input type="file" name="foto" multiple id="fileInput" style="display: block;">
+      <input type="text" id="title-input" name="titulo" placeholder="Digite o título">
+      <button type="submit" class="button_postar"id="post-button">Postar</button>
+      <!--<section class="container">
           <section id="step-1" class="step">
               <h1>Escolha os arquivos</h1>
-              <button onclick="document.getElementById('file-input').click();" class="button_add">
-                <div tabindex="0" class="plusButton">
-        <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-      <g mask="url(#mask0_21_345)">
-        <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
-      </g>
-        </svg>
-      </div>
-              </button>
-              <input type="file" id="file-input" multiple accept="image/*" name="foto">
+              
+              <input type="file" id="file-input" multiple accept="image/*" name="foto" style="display: block;visibility: visible; opacity: 1;">
               <section id="preview-container"></section>
-              <button class="avancar" id="advance-step"> Avançar</button>
+              <button type="button" class="avancar" id="advance-step"> Avançar</button>
           </section>
       
           <section id="step-2" class="step hidden">
@@ -31,7 +26,7 @@
               <input type="text" id="title-input" name="titulo" placeholder="Digite o título">
               <button type="submit" class="button_postar"id="post-button">Postar</button>
           </section>
-      </section>
+      </section>-->
     </form>
 
     <script src="../js/postar_foto.JS"></script>

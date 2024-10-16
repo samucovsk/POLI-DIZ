@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
+    <script src="../js/notify.js"></script>
+
     <title>Perfil de Candidato <%= dadosUsuario.nome %></title>
     <link rel="stylesheet" href="../css/perfilcandidado.css"/>
   </head>
@@ -11,6 +17,12 @@
      <!--inicio do cabeçalho-->
      <%- include("../pages/header-home") %>
      <!--fim do cabeçalho-->
+
+    <% if (dadosNotificacao) { %> 
+      <script>
+        displayNotify("<%= dadosNotificacao.title %>", "<%= dadosNotificacao.msg %>", "<%= dadosNotificacao.type %>")
+      </script>  
+    <%}%>
      <!--INICIO DO CORPO-->
     <section class="header__wrapper">  
  
@@ -64,7 +76,25 @@
           </nav>
  
           <section class="fotos">
-            <img src="../imagem/aviso.png" alt="fotos" />
+            <% if (postagens.length === 0 || !postagens) { %>
+              <img src="../imagem/aviso.png" alt="fotos" />
+            <% } else {%>
+              <% postagens.forEach(post => { %>
+                <section>
+                  <section>
+                    <h2>
+                      <%= post.Titulo_postagem %>
+                    </h2>
+                    <span>
+                      <%= post.data_postagem %>
+                    </span>
+                  </section>
+                  <section>
+                    <img src="../imagem/imagens_servidor/postagens/<%= post.Imagem_postagem %>" alt="Foto postagem">
+                  </section>
+                </section>
+              <% })%>
+            <% } %>
           </section>
         </section>
       </section>

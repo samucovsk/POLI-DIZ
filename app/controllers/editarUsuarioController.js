@@ -34,7 +34,17 @@ const editarUsuarioController = {
                     throw new Error(err);
                 }
             }),
-        body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA)
+        body('senha').custom(senha => {
+            if (!senha) {
+                return;
+            }
+
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (regex.test(senha)) {
+                throw new Error();
+            }
+        }).withMessage(mensagemErro.SENHA_FRACA)
     ],
 
     atualizarPerfilEleitor: async (req, res) => {

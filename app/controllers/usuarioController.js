@@ -90,7 +90,7 @@ const usuarioController = {
 
                     const senhaCorreta = isPolitico
                         ? results[0].senhaPoliticos
-                        : results[0].senha;               
+                        : results[0].senhaUsuario;               
                     
                     console.log(senhaForm);
                     console.log(senhaCorreta);

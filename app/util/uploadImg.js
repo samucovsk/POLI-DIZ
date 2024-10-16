@@ -33,6 +33,8 @@ const validarProporcaoImagem = async (buffer, proportion, margemErro) => {
 
 module.exports = (caminho = null, tamanhoArq = 3, extensoesPermitidas = ['jpeg', 'jpg', 'png'], proportion = null, margemErro = null) => {
     return (campoArquivo) => {
+        console.log(campoArquivo);
+        
         return (req, res, next) => {
             var upload;
             const fileFilter = createFileFilter(extensoesPermitidas);

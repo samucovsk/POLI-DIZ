@@ -65,7 +65,7 @@ const politicosModel = {
     guardarPostagem: async (dadosForm) => {
         try {
             const [resultados] = await pool.query(
-                "INSERT INTO Postagens SET ?", [dadosForm]
+                "INSERT INTO Postagem SET ?", [dadosForm]
             );
             return resultados;
         } catch (error) {
