@@ -5,11 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar</title>
     <link rel="stylesheet" href="../css/postar_foto.CSS">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
+    <script type="text/javascript" src="../js/notify.js"></script>
 </head>
 <body>
+
+    <% let msgErro = ""; %>
+    <% const camposNomes = { titulo: '', foto: '' }; %>
+    <% const classeErro = { titulo: '', foto: '' } %>
+
+    <% if (erros) { %>
+        <% erros.errors.forEach(err => { %>
+            <% camposNomes[err.path] = err.msg; %>
+            <% classeErro[err.path] = "erro"; %>
+            <% msgErro += err.msg + "<br>"; %>
+        <%});%>
+    <script>
+        const msgErro = "<%= msgErro %>";
+        displayNotify(
+            "Falha: <%= erros.errors.length %> erro(s) detectados", 
+            msgErro.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "error"
+        );
+    </script>
+    <%}%>
     <form action="/postarFoto/<%= logado.id %>" enctype="multipart/form-data" method="post">
-      <input type="file" name="foto" multiple id="fileInput" style="display: block;">
-      <input type="text" id="title-input" name="titulo" placeholder="Digite o título">
+      <input type="file" name="foto" multiple id="fileInput" style="display: block;" class="<%= classeErro.foto %>">
+      <input type="text" id="title-input" name="titulo" placeholder="Digite o título" class="<%= classeErro.titulo %>">
       <button type="submit" class="button_postar"id="post-button">Postar</button>
       <!--<section class="container">
           <section id="step-1" class="step">

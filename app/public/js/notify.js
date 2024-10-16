@@ -12,6 +12,6 @@ const displayNotify = function (toastTitle, toastText, statusType, duration = 10
         gap: 20,
         distance: 20,
         type: 1,
-        position: 'bottom-right' 
+        position: 'center' 
     });
 }

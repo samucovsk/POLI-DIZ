@@ -99,7 +99,7 @@ const politicoController = {
  
     realizarPostagem: async (req, res, userId) => {
         const erros = validationResult(req);
-        const erroMulter = req.session.erroMulter;
+        let erroMulter = req.session.erroMulter;
  
         if (erroMulter != null) {
             console.log(erroMulter);
@@ -114,11 +114,18 @@ const politicoController = {
  
         if (!req.file) {
             console.log("Ops, falha ao carregar arquivo!");
-            const politico = await politicosModel.findId(req.session.autenticado.id);
-            return res.render("./pages/postar_foto", {
+            erroMulter = {
+                value: '',
+                msg: 'É necessário enviar pelo menos uma imagem.',
+                path: 'foto'
+            }
+            erros.errors.push(erroMulter);
+
+            return res.render("pages/postar_foto", {
                 logado: req.session.autenticado,
                 dadosForm: req.body,
                 erros: erros,
+                userId
             });
         }
 
