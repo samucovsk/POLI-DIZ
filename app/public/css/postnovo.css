@@ -89,6 +89,9 @@ form .content .details p{
   margin-top: 1px;
   font-weight: 500;
 }
+.details span{
+    color: yellow;
+}
 .details .privacy i:last-child{
   font-size: 13px;
   margin-left: 1px;
@@ -169,7 +172,7 @@ form button{
 form textarea:valid ~ button{
   color: #fff;
   cursor: pointer;
-  background: #4599FF;
+  background: yellow;
 }
 form textarea:valid ~ button:hover{
   background: #1a81ff;
