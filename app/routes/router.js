@@ -35,6 +35,11 @@ router.get("/home", autenticador.verificarUsuAutenticado,function (req, res) {
 router.get("/escolha", function (req, res) {
     res.render("pages/escolha", { pagina: "escolha", logado: req.session.autenticado });
 });
+
+router.get("/superchat", autenticador.verificarUsuAutenticado,function (req, res) {
+    res.render("pages/links", { pagina: "superchat", logado: req.session.autenticado });
+});
+
 router.get("/noticias", function (req, res) {
     res.render("pages/news", { pagina: "noticias", logado: req.session.autenticado });
 });
