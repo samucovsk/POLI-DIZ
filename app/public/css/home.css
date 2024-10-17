@@ -140,8 +140,8 @@ body {
     padding:50px;
     font-size: 18px;
     color:var(--body-color);
-    margin-left: 3px;
-    margin-right: 200px;
+    margin-left: 40px;
+    margin-right: 40px;
     height: 300px;
     max-width: 100%;
 }
@@ -181,7 +181,23 @@ body {
     display: flex;
     margin: 10px;
     gap: 53px;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 30vh; /* Preenche a altura da viewport */
 
+}
+
+.rtgl_p {
+    color: aliceblue;
+    margin-top: 137px;
+    margin-left: 25px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Adiciona a transição */
+}
+
+.rtgl_p:hover {
+    transform: translateY(-10px); /* Apenas sobe */
 }
 
 .retangulo1{
@@ -190,6 +206,7 @@ body {
     background-color:#2d2e83;
     border-radius: 10px;
 }
+
 .retangulo2{
     width: 22%;
     height: 186px;
@@ -422,9 +439,17 @@ body {
 
 /*inicio dos tres textos*/
 
+.rtgl_p {
+    color: aliceblue;
+    margin-top: 30px;
+    margin-left: 19px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 142px 23px 1px 1px;
+}
 
 .tres_text{
-    display: grid;
+    display: contents;
     margin: 10px;
     gap: 53px;
 
