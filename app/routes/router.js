@@ -52,6 +52,9 @@ router.get("/politicos", function (req, res) {
 router.get("/pcdob", function (req, res) {
     res.render("pages/pcdob", { pagina: "pcdob", logado: req.session.autenticado });
 });
+router.get("/uniaobrasil", function (req, res) {
+    res.render("pages/uniaobrasil", { pagina: "uniaobrasil", logado: req.session.autenticado });
+});
 
  
 router.get("/politicocadastro", function (req, res) {
