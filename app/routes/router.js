@@ -55,6 +55,16 @@ router.get("/pcdob", function (req, res) {
 router.get("/uniaobrasil", function (req, res) {
     res.render("pages/uniaobrasil", { pagina: "uniaobrasil", logado: req.session.autenticado });
 });
+router.get("/agir", function (req, res) {
+    res.render("pages/agir", { pagina: "agir", logado: req.session.autenticado });
+});
+router.get("/cidadania23", function (req, res) {
+    res.render("pages/cidadania23", { pagina: "cidadania23", logado: req.session.autenticado });
+});
+router.get("/dc", function (req, res) {
+    res.render("pages/dc", { pagina: "dc", logado: req.session.autenticado });
+});
+
 
  
 router.get("/politicocadastro", function (req, res) {
