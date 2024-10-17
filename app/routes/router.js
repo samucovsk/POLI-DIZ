@@ -28,10 +28,6 @@ router.get("/", autenticador.verificarUsuAutenticado, function (req, res) {
     res.render("pages/index", { pagina: "home", logado: req.session.autenticado });
 });
  
-router.get("/home", autenticador.verificarUsuAutenticado,function (req, res) {
-    res.render("pages/index", { pagina: "home", logado: req.session.autenticado });
-});
- 
 router.get("/escolha", function (req, res) {
     res.render("pages/escolha", { pagina: "escolha", logado: req.session.autenticado });
 });
@@ -53,6 +49,10 @@ router.get("/noticias", function (req, res) {
 router.get("/politicos", function (req, res) {
     res.render("pages/PARTIDOS", { pagina: "politicos", logado: req.session.autenticado });
 });
+router.get("/pcdob", function (req, res) {
+    res.render("pages/pcdob", { pagina: "pcdob", logado: req.session.autenticado });
+});
+
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
