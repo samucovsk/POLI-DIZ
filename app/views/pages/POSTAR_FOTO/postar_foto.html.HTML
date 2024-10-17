@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar</title>
+    <link rel="stylesheet" href="postar_foto.css">
+</head>
+<body>
+    <section class="container">
+        <section id="step-1" class="step">
+            <h1>Escolha os arquivos</h1>
+
+
+            <button onclick="document.getElementById('file-input').click();" class="button_add">
+              <div tabindex="0" class="plusButton">
+  <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+    <g mask="url(#mask0_21_345)">
+      <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
+    </g>
+  </svg>
+</div>  
+            </button>
+
+
+            <input type="file" id="file-input" multiple accept="image/*">
+            <section id="preview-container"></section>
+            <button class="avancar" id="advance-step"> Avançar</button>
+        </section>
+     
+        <section id="step-2" class="step hidden">
+            <h1>Escreva o título da publicação</h1>
+            <section id="preview-container-step2"></section>
+            <input type="text" id="title-input" placeholder="Digite o título">
+            <button class="button_postar"id="post-button">Postar</button>
+        </section>
+    </section>
+
+    <script src="postar_foto.js"></script>
+</body>
+</html>
