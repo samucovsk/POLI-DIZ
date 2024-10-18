@@ -67,7 +67,9 @@ router.get("/dc", function (req, res) {
 router.get("/mdb", function (req, res) {
     res.render("pages/mdb", { pagina: "mdb", logado: req.session.autenticado });
 });
-
+router.get("/mobiliza", function (req, res) {
+    res.render("pages/mobiliza", { pagina: "mobiliza", logado: req.session.autenticado });
+});
 
  
 router.get("/politicocadastro", function (req, res) {
