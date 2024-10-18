@@ -64,6 +64,12 @@ router.get("/cidadania23", function (req, res) {
 router.get("/dc", function (req, res) {
     res.render("pages/dc", { pagina: "dc", logado: req.session.autenticado });
 });
+router.get("/prd", function (req, res) {
+    res.render("pages/prd", { pagina: "prd", logado: req.session.autenticado });
+});
+router.get("/rede", function (req, res) {
+    res.render("pages/rede", { pagina: "rede", logado: req.session.autenticado });
+});
 
 
  
