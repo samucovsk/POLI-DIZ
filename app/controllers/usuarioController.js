@@ -222,6 +222,7 @@ const usuarioController = {
                     form_aprovado: false,
                     erros: erros,
                     dadosForm: req.body
+                    ,
                 }
             );
         }
