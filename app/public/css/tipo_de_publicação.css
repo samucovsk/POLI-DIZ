@@ -1,0 +1,22 @@
+.button_postar{
+background-color: rgb(232, 250, 74);
+height: 39px;
+width: 109px;
+cursor: pointer;
+border-radius: 4px;
+gap: 10px;
+}
+body{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+}
+.tudo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
