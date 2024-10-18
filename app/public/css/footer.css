@@ -1,6 +1,6 @@
 /* Estilo do rodapé */
 footer {
-    background-color: var(--body-color);
+    background-color: #f3a800;
     color: var(--body-bg);
     padding: 40px 0;
     bottom: 0;
