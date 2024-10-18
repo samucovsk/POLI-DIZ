@@ -24,6 +24,8 @@
 header {
     width: 100%;
     position: fixed;
+    position: absolute;
+ 
     top: 0;
     background-color: var(--nav-bg);
     border: grey;
@@ -80,19 +82,6 @@ header {
     color: var(--body-color);
     font-weight: 400;
 }
-.nav-sol{
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.15rem;
-    color: var(--body-color);
-    font-weight: 400;
-    cursor: pointer;
-    font-size: 26pt;
-    position: absolute;
-    top: 4px;
-    color: var(--body-color);
-}
-
 .mobile-menu-icon {
     display: none;
 }
@@ -277,17 +266,11 @@ body {
 /*inicio do slider*/
 
 /*fim do slider*/
-.anuncio img{
-    height: 19vh;
-    margin: 9%;
-    padding: 0%;
-}
-.anuncio h1{
-    text-align: center;
-    position: absolute;
-    margin: 10%;
-    background: white;
-    font-size: 15px;
+.anuncio{
+    width: 100%;
+    height: 186px;
+    background-color:#2d2e83;
+    border-radius: 10px;
 }
 /*fim do anuncio*/
 /*inicio do texto 3*/
@@ -542,14 +525,11 @@ body {
 }
 
 /*fim do slider*/
-.anuncio img{
-    align-items: center; 
-    height: 70px;
-    background-color: #1c0e6e;
-    padding: 24px;
-}
-.anuncio h1{
-    text-align: center;
+.anuncio {
+    width: 100%;
+    height: 186px;
+    background-color:#2d2e83;
+    border-radius: 10px;
 }
 /*fim do anuncio*/
 /*inicio do texto 3*/

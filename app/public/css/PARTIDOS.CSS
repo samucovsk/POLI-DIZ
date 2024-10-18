@@ -186,7 +186,7 @@ footer {
 
     .mobile-menu {
         display: block;
-        background-color: var(--body-color);
+        background-color: var(--body-bg);
     }
 
     .mobile-menu ul {
