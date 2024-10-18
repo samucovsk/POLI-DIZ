@@ -103,6 +103,9 @@ router.get("/prtb", function (req, res) {
 router.get("/pv", function (req, res) {
     res.render("pages/pv", { pagina: "pv", logado: req.session.autenticado });
 });
+router.get("/pstu", function (req, res) {
+    res.render("pages/pstu", { pagina: "pstu", logado: req.session.autenticado });
+});
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
