@@ -13,7 +13,7 @@ const fetch = (...args) =>
   const jwt = require("jsonwebtoken");
   const { enviarEmail } = require("../util/email");
   
-  const email = require("../util/enviar-email");
+  const email = require("./../util/enviar-email");
 
 const usuarioController = {
     // Validações
