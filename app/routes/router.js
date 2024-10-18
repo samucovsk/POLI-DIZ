@@ -100,6 +100,9 @@ router.get("/pmb", function (req, res) {
 router.get("/prtb", function (req, res) {
     res.render("pages/prtb", { pagina: "prtb", logado: req.session.autenticado });
 });
+router.get("/pv", function (req, res) {
+    res.render("pages/pv", { pagina: "pv", logado: req.session.autenticado });
+});
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
