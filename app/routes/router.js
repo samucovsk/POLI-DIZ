@@ -94,6 +94,9 @@ router.get("/pp", function (req, res) {
 router.get("/psol", function (req, res) {
     res.render("pages/psol", { pagina: "psol", logado: req.session.autenticado });
 });
+router.get("/pmb", function (req, res) {
+    res.render("pages/pmb", { pagina: "pmb", logado: req.session.autenticado });
+});
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
