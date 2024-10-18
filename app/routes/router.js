@@ -79,6 +79,9 @@ router.get("/pcb", function (req, res) {
 router.get("/pco", function (req, res) {
     res.render("pages/pco", { pagina: "pco", logado: req.session.autenticado });
 });
+router.get("/pdt", function (req, res) {
+    res.render("pages/pdt", { pagina: "pdt", logado: req.session.autenticado });
+});
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
