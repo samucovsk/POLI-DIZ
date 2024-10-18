@@ -73,8 +73,18 @@ router.get("/rede", function (req, res) {
 router.get("/solidariedade", function (req, res) {
     res.render("pages/solidariedade", { pagina: "solidariedade", logado: req.session.autenticado });
 });
-
-
+router.get("/up", function (req, res) {
+    res.render("pages/up", { pagina: "up", logado: req.session.autenticado });
+});
+router.get("/psd", function (req, res) {
+    res.render("pages/psd", { pagina: "psd", logado: req.session.autenticado });
+});
+router.get("/pt", function (req, res) {
+    res.render("pages/pt", { pagina: "pt", logado: req.session.autenticado });
+});
+router.get("/prtb", function (req, res) {
+    res.render("pages/prtb", { pagina: "prtb", logado: req.session.autenticado });
+});
  
 router.get("/politicocadastro", function (req, res) {
     res.render(

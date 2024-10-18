@@ -18,7 +18,7 @@ html{
     --bg-color: white;
     --second-bg-color: white;
     --text-color: black;
-    --main-color: rgb(31, 76, 199);
+    --main-color: rgb(94, 255, 0);
 
 }
 
@@ -50,11 +50,10 @@ span{
 }
 
 .about-content h1{
-    font-size: 3rem;
+    font-size: 7rem;
     font-weight: 700;
     margin-top: -23rem;
     line-height: 1;
-    
 }
 
 .about-img{
