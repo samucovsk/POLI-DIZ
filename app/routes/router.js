@@ -70,6 +70,12 @@ router.get("/mdb", function (req, res) {
 router.get("/mobiliza", function (req, res) {
     res.render("pages/mobiliza", { pagina: "mobiliza", logado: req.session.autenticado });
 });
+router.get("/novo", function (req, res) {
+    res.render("pages/novo", { pagina: "novo", logado: req.session.autenticado });
+});
+router.get("/pcb", function (req, res) {
+    res.render("pcb", { pagina: "pcb", logado: req.session.autenticado });
+});
 
  
 router.get("/politicocadastro", function (req, res) {
