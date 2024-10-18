@@ -70,6 +70,9 @@ router.get("/prd", function (req, res) {
 router.get("/rede", function (req, res) {
     res.render("pages/rede", { pagina: "rede", logado: req.session.autenticado });
 });
+router.get("/solidariedade", function (req, res) {
+    res.render("pages/solidariedade", { pagina: "solidariedade", logado: req.session.autenticado });
+});
 
 
  
