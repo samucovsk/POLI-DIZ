@@ -130,6 +130,12 @@ router.get("/pstu", function (req, res) {
 router.get("/psb", function (req, res) {
     res.render("pages/psb", { pagina: "psb", logado: req.session.autenticado });
 });
+router.get("/psdb", function (req, res) {
+    res.render("pages/psdb", { pagina: "psdb", logado: req.session.autenticado });
+});
+router.get("/republicanos", function (req, res) {
+    res.render("pages/republicanos", { pagina: "republicanos", logado: req.session.autenticado });
+});
 
 router.get("/politicocadastro", function (req, res) {
     res.render(
