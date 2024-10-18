@@ -74,9 +74,11 @@ router.get("/novo", function (req, res) {
     res.render("pages/novo", { pagina: "novo", logado: req.session.autenticado });
 });
 router.get("/pcb", function (req, res) {
-    res.render("pcb", { pagina: "pcb", logado: req.session.autenticado });
+    res.render("pages/pcb", { pagina: "pcb", logado: req.session.autenticado });
 });
-
+router.get("/pco", function (req, res) {
+    res.render("pages/pco", { pagina: "pco", logado: req.session.autenticado });
+});
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
