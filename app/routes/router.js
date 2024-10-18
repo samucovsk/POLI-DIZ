@@ -91,6 +91,9 @@ router.get("/pode", function (req, res) {
 router.get("/pp", function (req, res) {
     res.render("pages/pp", { pagina: "pp", logado: req.session.autenticado });
 });
+router.get("/psol", function (req, res) {
+    res.render("pages/psol", { pagina: "psol", logado: req.session.autenticado });
+});
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
