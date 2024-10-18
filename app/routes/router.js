@@ -64,51 +64,8 @@ router.get("/cidadania23", function (req, res) {
 router.get("/dc", function (req, res) {
     res.render("pages/dc", { pagina: "dc", logado: req.session.autenticado });
 });
-router.get("/mdb", function (req, res) {
-    res.render("pages/mdb", { pagina: "mdb", logado: req.session.autenticado });
-});
-router.get("/mobiliza", function (req, res) {
-    res.render("pages/mobiliza", { pagina: "mobiliza", logado: req.session.autenticado });
-});
-router.get("/novo", function (req, res) {
-    res.render("pages/novo", { pagina: "novo", logado: req.session.autenticado });
-});
-router.get("/pcb", function (req, res) {
-    res.render("pages/pcb", { pagina: "pcb", logado: req.session.autenticado });
-});
-router.get("/pco", function (req, res) {
-    res.render("pages/pco", { pagina: "pco", logado: req.session.autenticado });
-});
-router.get("/pdt", function (req, res) {
-    res.render("pages/pdt", { pagina: "pdt", logado: req.session.autenticado });
-});
-router.get("/pl", function (req, res) {
-    res.render("pages/pl", { pagina: "pl", logado: req.session.autenticado });
-});
-router.get("/pode", function (req, res) {
-    res.render("pages/pode", { pagina: "pode", logado: req.session.autenticado });
-});
-router.get("/pp", function (req, res) {
-    res.render("pages/pp", { pagina: "pp", logado: req.session.autenticado });
-});
-router.get("/psol", function (req, res) {
-    res.render("pages/psol", { pagina: "psol", logado: req.session.autenticado });
-});
-router.get("/pmb", function (req, res) {
-    res.render("pages/pmb", { pagina: "pmb", logado: req.session.autenticado });
-});
-router.get("/prtb", function (req, res) {
-    res.render("pages/prtb", { pagina: "prtb", logado: req.session.autenticado });
-});
-router.get("/pv", function (req, res) {
-    res.render("pages/pv", { pagina: "pv", logado: req.session.autenticado });
-});
-router.get("/pstu", function (req, res) {
-    res.render("pages/pstu", { pagina: "pstu", logado: req.session.autenticado });
-});
-router.get("/psb", function (req, res) {
-    res.render("pages/psb", { pagina: "psb", logado: req.session.autenticado });
-});
+
+
  
 router.get("/politicocadastro", function (req, res) {
     res.render(
@@ -149,6 +106,10 @@ router.get("/usuario", function (req, res) {
             }
         }
     );
+});
+
+router.get('/ativar-conta', autenticador.verificarUsuAutenticado, (req, res) => {
+    usuarioController.ativarConta(req, res);
 });
  
 router.get('/signin', function (req, res) {

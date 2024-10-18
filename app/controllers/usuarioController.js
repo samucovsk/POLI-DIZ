@@ -7,6 +7,14 @@ const politicosModel = require("../models/politicosModel");
 const { removeImg } = require("../util/removeImg");
 var salt = bcrypt.genSaltSync(12);
 
+const fetch = (...args) =>
+    import("node-fetch").then(({ default: fetch }) => fetch(...args));
+  const https = require("https");
+  const jwt = require("jsonwebtoken");
+  const { enviarEmail } = require("../util/email");
+  
+  const email = require("../util/enviar-email");
+
 const usuarioController = {
     // Validações
     regrasValidacaoFormCad: [
@@ -110,51 +118,96 @@ const usuarioController = {
             }).withMessage(mensagemErro.SENHA_INCORRETA)
     ],
 
-    cadastrarUsuario: async (req, res)=>{
-        const erros = validationResult(req)
-        if (!erros.isEmpty()){
-            console.log(erros)
-            return res.render(
-                "pages/cadastro-usuario", 
-                { 
-                    pagina: "usuario", 
-                    logado: req.session.autenticado,
-                    form_aprovado: false, 
-                    erros: erros,
-                    dadosForm: req.body
-                }
-            );
+    cadastrarUsuario: async (req, res) => {
+        const erros = validationResult(req);
+        if (!erros.isEmpty()) {
+            console.log(erros);
+            return res.render("pages/cadastro-usuario", { 
+                pagina: "usuario", 
+                logado: req.session.autenticado,
+                form_aprovado: false, 
+                erros: erros,
+                dadosForm: req.body
+            });
         }
-
+    
         try {
             const senhaComHash = bcrypt.hashSync(req.body.senha, salt);
-
+    
             const dadosForm = {
                 nomeUsuario: req.body.nome,
                 senha: senhaComHash,
                 emailUsuario: req.body.email,
                 dataNascUsuario: req.body.data_nascimento,
                 enderecoUsuario: req.body.estado
-            }
-
+            };
+    
             const resultado = await usuarioModel.create(dadosForm);
-            console.log(resultado);
-            console.log('Cadastro realizado!');
-                
-            res.render(
-                "pages/cadastro-usuario", 
-                { 
+            console.log('Cadastro realizado!', resultado);
+            
+            const token = jwt.sign(
+                { userId: resultado.insertId },
+                process.env.SECRET_KEY
+            );
+    
+            console.log('Token JWT:', token);
+    
+            // Gera o HTML do e-mail
+            const html = await require('../util/enviar-email')(process.env.URL_BASE, token, 0);
+    
+            // Envia o e-mail
+            enviarEmail(dadosForm.emailUsuario, "Cadastro no PoliDiz", null, html, () => {
+                res.render("pages/cadastro-usuario", { 
                     pagina: "usuario", 
                     logado: req.session.autenticado, 
                     form_aprovado: true,
                     erros: null,
                     dadosForm: req.body 
-                }
-            );
-        } catch (err) {
-            console.log(err);
+                });
+            });
+            
+        } catch (e) {
+            console.log(e);
+            return res.render("pages/cadastro-usuario", { 
+                pagina: "usuario", 
+                logado: req.session.autenticado,
+                form_aprovado: false, 
+                erros: erros,
+                dadosForm: req.body
+            });
         }
     },
+
+    ativarConta: async (req, res) => {
+        try {
+            const token = req.query.token;
+            console.log("Token recebido:", token);
+    
+            jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
+                if (err) {
+                    console.log({ message: "Token inválido ou expirado" });
+                    return res.redirect('/error'); // ou outra página de erro
+                }
+    
+                const [user] = await pool.query('SELECT * FROM Usuario WHERE idUsuario = ?', [decoded.userId]);
+                
+                if (!user) {
+                    console.log({ message: "Usuário não encontrado" });
+                    return res.redirect('/error'); // ou outra página de erro
+                }
+    
+                await pool.query('UPDATE Usuario SET status_usuario = 1 WHERE idUsuario = ?', [decoded.userId]);
+                console.log({ message: "Conta ativada" });
+    
+                res.redirect('/signin'); // Redireciona para a página de login
+            });
+    
+        } catch (e) {
+            console.log(e);
+            res.redirect('/error'); // Redireciona em caso de erro inesperado
+        }
+    },
+    
 
     signInEleitor: async (req, res) => {
         const erros = validationResult(req);
