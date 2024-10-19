@@ -198,7 +198,8 @@ const usuarioController = {
                     return res.json({msg: 'Erro ao achar usuário'}) 
                 }
     
-                await pool.query('UPDATE Usuario SET status_usuario = 1 WHERE idUsuario = ?', [decoded.userId]);
+                const [results] = await pool.query('UPDATE Usuario SET status_usuario = 1 WHERE idUsuario = ?', [decoded.userId]);
+                
                 console.log({ message: "Conta ativada" });
     
                 res.render(

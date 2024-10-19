@@ -72,13 +72,13 @@ module.exports = (caminho = null, tamanhoArq = 3, extensoesPermitidas = ['jpeg',
             upload.single(campoArquivo)(req, res, async function (err) {
                 if (err instanceof multer.MulterError) {
                     req.session.erroMulter = {
-                        value: '',
+                        value: 'a',
                         msg: err.message,
                         path: campoArquivo
                     }
                 } else if (err) {
                     req.session.erroMulter = {
-                        value: '',
+                        value: 'b',
                         msg: err.message,
                         path: campoArquivo
                     }

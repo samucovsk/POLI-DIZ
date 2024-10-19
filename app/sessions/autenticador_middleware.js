@@ -29,8 +29,50 @@ const gravarUsuAutenticado = async (req, res, next) => {
 
         if (isPolitico) {
             results = await politico.findCampoCustom(req.body.email, "contatoPoliticos");
+            if (results[0].status_politico === 0) {
+                return res.render(
+                    'pages/login',
+                    {
+                        pagina: "login",
+                        logado: req.session.autenticado,
+                        form_aprovado: false,
+                        cadastro_aprovado: false,
+                        erros: null,
+                        dadosForm: {
+                            email: "",
+                            senha: "",
+                        },
+                        dadosNotificacao: {
+                            type: "warning",
+                            msg: 'Verifique sua caixa de email para prosseguir.',
+                            title: "Conta não ativada!"
+                        }
+                    }  
+                );
+            }
         } else {
             results = await usuario.findCampoCustom(req.body.email, "emailUsuario");
+            if (results[0].status_usuario === 0) {
+                return res.render(
+                    'pages/login',
+                    {
+                        pagina: "login",
+                        logado: req.session.autenticado,
+                        form_aprovado: false,
+                        cadastro_aprovado: false,
+                        erros: null,
+                        dadosForm: {
+                            email: "",
+                            senha: "",
+                        },
+                        dadosNotificacao: {
+                            type: "warning",
+                            msg: 'Verifique sua <strong> caixa de email</strong> para prosseguir.',
+                            title: "Conta não ativada!"
+                        }
+                    }  
+                );
+            }
         }
         total = Object.keys(results).length;
         
@@ -44,6 +86,7 @@ const gravarUsuAutenticado = async (req, res, next) => {
                     email: results[0].contatoPoliticos,
                     candidatura: results[0].candidaturaPoliticos,
                     foto_usuario: results[0].fotoPerfilPoliticos,
+                    banner_usuario: results[0].bannerPoliticos,
                     desc_usuario: results[0].descPoliticos,
                     tipo: "candidato"
                 };
@@ -56,6 +99,7 @@ const gravarUsuAutenticado = async (req, res, next) => {
                     cep: results[0].cepUsuario,
                     telefone: results[0].TelefoneUsuario,
                     foto_usuario: results[0].fotoPerfilUsuario,
+                    banner_usuario: results[0].bannerUsuario,
                     desc_usuario: results[0].descUsuario,
                     data_nascimento: results[0].dataNascUsuario,
                     tipo: "eleitor"

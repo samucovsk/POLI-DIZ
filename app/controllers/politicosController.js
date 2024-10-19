@@ -121,6 +121,58 @@ const politicoController = {
             });
         }
     },
+
+    ativarConta: async (req, res) => {
+        try {
+            const token = req.query.token;
+            console.log("Token recebido:", token);
+    
+            jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
+                if (err) {
+                    console.log({ message: "Token inválido ou expirado" });
+                    return res.json({ msg: err });
+                }
+    
+                const [rows] = await pool.query('SELECT * FROM Politicos WHERE idPoliticos = ?', [decoded.userId]);
+                const user = rows[0]; // Primeiro item do resultado
+                if (!user) {
+                    console.log({ message: "Usuário não encontrado" });
+                    return res.json({ msg: 'Erro ao achar usuário' });
+                }
+                console.log(user);
+    
+                const [results] = await pool.query("UPDATE Politicos SET status_politico = 1 WHERE idPoliticos = ?", [decoded.userId]);
+                console.log(results);
+    
+                console.log({ message: "Conta ativada" });
+    
+                return res.render(
+                    'pages/login',
+                    {
+                        pagina: "login",
+                        logado: req.session.autenticado,
+                        form_aprovado: false,
+                        cadastro_aprovado: false,
+                        erros: null,
+                        dadosForm: {
+                            email: "",
+                            senha: "",
+                        },
+                        dadosNotificacao: {
+                            type: 'success',  // Corrigido para 'success'
+                            msg: "Sua conta foi ativada!",
+                            title: "Prontinho :)"
+                        }
+                    }
+                );
+            });
+    
+        } catch (e) {
+            console.log(e);
+            res.redirect('/error'); // Redireciona em caso de erro inesperado
+        }
+    },
+    
  
     realizarPostagem: async (req, res, userId) => {
         const erros = validationResult(req);

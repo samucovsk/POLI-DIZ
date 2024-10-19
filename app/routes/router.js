@@ -14,6 +14,7 @@ const usuarioModel = require("../models/usuarioModel");
 const politicosModel = require("../models/politicosModel");
 const { body } = require("express-validator");
 const uploadPerfil = upload("./app/public/imagem/imagens_servidor/perfil/", 3, ['jpeg', 'jpg', 'png'], 3 / 4, 0);
+const uploadBanner = upload("./app/public/imagem/imagens_servidor/banner/", 3, ['jpeg', 'jpg', 'png', 'avif', 'webp'], null, 0);
 const uploadPhotoPost = upload("./app/public/imagem/imagens_servidor/postagens/", 3, ['jpeg', 'jpg', 'png'], 3 / 4, 0);
 
 /* ====================== Rotas GET ====================== */
@@ -180,6 +181,7 @@ router.get("/usuario", function (req, res) {
 
 router.get('/ativar-conta', autenticador.verificarUsuAutenticado, (req, res) => {
     usuarioController.ativarConta(req, res);
+    politicoController.ativarConta(req, res);
 });
  
 router.get('/signin', function (req, res) {
@@ -213,6 +215,7 @@ router.get(
                 id: results.idUsuario,
                 estado: results.enderecoUsuario,
                 foto_usuario: results.fotoPerfilUsuario,
+                banner_usuario: results.bannerUsuario,
                 desc_usuario: results.descUsuario,
                 perfilAdm: false
             };
@@ -246,6 +249,7 @@ router.get(
                 estado: results.ufPoliticos,
                 candidatura: results.candidaturaPoliticos,
                 foto_usuario: results.fotoPerfilPoliticos,
+                banner_usuario: results.bannerPoliticos,
                 desc_usuario: results.descPoliticos,
                 perfilAdm: false
             };
@@ -278,7 +282,7 @@ router.get(
 router.get(
     '/editar_eleitor/:id',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     function (req, res) {
         const userId = req.params.id;
  
@@ -306,7 +310,7 @@ router.get(
 router.get(
     '/editar_candidato/:id',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     function (req, res) {
         const userId = req.params.id;
  
@@ -329,7 +333,7 @@ router.get(
 router.get(
     '/postarFoto',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     function (req, res) {
         res.render('pages/postar_foto', { logado: req.session.autenticado, erros: null, dadosForm: null });
     }
@@ -357,7 +361,7 @@ router.post(
     '/postarFoto/:id',
     uploadPhotoPost('foto'),
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     body('titulo').notEmpty().withMessage('Insira um título').isLength({min: 5}).withMessage('Título muito curto!'),
     function (req, res) {
         console.log(req.file);
@@ -372,7 +376,7 @@ router.post(
 router.post(
     '/editar_eleitor/atualizar_perfil_eleitor',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     editarUsuarioController.regrasValidacaoFormAttPerfilEleitor,
     function (req, res) {
         editarUsuarioController.atualizarPerfilEleitor(req, res);
@@ -382,7 +386,7 @@ router.post(
 router.post(
     '/editar_eleitor/atualizar_conta_eleitor',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     editarUsuarioController.regrasValidacaoFormAttContaEleitor,
     function (req, res) {
         editarUsuarioController.atualizarContaEleitor(req, res);
@@ -392,7 +396,7 @@ router.post(
 router.post(
     '/editar_eleitor/atualizar_fotos_eleitor',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('eleitor', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     uploadPerfil("imgPerfil"),
     function (req, res) {
         console.log(req.body);
@@ -403,7 +407,7 @@ router.post(
 router.post(
     '/editar_candidato/atualizar_perfil_candidato',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     editarPoliticoController.regrasValidacaoFormAttPerfilCandidato,
     function (req, res) {
         editarPoliticoController.atualizarPerfilCandidato(req, res);
@@ -413,7 +417,7 @@ router.post(
 router.post(
     '/editar_candidato/atualizar_conta_candidato',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     editarPoliticoController.regrasValidacaoFormAttContaCandidato,
     function (req, res) {
         editarPoliticoController.atualizarContaCandidato(req, res);
@@ -423,11 +427,22 @@ router.post(
 router.post(
     '/editar_candidato/atualizar_fotos_candidato',
     autenticador.verificarUsuAutenticado,
-    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null }),
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
     uploadPerfil("imgPerfil"),
     function (req, res) {
         console.log(req.body);
         editarPoliticoController.mudarFotosCandidato(req, res);
+    }
+)
+
+router.post(
+    '/editar_candidato/atualizar_banner_candidato',
+    autenticador.verificarUsuAutenticado,
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
+    uploadBanner("bannerPerfil"),
+    function (req, res) {
+        console.log(req.body);
+        editarPoliticoController.mudarBannerCandidato(req, res);
     }
 )
  
