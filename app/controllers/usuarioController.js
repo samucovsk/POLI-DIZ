@@ -9,11 +9,12 @@ var salt = bcrypt.genSaltSync(12);
 
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args));
-  const https = require("https");
-  const jwt = require("jsonwebtoken");
-  const { enviarEmail } = require("../util/email");
+const https = require("https");
+const jwt = require("jsonwebtoken");
+const { enviarEmail } = require("../util/email");
   
-  const email = require("./../util/enviar-email");
+const email = require("./../util/enviar-email");
+const { syncBuiltinESMExports } = require("module");
 
 const usuarioController = {
     // Validações
@@ -146,9 +147,10 @@ const usuarioController = {
             console.log('Cadastro realizado!', resultado);
             
             const token = jwt.sign(
-                { userId: resultado.insertId },
-                process.env.SECRET_KEY
-            );
+                { userId: resultado.insertId }, 
+                process.env.SECRET_KEY,
+                { expiresIn: '1h' }
+            );            
     
             console.log('Token JWT:', token);
     
@@ -186,20 +188,39 @@ const usuarioController = {
             jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
                 if (err) {
                     console.log({ message: "Token inválido ou expirado" });
-                    return res.redirect('/error'); // ou outra página de erro
+                    return res.json({msg: err});
                 }
     
                 const [user] = await pool.query('SELECT * FROM Usuario WHERE idUsuario = ?', [decoded.userId]);
+                console.log(user.senhaUsuario);
                 
                 if (!user) {
                     console.log({ message: "Usuário não encontrado" });
-                    return res.redirect('/error'); // ou outra página de erro
+                    return res.json({msg: 'Erro ao achar usuário'}) 
                 }
     
                 await pool.query('UPDATE Usuario SET status_usuario = 1 WHERE idUsuario = ?', [decoded.userId]);
                 console.log({ message: "Conta ativada" });
     
-                res.redirect('/signin'); // Redireciona para a página de login
+                res.render(
+                    'pages/login',
+                    {
+                        pagina: "login",
+                        logado: req.session.autenticado,
+                        form_aprovado: false,
+                        cadastro_aprovado: false,
+                        erros: null,
+                        dadosForm: {
+                            email: "",
+                            senha: "",
+                        },
+                        dadosNotificacao: {
+                            type: 'sucess',
+                            msg: "Sua conta foi ativada!",
+                            title: "Prontinho :)"
+                        } 
+                    }
+                ) 
             });
     
         } catch (e) {
@@ -221,8 +242,8 @@ const usuarioController = {
                     logado: req.session.autenticado, 
                     form_aprovado: false,
                     erros: erros,
-                    dadosForm: req.body
-                    ,
+                    dadosForm: req.body,
+                    dadosNotificacao: null
                 }
             );
         }
@@ -234,7 +255,8 @@ const usuarioController = {
                 logado: req.session.autenticado, 
                 erros: null,
                 form_aprovado: true,
-                dadosForm: req.body
+                dadosForm: req.body,
+                dadosNotificacao: null
             });
     }
 

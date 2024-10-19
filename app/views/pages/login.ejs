@@ -57,6 +57,14 @@
             window.location.href = `/perfil-${tipoUsuario}/${idUsuario}`, 5000;
         });
     </script>
+    <% } if (dadosNotificacao) { %>
+        <script>
+            displayNotify(
+                "<%=dadosNotificacao.title%>", 
+                "<%= dadosNotificacao.msg %>",
+                "<%= dadosNotificacao.type %>"
+            );
+        </script>
     <% } %>
 
     <section class="wrapper">
