@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha</title>
+</head>
+<body>
+    <% 
+    // Definindo campos e classes de erro
+    const camposNomes = {
+        nome: "",
+        email: "",
+        data_nascimento: "",
+        estado: "",
+        partido: "",
+        senha: "",
+        confirmarSenha: "",
+    };
+
+    const classeErro = {
+        email: "",
+        senha: "",
+    };
+    var msgerro = "";
+
+    if (erros) {
+        erros.errors.forEach(err => {
+            camposNomes[err.path] = err.msg;
+            classeErro[err.path] = "erro";
+            msgerro += err.msg + "<br>";
+        });
+    %>
+    <script>
+        /* Variável que armazena as mensagens de erro do EJS */
+        const msgErro = "<%= msgerro %>";
+        displayNotify(
+            "Falha: <%= erros.errors.length %> erro(s) detectados", 
+            // Substituindo os símbolos pelos sinais de "<" e ">"
+            msgErro.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), 
+            "error"
+        );
+    </script>
+    <% } %>
+
+    <% if (dadosNotificacao) { %>
+        <script>
+            displayNotify(
+                "<%=dadosNotificacao.title%>", 
+                "<%= dadosNotificacao.msg %>",
+                "<%= dadosNotificacao.type %>"
+            );
+        </script>
+    <% } %>
+
+    <form action="<%= rota %>" method="post">
+        <label for="email">Insira seu email:</label>
+        <input type="email" name="email" id="email">
+
+        <label for="senha">Insira sua nova senha</label>
+        <input type="password" name="senha" id="senha">
+
+        <span>
+            <input type="checkbox" name="isPolitico" id="isPolitico"> Sou político
+        </span>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

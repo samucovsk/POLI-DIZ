@@ -183,6 +183,25 @@ router.get('/ativar-conta', autenticador.verificarUsuAutenticado, (req, res) => 
     usuarioController.ativarConta(req, res);
     politicoController.ativarConta(req, res);
 });
+
+router.get('/rec-senha', autenticador.verificarUsuAutenticado, (req, res) => {
+    res.render(
+        'pages/rec-senha', 
+        {
+            erros: null,
+            dadosNotificacao: null,
+            dadosForm: {
+                senha: '',
+                email: ''
+            },
+            rota: 'redefinirSenha'
+        }
+    )
+});
+
+router.get('/resetar-senha', autenticador.verificarUsuAutenticado, (req, res) => {
+    usuarioController.validarTokenNovaSenha(req, res);
+});
  
 router.get('/signin', function (req, res) {
     res.render('pages/login',
@@ -356,6 +375,72 @@ router.post('/signin', usuarioController.regrasValidacaoFormLogin, autenticador.
    
     usuarioController.signInEleitor(req, res);
 });
+
+router.post(
+    '/redefinirSenha', 
+    autenticador.verificarUsuAutenticado, 
+    [
+        body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA),
+        body('email')
+            .isEmail().withMessage(mensagemErro.EMAIL_INVALIDO)
+            .custom(async (emailUsuario, { req }) => {
+                try {
+                    let resultado;
+                    if (req.body.isPolitico) {
+                        resultado = await politicosModel.findCampoCustom(emailUsuario, "contatoPoliticos");
+                    } else {
+                        resultado = await usuarioModel.findCampoCustom(emailUsuario, "emailUsuario");
+                    }
+
+                    console.log(resultado);
+                    
+                    if (resultado.length === 0) {
+                        throw new Error(mensagemErro.EMAIL_INEXISTENTE);
+                    }
+
+                    return true;
+                } catch (e) {
+                    throw new Error(e);
+                }
+        })
+    ],
+    (req, res) => {
+        usuarioController.recuperarSenha(req, res);
+    }
+);
+
+router.post(
+    '/recuperarSenha', 
+    autenticador.verificarUsuAutenticado, 
+    [
+        body('senha').isStrongPassword().withMessage(mensagemErro.SENHA_FRACA),
+        body('email')
+            .isEmail().withMessage(mensagemErro.EMAIL_INVALIDO)
+            .custom(async (emailUsuario, { req }) => {
+                try {
+                    let resultado;
+                    if (req.body.isPolitico) {
+                        resultado = await politicosModel.findCampoCustom(emailUsuario, "contatoPoliticos");
+                    } else {
+                        resultado = await usuarioModel.findCampoCustom(emailUsuario, "emailUsuario");
+                    }
+
+                    console.log(resultado);
+                    
+                    if (resultado.length === 0) {
+                        throw new Error(mensagemErro.EMAIL_INEXISTENTE);
+                    }
+
+                    return true;
+                } catch (e) {
+                    throw new Error(e);
+                }
+        })
+    ],
+    (req, res) => {
+        usuarioController.resetarSenha(req, res);
+    }
+);
  
 router.post(
     '/postarFoto/:id',

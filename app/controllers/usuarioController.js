@@ -258,7 +258,120 @@ const usuarioController = {
                 dadosForm: req.body,
                 dadosNotificacao: null
             });
-    }
+    },
+    
+    validarTokenNovaSenha: async (req, res) => {
+        //receber token da URL
+    
+        const token = req.query.token;
+        console.log(token);
+        //validar token
+        jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+          if (err) {
+            res.render("pages/rec-senha", {
+              erros: null,
+              dadosNotificacao: { titulo: "Link expirado!", mensagem: "Insira seu e-mail para iniciar o reset de senha.", tipo: "error", },
+              dadosForm: req.body,
+              rota: "recuperarSenha"
+            });
+          } else {
+            res.render("pages/rec-senha", {
+              erros: null,
+              logado: req.session.autenticado,
+              dadosNotificacao: null,
+              rota: "recuperarSenha"
+            });
+          }
+        });
+    },
+
+    resetarSenha: async (req, res) => {
+        const erros = validationResult(req);
+        console.log(erros);
+        if (!erros.isEmpty()) {
+          return res.render("pages/rec-senha", {
+            erros: erros,
+            dadosNotificacao: null,
+            dadosForm: req.body,
+            rota: "recuperarSenha"
+          });
+        }
+        try {
+          //gravar nova senha
+          const senha = bcrypt.hashSync(req.body.senha);
+          
+          if (req.body.isPolitico) {
+            await pool.query('UPDATE Politicos SET senhaPoliticos = ? WHERE contatoPoliticos = ?', [senha, req.body.email]);
+          } else {
+            await pool.query('UPDATE Usuario SET senhaUsuario = ? WHERE emailUsuario = ?', [senha, req.body.email]);
+          }
+
+          res.render("pages/login", {
+            erros: null,
+            dadosNotificacao: {
+              title: "Perfil alterado",
+              msg: "Nova senha registrada",
+              type: "success",
+            },
+            dadosForm: {
+                email: req.body.email,
+                senha: ""
+            },
+            form_aprovado: false
+          });
+        } catch (e) {
+          console.log(e);
+        }
+    },
+
+    recuperarSenha: async (req, res) => {
+        const erros = validationResult(req);
+        console.log(erros);
+        if (!erros.isEmpty()) {
+          return res.render("pages/rec-senha", {
+            erros: erros,
+            dadosNotificacao: null,
+            dadosForm: req.body,
+            logado: req.session.autenticado
+          });
+        }
+        try {
+          //logica do token
+          let user;
+          if (req.body.isPolitico) {
+            user = await pool.query('SELECT * FROM Politicos WHERE contatoPoliticos = ?', [req.body.email]);
+          } else {
+            user = await pool.query('SELECT * FROM Usuario WHERE emailUsuario = ?', [req.body.email]);
+          }
+
+          const userId = user[0].insertId;
+
+          const token = jwt.sign(
+            { userId: userId, expiresIn: "40m" },
+            process.env.SECRET_KEY
+          );
+          
+            const html = await require("../util/enviar-email")(process.env.URL_BASE, token, 1);
+            enviarEmail(req.body.email, "Pedido de recuperação de senha", null, html, () => {
+                return res.render("pages/login", {
+                    erros: null,
+                    logado: req.session.autenticado,
+                    dadosNotificacao: {
+                        title: "Recuperação de senha",
+                        msg: "Enviamos um e-mail com instruções para resetar sua senha",
+                        type: "success",
+                    },
+                    dadosForm: {
+                        senha: "",
+                        email: ""
+                    },
+                    form_aprovado: false
+                });
+            });
+        } catch (e) {
+          console.log(e);
+        }
+      },
 
 }
 
