@@ -6,6 +6,12 @@ const { mensagemErro } = require("../util/logs");
 const politicosModel = require("../models/politicosModel");
 const pool = require("../../config/pool-conexoes");
 var salt = bcrypt.genSaltSync(12);
+
+const fetch = (...args) =>
+    import("node-fetch").then(({ default: fetch }) => fetch(...args));
+const https = require("https");
+const jwt = require("jsonwebtoken");
+const { enviarEmail } = require("../util/email");
  
 const politicoController = {
     // Validações
@@ -49,7 +55,7 @@ const politicoController = {
                 throw new Error()
             }).withMessage(mensagemErro.SENHAS_DISCREPANTES),
         body('partido')
-            .isLength({ min: 3, max: 45 }).withMessage(`<strong>Nome de Partido:</strong> ${mensagemErro.NOME_INVALIDO}`)
+            .notEmpty().withMessage(`Escolha um <strong>Partido</strong>.`)
     ],
  
     cadastrarPolitico: async (req, res)=>{
@@ -82,18 +88,37 @@ const politicoController = {
             console.log(resultado);
             console.log('Cadastro realizado!');
                
-            res.render(
-                "pages/cadastro-politico",
-                {
-                    pagina: "politicocadastro",
-                    logado: true,
+            const token = jwt.sign(
+                { userId: resultado.insertId }, 
+                process.env.SECRET_KEY,
+                { expiresIn: '1h' }
+            );            
+    
+            console.log('Token JWT:', token);
+    
+            // Gera o HTML do e-mail
+            const html = await require('../util/enviar-email')(process.env.URL_BASE, token, 0);
+    
+            // Envia o e-mail
+            enviarEmail(dadosForm.contatoPoliticos, "Cadastro no PoliDiz", null, html, () => {
+                res.render("pages/cadastro-politico", { 
+                    pagina: "politicocadastro", 
+                    logado: req.session.autenticado, 
                     form_aprovado: true,
                     erros: null,
-                    dadosForm: req.body
-                }
-            );
-        } catch (err) {
-            console.log(err);
+                    dadosForm: req.body 
+                });
+            });
+            
+        } catch (e) {
+            console.log(e);
+            return res.render("pages/cadastro-politico", { 
+                pagina: "politicocadastro", 
+                logado: req.session.autenticado,
+                form_aprovado: false, 
+                erros: erros,
+                dadosForm: req.body
+            });
         }
     },
  

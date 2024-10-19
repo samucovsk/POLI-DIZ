@@ -14,7 +14,6 @@ const jwt = require("jsonwebtoken");
 const { enviarEmail } = require("../util/email");
   
 const email = require("./../util/enviar-email");
-const { syncBuiltinESMExports } = require("module");
 
 const usuarioController = {
     // Validações
