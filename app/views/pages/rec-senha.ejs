@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../public/css/rec-senha.css">
     <title>Recuperar Senha</title>
 </head>
 <body>
@@ -55,15 +56,15 @@
 
     <form action="<%= rota %>" method="post">
         <label for="email">Insira seu email:</label>
-        <input type="email" name="email" id="email">
+        <input class="inputform" type="email" name="email" id="email">
 
         <label for="senha">Insira sua nova senha</label>
-        <input type="password" name="senha" id="senha">
+        <input class="inputform" type="password" name="senha" id="senha">
 
         <span>
-            <input type="checkbox" name="isPolitico" id="isPolitico"> Sou político
+            <input class="" type="checkbox" name="isPolitico" id="isPolitico"> Sou político
         </span>
-        <input type="submit" value="Enviar">
+        <input class="enviar" type="submit" value="Enviar">
     </form>
 </body>
 </html>
