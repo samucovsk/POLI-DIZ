@@ -39,6 +39,17 @@ header {
     justify-content: space-between;
     
 }
+.nav-bar a{
+    text-decoration: none;  
+  color: inherit;         
+  font: inherit;          
+  background: none;       
+  border: none;           
+  padding: 0;             
+  margin: 0;              
+  outline: none; 
+  display: flex;
+}
 
 .logo {
     display: flex;
