@@ -12,6 +12,7 @@ const fetch = (...args) =>
 const https = require("https");
 const jwt = require("jsonwebtoken");
 const { enviarEmail } = require("../util/email");
+const { emitWarning } = require("process");
  
 const politicoController = {
     // Validações
@@ -260,6 +261,101 @@ const politicoController = {
         } catch (err) {
             console.log(err);
         }
+    },
+
+    guardarUrlReuniao: async (req, res) => {
+        const erros = validationResult(req);
+
+        if (!erros.isEmpty()) {
+            return res.render(
+                'pages/perfil-candidato', 
+                { 
+                    pagina: "perfil-candidato", 
+                    logado: req.session.autenticado, 
+                    dadosNotificacao: null, 
+                    erros: erros,
+                    dadosUsuario: { ...req.session.autenticado, perfilAdm: true }, 
+                    postagens: postagens,
+                    userId,
+                }
+            );
+        }
+        const inicioReuniao = new Date();
+        const fimReuniao = new Date(inicioReuniao.getTime() + 60 * 60 * 1000);
+
+        const tempoReuniao = fimReuniao - inicioReuniao;
+        const userId = req.user.id;
+        
+        if (tempoReuniao <= 0) {
+            return res.render(
+                'pages/perfil-candidato', 
+                { 
+                    pagina: "perfil-candidato", 
+                    logado: req.session.autenticado, 
+                    dadosNotificacao: {
+                        type: 'warning',
+                        msg: 'A reunião foi encerrada.',
+                        title: 'Houve um imprevisto.'
+                    }, 
+                    erros: null,
+                    dadosUsuario: { ...req.session.autenticado, perfilAdm: true }, 
+                    postagens: postagens,
+                    userId,
+                }
+            );
+        }
+
+        pool.query(
+            'UPDATE Politicos SET linkReuniao = ?, dataExpiracaoReuniao = ? WHERE id = ?',
+            [req.body.url, fimReuniao, userId],
+            (error, results) => {
+                if (error) return res.status(500).json({ message: 'Erro ao salvar o link' });
+
+                setTimeout(() => {
+                    db.query('UPDATE Politicos SET LinkReuniao = NULL, dataExpiracaoReuniao = NULL WHERE id = ?', [userId], (error) => {
+                        if (error) {
+                            return res.render(
+                                'pages/perfil-candidato', 
+                                { 
+                                    pagina: "perfil-candidato", 
+                                    logado: req.session.autenticado, 
+                                    dadosNotificacao: null, 
+                                    erros: [
+                                        {
+                                            path: 'url',
+                                            msg: "Houve um erro ao carregar o link."
+                                        }
+                                    ],
+                                    dadosUsuario: { ...req.session.autenticado, perfilAdm: true }, 
+                                    postagens: postagens,
+                                    userId,
+                                }
+                            );
+                        } else {
+                            console.log(`Link do Meet removido para o usuário ${userId}`);
+                        }
+                    });
+                }, tempoReuniao);
+
+                return res.render(
+                    'pages/perfil-candidato', 
+                    { 
+                        pagina: "perfil-candidato", 
+                        logado: req.session.autenticado, 
+                        dadosNotificacao: {
+                            type: 'sucess',
+                            msg: 'A reunião está disponível para os demais usuários.',
+                            title: 'Tudo ocorreu como esperado :)'
+                        }, 
+                        erros: null,
+                        dadosUsuario: { ...req.session.autenticado, perfilAdm: true }, 
+                        postagens: postagens,
+                        userId,
+                    }
+                );
+            }
+        );
+        
     }
  
 }

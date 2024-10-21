@@ -258,18 +258,23 @@ router.get(
         try {
             const userId = req.params.id;
             console.log("id: " + userId);
-            const [results] = await politicosModel.findId(userId);
+            const results = await politicosModel.findId(userId);
             console.log(results);
            
             const dadosUsuario = {
-                nome: results.nomePoliticos,
-                id: results.idPoliticos,
-                email: results.contatoPoliticos,
-                estado: results.ufPoliticos,
-                candidatura: results.candidaturaPoliticos,
-                foto_usuario: results.fotoPerfilPoliticos,
-                banner_usuario: results.bannerPoliticos,
-                desc_usuario: results.descPoliticos,
+                nome: results[0].nomePoliticos,
+                id: results[0].idPoliticos,
+                estado: results[0].ufPoliticos,
+                data_nascimento: results[0].dataNascPoliticos,
+                email: results[0].contatoPoliticos,
+                candidatura: results[0].candidaturaPoliticos,
+                foto_usuario: results[0].fotoPerfilPoliticos,
+                banner_usuario: results[0].bannerPoliticos,
+                desc_usuario: results[0].descPoliticos,
+                reuniao_politico: {
+                    url: results[0].linkReuniao,
+                    expiraEm: results[0].dataExpiracao_reuniao
+                },
                 perfilAdm: false
             };
  
@@ -285,6 +290,8 @@ router.get(
                 'pages/perfil-candidato', 
                 { 
                     pagina: "perfil-candidato", 
+                    erros: null,
+                    dadosNotificacao: null,
                     logado: req.session.autenticado, 
                     dadosNotificacao: null, 
                     dadosUsuario: dadosUsuario, 
@@ -529,7 +536,26 @@ router.post(
         console.log(req.body);
         editarPoliticoController.mudarBannerCandidato(req, res);
     }
-)
+);
+
+router.post(
+    '/perfil-candidato/adc-link',
+    autenticador.verificarUsuAutenticado,
+    autenticador.verificarUsuAutorizado('candidato', 'pages/login', { pagina: "login", logado: null, dadosForm: { email: '', senha: '' }, form_aprovado: false, erros: null, dadosNotificacao: null }),
+    body('url')
+        .isURL().withMessage('Insira uma <strong>URL válida</strong>!')
+        .custom(url => {
+            const meetRegex = /^https:\/\/meet\.google\.com\/[a-zA-Z0-9\-]+$/;
+
+            if (meetRegex.test(url)) {
+                throw new Error();
+            }
+            return true;
+        }),
+    function (req, res) {
+        politicoController.guardarUrlReuniao(req, res);
+    }
+);
  
 //banco de dados//
 router.get('/tabelas', async (req, res) => {
