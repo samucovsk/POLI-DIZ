@@ -37,6 +37,26 @@
           <h2><%= dadosUsuario.nome %></h2>
           <p><%= dadosUsuario.candidatura %></p>
           <p><%= dadosUsuario.email %></p>
+
+          <section class="reuniao">
+            <% if (dadosUsuario.reuniao_politico.url) { %> 
+              <h3 class="highlight active">
+                Reunião ativa
+              </h3>
+              <a href="<%= dadosUsuario.reuniao.url %>">
+                Acessar
+              </a>  
+            <% } else { %> 
+              <h3 class="highlight inactive">Nenhuma reunião ativa :(</h3>  
+
+              <% if (dadosUsuario.perfilAdm) { %> 
+                <form method="post" action="adc-link">
+                  <input type="url" name="url" id="url" placeholder="Adicione um link de reunião">
+                  <input type="submit" value="Adicionar" id="submit">
+                </form>  
+              <% } %>
+            <% } %>
+          </section>
  
           <ul class="sobre">
             <li><span>0</span>Seguidores</li>
