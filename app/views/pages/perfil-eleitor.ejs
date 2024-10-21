@@ -4,16 +4,29 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de eleitor <%= dadosUsuario.nome %></title>
-    <link rel="stylesheet" href="../css/perfil-eleitor.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
+    <script src="../js/notify.js"></script>
+
+    <title>Perfil de Candidato <%= dadosUsuario.nome %></title>
+    <link rel="stylesheet" href="../css/perfilcandidado.css"/>
   </head>
   <body>
      <!--inicio do cabeçalho-->
      <%- include("../pages/header-home") %>
      <!--fim do cabeçalho-->
-     <!--INICIO DO CORPO-->
-    <section class="header__wrapper" style="background-image: url('../imagem/imagens_servidor/banner/<%= dadosUsuario.banner_usuario %>');">   
 
+    <% if (dadosNotificacao) { %> 
+      <script>
+        displayNotify("<%= dadosNotificacao.title %>", "<%= dadosNotificacao.msg %>", "<%= dadosNotificacao.type %>")
+      </script>  
+    <%}%>
+     <!--INICIO DO CORPO-->
+    <section class="header__wrapper" 
+    style="background-image: url('../imagem/imagens_servidor/banner/<%= dadosUsuario.banner_usuario %>'); background-size: cover;">  
+ 
     </section>
       <section class="container">
         <section class="container_2">
@@ -25,34 +38,83 @@
           <p><%= dadosUsuario.candidatura %></p>
           <p><%= dadosUsuario.email %></p>
 
+          <section class="reuniao">
+            <% if (dadosUsuario.reuniao_politico.url) { %> 
+              <h3 class="highlight active">
+                Reunião ativa
+              </h3>
+              <a href="<%= dadosUsuario.reuniao.url %>">
+                Acessar
+              </a>  
+            <% } else { %> 
+              <h3 class="highlight inactive">Nenhuma reunião ativa :(</h3>  
+
+              <% if (dadosUsuario.perfilAdm) { %> 
+                <form method="post" action="adc-link">
+                  <input type="url" name="url" id="url" placeholder="Adicione um link de reunião">
+                  <input type="submit" value="Adicionar" id="submit">
+                </form>  
+              <% } %>
+            <% } %>
+          </section>
+ 
           <ul class="sobre">
+            <li><span>0</span>Seguidores</li>
             <li><span>0</span>Seguindo</li>
           </ul>
-
+ 
+ 
           <section class="content">
             <p>
               <%= dadosUsuario.desc_usuario %>
             </p>
-            
+           
           </section>
+ 
+          <section class="botão">
+            <% if (dadosUsuario.perfilAdm) { %>
+              <a class="editar_botao" href="/editar_candidato/<%= logado.id %>">Editar Perfil</a>
+              <a href="/postarFoto" style="color: inherit">
+                <button class="editar_botao">Publicar</button>
+              </a>
+            <% } else { %>
+              <button class="editar_botao">Seguir</button>
+            <% } %>
+ 
+          </section>
+         
         </section>
         <section class="content_3">
           <nav>
             <ul>
               <li><a href="#">Publicações</a></li>
-              
+              <li><a href="#">Lives</a></li>
             </ul>
-
-            <% if (dadosUsuario.perfilAdm) { %>
-              <a class="editar_botao" href="/editar_eleitor/<%= logado.id %>">Editar</a>
-            <% } else { %>
-              <button class="editar_botao">Seguir</button>
-            <% } %>
-
+     
+     
+ 
           </nav>
-
+ 
           <section class="fotos">
-            <img src="../imagem/aviso.png" alt="fotos" />
+            <% if (postagens.length === 0 || !postagens) { %>
+              <img src="../imagem/aviso.png" alt="fotos" />
+            <% } else {%>
+              <% postagens.forEach(post => { %>
+                <section>
+                  <section>
+                    <h2>
+                      <%= post.Titulo_postagem %>
+                    </h2>
+                    <span>
+                      <%= post.data_postagem %>
+                    </span>
+                  </section>
+                  <section>
+                    <img src="../imagem/imagens_servidor/postagens/<%= post.Imagem_postagem %>" alt="Foto postagem">
+                  </section>
+                </section>
+              <% })%>
+            <% } %>
           </section>
         </section>
       </section>

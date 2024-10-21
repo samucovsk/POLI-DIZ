@@ -88,6 +88,10 @@ const gravarUsuAutenticado = async (req, res, next) => {
                     foto_usuario: results[0].fotoPerfilPoliticos,
                     banner_usuario: results[0].bannerPoliticos,
                     desc_usuario: results[0].descPoliticos,
+                    reuniao_politico: {
+                        url: results[0].linkReuniao,
+                        expiraEm: results[0].dataExpiracao_reuniao
+                    },
                     tipo: "candidato"
                 };
             } else {

@@ -8,6 +8,52 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.highlight {
+  border-radius: 20px;
+  padding: 0.3em;
+  color: #fff;
+}
+.highlight.inactive {
+  background-color: #808080;
+}
+.highlight.active {
+  background-color: #90ee90;
+}
+
+#url {
+  border: 0;
+  border-bottom: 3px solid #00008b;
+  background-color: #dddddd5d;
+  border-radius: 20px 20px 0 0;
+  width: 70%;
+  text-align: center;
+  font-size: 1em;
+  padding: 0.2em;
+}
+#url:focus {
+  outline: 0;
+}
+
+#url.erro {
+  border-bottom: 3px solid #ff0000;
+  background-color: #ffc0cb;
+}
+
+#submit {
+  width: 70%;
+  height: 45px;
+  background: #FFED03;
+  border: none;
+  margin-top: 0.5em;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
