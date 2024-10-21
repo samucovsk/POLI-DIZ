@@ -22,7 +22,7 @@ const politicoController = {
             .isEmail().withMessage(mensagemErro.EMAIL_INVALIDO)
             .custom(async emailUsuario => {
                 try {
-                    const resultado = await usuario.findCampoCustom(emailUsuario, "contatoPoliticos");
+                    const resultado = politicosModel.findCampoCustom(emailUsuario, "contatoPoliticos");
                    
                     if (resultado.length > 0) {
                         throw new Error();
